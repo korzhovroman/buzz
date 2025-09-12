@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
@@ -91,53 +92,76 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
               child: Container(
                 decoration: BoxDecoration(),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 40.0,
-                      height: 40.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: CachedNetworkImage(
-                        fadeInDuration: Duration(milliseconds: 0),
-                        fadeOutDuration: Duration(milliseconds: 0),
-                        imageUrl: widget.avatar!,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          valueOrDefault<String>(
-                            widget.login,
-                            'login',
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (MediaQuery.sizeOf(context).width < 400.0)
+                        FlutterFlowIconButton(
+                          borderRadius: 8.0,
+                          buttonSize: 40.0,
+                          fillColor: FlutterFlowTheme.of(context).secondaryText,
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: FlutterFlowTheme.of(context).info,
+                            size: 24.0,
                           ),
-                          style:
-                              FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.plusJakartaSans(
+                          onPressed: () async {
+                            context.safePop();
+                          },
+                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 0),
+                              fadeOutDuration: Duration(milliseconds: 0),
+                              imageUrl: widget.avatar!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                valueOrDefault<String>(
+                                  widget.login,
+                                  'login',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .titleMedium
+                                    .override(
+                                      font: GoogleFonts.plusJakartaSans(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .fontStyle,
+                                      ),
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontStyle,
                                     ),
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ].divide(SizedBox(width: 12.0)),
+                              ),
+                            ],
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -198,90 +222,100 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                   return wrapWithModel(
                                     model: _model.offerCardModel,
                                     updateCallback: () => safeSetState(() {}),
+                                    updateOnChange: true,
                                     child: OfferCardWidget(
                                       oferta: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.title''',
+                                        r'''$.offer.title''',
                                       ).toString(),
                                       cena: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.price.amount''',
+                                        r'''$.offer.price.amount''',
                                       ).toString(),
                                       imege: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.images[0].url''',
+                                        r'''$.offer.images[0].url''',
                                       ).toString(),
                                       valuta: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.price.currency''',
+                                        r'''$.offer.price.currency''',
                                       ).toString(),
                                       rynek: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.marketplace.id''',
+                                        r'''$.offer.marketplace.id''',
                                       ).toString(),
                                       offerUrl: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.url''',
+                                        r'''$.offer.url''',
                                       ).toString(),
                                     ),
                                   );
-                                } else {
+                                } else if (getJsonField(
+                                      columnGetThreadMessagesResponse.jsonBody,
+                                      r'''$.data.messages[0].relatesTo''',
+                                    ) !=
+                                    null) {
                                   return wrapWithModel(
                                     model: _model.orderCardModel,
                                     updateCallback: () => safeSetState(() {}),
+                                    updateOnChange: true,
                                     child: OrderCardWidget(
                                       orderId: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.id''',
+                                        r'''$.data.messages[0].relatesTo.order.id''',
                                       ).toString(),
                                       cena: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.price.amount''',
+                                        r'''$.data.messages[0].relatesTo.order.totalCost.amount''',
                                       ).toString(),
                                       imege: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.images[0].url''',
+                                        r'''$.data.messages[0].relatesTo.offer.images[0].url''',
                                       ).toString(),
                                       valuta: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.price.currency''',
+                                        r'''$.data.messages[0].relatesTo.order.totalCost.currency''',
                                       ).toString(),
                                       rynek: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.marketplace.id''',
+                                        r'''$.data.messages[0].relatesTo.offer.marketplace.id''',
                                       ).toString(),
                                       orderStatus: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.status''',
+                                        r'''$.data.messages[0].relatesTo.order.status''',
                                       ).toString(),
                                       orderUrl: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.order.url''',
+                                        r'''$.data.messages[0].relatesTo.order.url''',
                                       ).toString(),
                                       offerUrl: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.url''',
+                                        r'''$.data.messages[0].relatesTo.offer.url''',
                                       ).toString(),
                                       oferta: getJsonField(
                                         columnGetThreadMessagesResponse
                                             .jsonBody,
-                                        r'''$.relatesTo.offer.title''',
+                                        r'''$.data.messages[0].relatesTo.offer.title''',
                                       ).toString(),
                                     ),
+                                  );
+                                } else {
+                                  return Container(
+                                    decoration: BoxDecoration(),
                                   );
                                 }
                               },

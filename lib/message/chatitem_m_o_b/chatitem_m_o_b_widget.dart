@@ -1,4 +1,3 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/message/chatstiem/chatstiem_widget.dart';
@@ -65,42 +64,31 @@ class _ChatitemMOBWidgetState extends State<ChatitemMOBWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF1F4F8),
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).secondaryText,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderRadius: 20.0,
-            buttonSize: 40.0,
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-              size: 24.0,
-            ),
-            onPressed: () async {
-              context.safePop();
-            },
-          ),
-          actions: [],
-          centerTitle: false,
-          elevation: 1.0,
-        ),
         body: SafeArea(
           top: true,
           child: Container(
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryText,
             ),
-            child: wrapWithModel(
-              model: _model.chatstiemModel,
-              updateCallback: () => safeSetState(() {}),
-              child: ChatstiemWidget(
-                login: widget.name!,
-                date: widget.date!,
-                lastMessage: widget.lastMessage!,
-                isRead: widget.isRead!,
-                avatar: widget.avatar!,
-                threadId: widget.threadId!,
-                accountId: widget.accountId!,
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                ),
+                child: wrapWithModel(
+                  model: _model.chatstiemModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: ChatstiemWidget(
+                    login: widget.name!,
+                    date: widget.date!,
+                    lastMessage: widget.lastMessage!,
+                    isRead: widget.isRead!,
+                    avatar: widget.avatar!,
+                    threadId: widget.threadId!,
+                    accountId: widget.accountId!,
+                  ),
+                ),
               ),
             ),
           ),

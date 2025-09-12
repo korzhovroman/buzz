@@ -291,7 +291,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                            color: FlutterFlowTheme.of(context).tertiary,
+                            color: FlutterFlowTheme.of(context).primary,
                             fontSize: 12.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.bold,

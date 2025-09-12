@@ -253,6 +253,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                     r'''$.lastMessageText''',
                                                   ).toString();
                                                   safeSetState(() {});
+                                                  safeSetState(() {});
                                                 },
                                               ),
                                             ),
@@ -278,24 +279,32 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                     decoration: BoxDecoration(),
                                     child: Builder(
                                       builder: (context) {
-                                        if (_model.selectedThreadId == '') {
-                                          return wrapWithModel(
-                                            model: _model.chatstiemModel,
-                                            updateCallback: () =>
-                                                safeSetState(() {}),
-                                            child: ChatstiemWidget(
-                                              login:
-                                                  _model.selectedThreadLogin!,
-                                              date: _model.selectedThreadDate!,
-                                              lastMessage: _model
-                                                  .selectedThreadLastMessage!,
-                                              isRead:
-                                                  _model.selectedThreadIsRead!,
-                                              avatar:
-                                                  _model.selectedThreadAvatar!,
-                                              threadId:
-                                                  _model.selectedThreadId!,
-                                              accountId: widget.accountId!,
+                                        if (_model.selectedThreadId != null &&
+                                            _model.selectedThreadId != '') {
+                                          return Visibility(
+                                            visible: _model.selectedThreadId !=
+                                                    null &&
+                                                _model.selectedThreadId != '',
+                                            child: wrapWithModel(
+                                              model: _model.chatstiemModel,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              updateOnChange: true,
+                                              child: ChatstiemWidget(
+                                                login:
+                                                    _model.selectedThreadLogin!,
+                                                date:
+                                                    _model.selectedThreadDate!,
+                                                lastMessage: _model
+                                                    .selectedThreadLastMessage!,
+                                                isRead: _model
+                                                    .selectedThreadIsRead!,
+                                                avatar: _model
+                                                    .selectedThreadAvatar!,
+                                                threadId:
+                                                    _model.selectedThreadId!,
+                                                accountId: widget.accountId!,
+                                              ),
                                             ),
                                           );
                                         } else {
