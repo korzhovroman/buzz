@@ -64,30 +64,27 @@ class _ChatitemMOBWidgetState extends State<ChatitemMOBWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF1F4F8),
-        body: SafeArea(
-          top: true,
-          child: Container(
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryText,
-            ),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                ),
-                child: wrapWithModel(
-                  model: _model.chatstiemModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: ChatstiemWidget(
-                    login: widget.name!,
-                    date: widget.date!,
-                    lastMessage: widget.lastMessage!,
-                    isRead: widget.isRead!,
-                    avatar: widget.avatar!,
-                    threadId: widget.threadId!,
-                    accountId: widget.accountId!,
-                  ),
+        body: Container(
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).secondaryText,
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(2.0, 40.0, 2.0, 0.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryText,
+              ),
+              child: wrapWithModel(
+                model: _model.chatstiemModel,
+                updateCallback: () => safeSetState(() {}),
+                child: ChatstiemWidget(
+                  login: widget.name!,
+                  date: widget.date!,
+                  lastMessage: widget.lastMessage!,
+                  isRead: widget.isRead!,
+                  avatar: widget.avatar!,
+                  threadId: widget.threadId!,
+                  accountId: widget.accountId!,
                 ),
               ),
             ),

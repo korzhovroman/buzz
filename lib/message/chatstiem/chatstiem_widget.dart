@@ -166,389 +166,629 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
               ),
             ),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8.0),
-                bottomRight: Radius.circular(8.0),
-                topLeft: Radius.circular(0.0),
-                topRight: Radius.circular(0.0),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0),
+                  topLeft: Radius.circular(0.0),
+                  topRight: Radius.circular(0.0),
+                ),
               ),
-            ),
-            child: FutureBuilder<ApiCallResponse>(
-              future: ConversationsGroup.getThreadMessagesCall.call(
-                accountId: widget.accountId,
-                threadId: widget.threadId,
-                authToken: FFAppState().authToken,
-              ),
-              builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: SizedBox(
-                      width: 50.0,
-                      height: 50.0,
-                      child: SpinKitChasingDots(
-                        color: FlutterFlowTheme.of(context).tertiary,
-                        size: 50.0,
-                      ),
-                    ),
-                  );
-                }
-                final columnGetThreadMessagesResponse = snapshot.data!;
-
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            14.0, 0.0, 14.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Builder(
-                              builder: (context) {
-                                if (functions.isOfferChat(getJsonField(
-                                      columnGetThreadMessagesResponse.jsonBody,
-                                      r'''$.data.messages''',
-                                      true,
-                                    )!) ==
-                                    true) {
-                                  return wrapWithModel(
-                                    model: _model.offerCardModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    updateOnChange: true,
-                                    child: OfferCardWidget(
-                                      oferta: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.title''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      cena: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.price.amount''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      image: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.images[0].url''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      valuta: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.price.currency''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      rynek: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.marketplace.id''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      offerUrl: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.offer.url''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                    ),
-                                  );
-                                } else if (functions.isOrderChat(getJsonField(
-                                      columnGetThreadMessagesResponse.jsonBody,
-                                      r'''$.data.messages''',
-                                      true,
-                                    )!) ==
-                                    true) {
-                                  return wrapWithModel(
-                                    model: _model.orderCardModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    updateOnChange: true,
-                                    child: OrderCardWidget(
-                                      orderId: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.order.id''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      cena: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.order.totalCost.amount''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      image: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.offer.images[0].url''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      valuta: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.order.totalCost.currency''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      rynek: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.offer.marketplace.id''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      orderStatus: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.order.status''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      orderUrl: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.order.url''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      offerUrl: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.offer.url''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                      oferta: functions
-                                          .getFirstMessage(getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.relatesTo.offer.title''',
-                                            true,
-                                          )!)
-                                          ?.toString(),
-                                    ),
-                                  );
-                                } else {
-                                  return Container(
-                                    decoration: BoxDecoration(),
-                                  );
-                                }
-                              },
-                            ),
-                          ],
+              child: FutureBuilder<ApiCallResponse>(
+                future: ConversationsGroup.getThreadMessagesCall.call(
+                  accountId: widget.accountId,
+                  threadId: widget.threadId,
+                  authToken: FFAppState().authToken,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: SpinKitChasingDots(
+                          color: FlutterFlowTheme.of(context).tertiary,
+                          size: 50.0,
                         ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFE5E7EB),
-                      ),
-                      child: Builder(
-                        builder: (context) {
-                          final messageItem = getJsonField(
-                            columnGetThreadMessagesResponse.jsonBody,
-                            r'''$.data.messages''',
-                          ).toList();
+                    );
+                  }
+                  final columnGetThreadMessagesResponse = snapshot.data!;
 
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            reverse: true,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: messageItem.length,
-                            itemBuilder: (context, messageItemIndex) {
-                              final messageItemItem =
-                                  messageItem[messageItemIndex];
-                              return wrapWithModel(
-                                model: _model.messageitemModels.getModel(
-                                  getJsonField(
-                                    messageItemItem,
-                                    r'''$.id''',
-                                  ).toString(),
-                                  messageItemIndex,
-                                ),
-                                updateCallback: () => safeSetState(() {}),
-                                child: MessageitemWidget(
-                                  key: Key(
-                                    'Keyp5h_${getJsonField(
-                                      messageItemItem,
-                                      r'''$.id''',
-                                    ).toString()}',
-                                  ),
-                                  messageText: getJsonField(
-                                    messageItemItem,
-                                    r'''$.text''',
-                                  ).toString(),
-                                  messageTime:
-                                      functions.formatDateString(getJsonField(
-                                    messageItemItem,
-                                    r'''$.createdAt''',
-                                  ).toString()),
-                                  isMyMessage:
-                                      functions.isMyMessage(getJsonField(
-                                    messageItemItem,
-                                    r'''$.author.role''',
-                                  ).toString())!,
-                                  attachmentUrl: getJsonField(
-                                    messageItemItem,
-                                    r'''$.attachments[0].url''',
-                                  ).toString(),
-                                  attachmentFileName: getJsonField(
-                                    messageItemItem,
-                                    r'''$.attachments[0].fileName''',
-                                  ).toString(),
-                                  authorName: getJsonField(
-                                    messageItemItem,
-                                    r'''$.author.login''',
-                                  ).toString(),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0.0, 1.0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 12.0, 16.0, 12.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                          alignment: AlignmentDirectional(0.0, 1.0),
-                          child: Column(
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              14.0, 0.0, 14.0, 0.0),
+                          child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Padding(
-                                padding: EdgeInsets.all(12.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        final selectedFiles = await selectFiles(
-                                          multiFile: false,
-                                        );
-                                        if (selectedFiles != null) {
-                                          safeSetState(() => _model
-                                                  .isDataUploading_uploadFILE =
-                                              true);
-                                          var selectedUploadedFiles =
-                                              <FFUploadedFile>[];
-
-                                          try {
-                                            showUploadMessage(
-                                              context,
-                                              'Uploading file...',
-                                              showLoading: true,
-                                            );
-                                            selectedUploadedFiles =
-                                                selectedFiles
-                                                    .map((m) => FFUploadedFile(
-                                                          name: m.storagePath
-                                                              .split('/')
-                                                              .last,
-                                                          bytes: m.bytes,
-                                                        ))
-                                                    .toList();
-                                          } finally {
-                                            ScaffoldMessenger.of(context)
-                                                .hideCurrentSnackBar();
-                                            _model.isDataUploading_uploadFILE =
-                                                false;
-                                          }
-                                          if (selectedUploadedFiles.length ==
-                                              selectedFiles.length) {
-                                            safeSetState(() {
-                                              _model.uploadedLocalFile_uploadFILE =
-                                                  selectedUploadedFiles.first;
-                                            });
-                                            showUploadMessage(
-                                              context,
-                                              'Success!',
-                                            );
-                                          } else {
-                                            safeSetState(() {});
-                                            showUploadMessage(
-                                              context,
-                                              'Failed to upload file',
-                                            );
-                                            return;
-                                          }
-                                        }
-
-                                        _model.apiResultDeclareFile =
-                                            await ConversationsGroup
-                                                .declareAttachmentCall
-                                                .call(
-                                          accountId: widget.accountId,
-                                          authToken: FFAppState().authToken,
-                                          fileName: functions.getFileName(_model
-                                              .uploadedLocalFile_uploadFILE),
-                                          fileSize: functions.getFileSize(_model
-                                              .uploadedLocalFile_uploadFILE),
-                                        );
-
-                                        await actions.uploadFileToUrl(
+                              Builder(
+                                builder: (context) {
+                                  if (functions.getContextValue(
                                           getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.data.messages''',
+                                            true,
+                                          )!,
+                                          'relatesTo.offer') !=
+                                      null) {
+                                    return wrapWithModel(
+                                      model: _model.offerCardModel,
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: OfferCardWidget(
+                                        oferta: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.title')
+                                            ?.toString(),
+                                        cena: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.price.amount')
+                                            ?.toString(),
+                                        image: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.images[0].url')
+                                            ?.toString(),
+                                        valuta: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.price.currency')
+                                            ?.toString(),
+                                        rynek: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.marketplace.id')
+                                            ?.toString(),
+                                        offerUrl: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.url')
+                                            ?.toString(),
+                                      ),
+                                    );
+                                  } else if (functions.getContextValue(
+                                          getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.data.messages''',
+                                            true,
+                                          )!,
+                                          'relatesTo.order') !=
+                                      null) {
+                                    return wrapWithModel(
+                                      model: _model.orderCardModel,
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: OrderCardWidget(
+                                        orderId: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.order.id')
+                                            ?.toString(),
+                                        cena: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.order.totalCost.amount')
+                                            ?.toString(),
+                                        image: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.images[0].url')
+                                            ?.toString(),
+                                        valuta: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.order.totalCost.currency')
+                                            ?.toString(),
+                                        rynek: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.marketplace.id')
+                                            ?.toString(),
+                                        orderStatus: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.order.status')
+                                            ?.toString(),
+                                        orderUrl: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.order.url')
+                                            ?.toString(),
+                                        offerUrl: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.url')
+                                            ?.toString(),
+                                        oferta: functions
+                                            .getContextValue(
+                                                getJsonField(
+                                                  columnGetThreadMessagesResponse
+                                                      .jsonBody,
+                                                  r'''$.data.messages''',
+                                                  true,
+                                                )!,
+                                                'relatesTo.offer.title')
+                                            ?.toString(),
+                                      ),
+                                    );
+                                  } else {
+                                    return Container(
+                                      decoration: BoxDecoration(),
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFE5E7EB),
+                          ),
+                          child: Builder(
+                            builder: (context) {
+                              final messageItem = getJsonField(
+                                columnGetThreadMessagesResponse.jsonBody,
+                                r'''$.data.messages''',
+                              ).toList();
+
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                reverse: true,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: messageItem.length,
+                                itemBuilder: (context, messageItemIndex) {
+                                  final messageItemItem =
+                                      messageItem[messageItemIndex];
+                                  return wrapWithModel(
+                                    model: _model.messageitemModels.getModel(
+                                      getJsonField(
+                                        messageItemItem,
+                                        r'''$.id''',
+                                      ).toString(),
+                                      messageItemIndex,
+                                    ),
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: MessageitemWidget(
+                                      key: Key(
+                                        'Keyp5h_${getJsonField(
+                                          messageItemItem,
+                                          r'''$.id''',
+                                        ).toString()}',
+                                      ),
+                                      messageText: getJsonField(
+                                        messageItemItem,
+                                        r'''$.text''',
+                                      ).toString(),
+                                      messageTime: functions
+                                          .formatDateString(getJsonField(
+                                        messageItemItem,
+                                        r'''$.createdAt''',
+                                      ).toString()),
+                                      isMyMessage:
+                                          functions.isMyMessage(getJsonField(
+                                        messageItemItem,
+                                        r'''$.author.role''',
+                                      ).toString())!,
+                                      attachmentUrl: getJsonField(
+                                        messageItemItem,
+                                        r'''$.attachments[0].url''',
+                                      ).toString(),
+                                      attachmentFileName: getJsonField(
+                                        messageItemItem,
+                                        r'''$.attachments[0].fileName''',
+                                      ).toString(),
+                                      authorName: getJsonField(
+                                        messageItemItem,
+                                        r'''$.author.login''',
+                                      ).toString(),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0.0, 1.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 12.0, 16.0, 12.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            alignment: AlignmentDirectional(0.0, 1.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          final selectedFiles =
+                                              await selectFiles(
+                                            multiFile: false,
+                                          );
+                                          if (selectedFiles != null) {
+                                            safeSetState(() => _model
+                                                    .isDataUploading_uploadFILE =
+                                                true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
+
+                                            try {
+                                              showUploadMessage(
+                                                context,
+                                                'Uploading file...',
+                                                showLoading: true,
+                                              );
+                                              selectedUploadedFiles =
+                                                  selectedFiles
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                              ))
+                                                      .toList();
+                                            } finally {
+                                              ScaffoldMessenger.of(context)
+                                                  .hideCurrentSnackBar();
+                                              _model.isDataUploading_uploadFILE =
+                                                  false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                selectedFiles.length) {
+                                              safeSetState(() {
+                                                _model.uploadedLocalFile_uploadFILE =
+                                                    selectedUploadedFiles.first;
+                                              });
+                                              showUploadMessage(
+                                                context,
+                                                'Success!',
+                                              );
+                                            } else {
+                                              safeSetState(() {});
+                                              showUploadMessage(
+                                                context,
+                                                'Failed to upload file',
+                                              );
+                                              return;
+                                            }
+                                          }
+
+                                          _model.apiResultDeclareFile =
+                                              await ConversationsGroup
+                                                  .declareAttachmentCall
+                                                  .call(
+                                            accountId: widget.accountId,
+                                            authToken: FFAppState().authToken,
+                                            fileName: functions.getFileName(_model
+                                                .uploadedLocalFile_uploadFILE),
+                                            fileSize: functions.getFileSize(_model
+                                                .uploadedLocalFile_uploadFILE),
+                                          );
+
+                                          await actions.uploadFileToUrl(
+                                            getJsonField(
+                                              (_model.apiResultDeclareFile
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.data.uploadUrl''',
+                                            ).toString(),
+                                            FFAppState().authToken,
+                                            _model.uploadedLocalFile_uploadFILE,
+                                          );
+                                          _model.declareFile = getJsonField(
                                             (_model.apiResultDeclareFile
                                                     ?.jsonBody ??
                                                 ''),
-                                            r'''$.data.uploadUrl''',
-                                          ).toString(),
-                                          FFAppState().authToken,
-                                          _model.uploadedLocalFile_uploadFILE,
-                                        );
-                                        _model.declareFile = getJsonField(
-                                          (_model.apiResultDeclareFile
-                                                  ?.jsonBody ??
-                                              ''),
-                                          r'''$.data.id''',
-                                        ).toString();
-                                        safeSetState(() {});
+                                            r'''$.data.id''',
+                                          ).toString();
+                                          safeSetState(() {});
 
-                                        safeSetState(() {});
-                                      },
-                                      child: Container(
+                                          safeSetState(() {});
+                                        },
+                                        child: Container(
+                                          width: 40.0,
+                                          height: 40.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Stack(
+                                            children: [
+                                              Builder(
+                                                builder: (context) {
+                                                  if (_model.declareFile !=
+                                                          null &&
+                                                      _model.declareFile !=
+                                                          '') {
+                                                    return Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Icon(
+                                                        Icons.check_outlined,
+                                                        color: Colors.white,
+                                                        size: 24.0,
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    return Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                        size: 24.0,
+                                                      ),
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(),
+                                          child: TextFormField(
+                                            controller: _model.textController,
+                                            focusNode:
+                                                _model.textFieldFocusNode,
+                                            autofocus: false,
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              isDense: true,
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.poppins(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              hintText: 'TextField',
+                                              hintStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        font:
+                                                            GoogleFonts.poppins(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .fontStyle,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Color(0x00000000),
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 1.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              filled: true,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  font: GoogleFonts.poppins(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  fontSize: 12.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                            maxLines: null,
+                                            cursorColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            enableInteractiveSelection: true,
+                                            validator: _model
+                                                .textControllerValidator
+                                                .asValidator(context),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
                                         width: 40.0,
                                         height: 40.0,
                                         decoration: BoxDecoration(
@@ -556,154 +796,34 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                               .secondary,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: Stack(
-                                          children: [
-                                            Builder(
-                                              builder: (context) {
-                                                if (_model.declareFile !=
-                                                        null &&
-                                                    _model.declareFile != '') {
-                                                  return Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Icon(
-                                                      Icons.check_outlined,
-                                                      color: Colors.white,
-                                                      size: 24.0,
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Icon(
-                                                      Icons.add,
-                                                      color: Colors.white,
-                                                      size: 24.0,
-                                                    ),
-                                                  );
-                                                }
-                                              },
-                                            ),
-                                          ],
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Icon(
+                                            Icons.send_rounded,
+                                            color: Colors.white,
+                                            size: 24.0,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        decoration: BoxDecoration(),
-                                        child: TextFormField(
-                                          controller: _model.textController,
-                                          focusNode: _model.textFieldFocusNode,
-                                          autofocus: false,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      font: GoogleFonts.poppins(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                            hintText: 'TextField',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      font: GoogleFonts.poppins(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMedium
-                                                              .fontStyle,
-                                                    ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0x00000000),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
+                                    ].divide(SizedBox(width: 8.0)),
+                                  ),
+                                ),
+                                if (_model.declareFile != null &&
+                                    _model.declareFile != '')
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 0.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          valueOrDefault<String>(
+                                            functions.getFileName(_model
+                                                .uploadedLocalFile_uploadFILE),
+                                            'file',
                                           ),
+                                          textAlign: TextAlign.start,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -719,7 +839,10 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                                           .bodyMedium
                                                           .fontStyle,
                                                 ),
-                                                fontSize: 12.0,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 9.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
@@ -730,92 +853,19 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                                         .bodyMedium
                                                         .fontStyle,
                                               ),
-                                          maxLines: null,
-                                          cursorColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          enableInteractiveSelection: true,
-                                          validator: _model
-                                              .textControllerValidator
-                                              .asValidator(context),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                    Container(
-                                      width: 40.0,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Icon(
-                                          Icons.send_rounded,
-                                          color: Colors.white,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ].divide(SizedBox(width: 8.0)),
-                                ),
-                              ),
-                              if (_model.declareFile != null &&
-                                  _model.declareFile != '')
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        valueOrDefault<String>(
-                                          functions.getFileName(_model
-                                              .uploadedLocalFile_uploadFILE),
-                                          'file',
-                                        ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              font: GoogleFonts.poppins(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 9.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ],
                                   ),
-                                ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],
