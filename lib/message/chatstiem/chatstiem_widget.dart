@@ -214,11 +214,12 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                           children: [
                             Builder(
                               builder: (context) {
-                                if (getJsonField(
+                                if (functions.getFirstMessage(getJsonField(
                                       columnGetThreadMessagesResponse.jsonBody,
-                                      r'''$.data.messages[0].offer''',
-                                    ) !=
-                                    null) {
+                                      r'''$.data.messages''',
+                                      true,
+                                    )!) ??
+                                    false) {
                                   return wrapWithModel(
                                     model: _model.offerCardModel,
                                     updateCallback: () => safeSetState(() {}),
@@ -337,6 +338,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
 
                           return ListView.builder(
                             padding: EdgeInsets.zero,
+                            reverse: true,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: messageItem.length,

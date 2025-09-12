@@ -119,3 +119,30 @@ String? getFileName(FFUploadedFile uploadedFile) {
 int getFileSize(FFUploadedFile uploadedFile) {
   return uploadedFile?.bytes?.length ?? 0;
 }
+
+dynamic getFirstMessage(List<dynamic> messagesList) {
+  {
+    // Returns the last item from the list, which is the first message chronologically.
+    if (messagesList == null || messagesList.isEmpty) {
+      return null;
+    }
+    return messagesList.last;
+  }
+}
+
+String? getThreadContextType(List<dynamic>? messagesList) {
+  {
+    if (messagesList == null || messagesList.isEmpty) {
+      return "NONE";
+    }
+    var firstMessage = messagesList.last;
+    if (firstMessage['offer'] != null) {
+      return "OFFER";
+    }
+    if (firstMessage['relatesTo'] != null &&
+        firstMessage['relatesTo']['order'] != null) {
+      return "ORDER";
+    }
+    return "NONE";
+  }
+}
