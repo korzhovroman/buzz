@@ -8,15 +8,15 @@ export 'order_card_model.dart';
 class OrderCardWidget extends StatefulWidget {
   const OrderCardWidget({
     super.key,
-    required this.orderId,
-    required this.cena,
-    required this.imege,
-    required this.valuta,
-    required this.rynek,
-    required this.orderStatus,
-    required this.orderUrl,
-    required this.offerUrl,
-    required this.oferta,
+    this.orderId,
+    this.cena,
+    this.imege,
+    this.valuta,
+    this.rynek,
+    this.orderStatus,
+    this.orderUrl,
+    this.offerUrl,
+    this.oferta,
   });
 
   final String? orderId;

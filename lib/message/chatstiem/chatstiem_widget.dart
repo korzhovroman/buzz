@@ -258,7 +258,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                   );
                                 } else if (getJsonField(
                                       columnGetThreadMessagesResponse.jsonBody,
-                                      r'''$.data.messages[0].relatesTo''',
+                                      r'''$.data.messages[0].relatesTo.order''',
                                     ) !=
                                     null) {
                                   return wrapWithModel(

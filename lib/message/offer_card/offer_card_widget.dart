@@ -8,12 +8,12 @@ export 'offer_card_model.dart';
 class OfferCardWidget extends StatefulWidget {
   const OfferCardWidget({
     super.key,
-    required this.oferta,
-    required this.cena,
-    required this.imege,
-    required this.valuta,
-    required this.rynek,
-    required this.offerUrl,
+    this.oferta,
+    this.cena,
+    this.imege,
+    this.valuta,
+    this.rynek,
+    this.offerUrl,
   });
 
   final String? oferta;
