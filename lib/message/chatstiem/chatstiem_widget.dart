@@ -93,7 +93,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
               child: Container(
                 decoration: BoxDecoration(),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 14.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 0.0, 14.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -214,104 +214,150 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                           children: [
                             Builder(
                               builder: (context) {
-                                if (functions.getFirstMessage(getJsonField(
+                                if (functions.isOfferChat(getJsonField(
                                       columnGetThreadMessagesResponse.jsonBody,
                                       r'''$.data.messages''',
                                       true,
-                                    )!) ??
-                                    false) {
+                                    )!) ==
+                                    true) {
                                   return wrapWithModel(
                                     model: _model.offerCardModel,
                                     updateCallback: () => safeSetState(() {}),
                                     updateOnChange: true,
                                     child: OfferCardWidget(
-                                      oferta: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.title''',
-                                      ).toString(),
-                                      cena: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.price.amount''',
-                                      ).toString(),
-                                      imege: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.images[0].url''',
-                                      ).toString(),
-                                      valuta: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.price.currency''',
-                                      ).toString(),
-                                      rynek: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.marketplace.id''',
-                                      ).toString(),
-                                      offerUrl: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.offer.url''',
-                                      ).toString(),
+                                      oferta: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.title''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      cena: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.price.amount''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      image: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.images[0].url''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      valuta: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.price.currency''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      rynek: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.marketplace.id''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      offerUrl: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.offer.url''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
                                     ),
                                   );
-                                } else if (getJsonField(
+                                } else if (functions.isOrderChat(getJsonField(
                                       columnGetThreadMessagesResponse.jsonBody,
-                                      r'''$.data.messages[0].relatesTo.order''',
-                                    ) !=
-                                    null) {
+                                      r'''$.data.messages''',
+                                      true,
+                                    )!) ==
+                                    true) {
                                   return wrapWithModel(
                                     model: _model.orderCardModel,
                                     updateCallback: () => safeSetState(() {}),
                                     updateOnChange: true,
                                     child: OrderCardWidget(
-                                      orderId: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.order.id''',
-                                      ).toString(),
-                                      cena: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.order.totalCost.amount''',
-                                      ).toString(),
-                                      imege: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.offer.images[0].url''',
-                                      ).toString(),
-                                      valuta: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.order.totalCost.currency''',
-                                      ).toString(),
-                                      rynek: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.offer.marketplace.id''',
-                                      ).toString(),
-                                      orderStatus: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.order.status''',
-                                      ).toString(),
-                                      orderUrl: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.order.url''',
-                                      ).toString(),
-                                      offerUrl: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.offer.url''',
-                                      ).toString(),
-                                      oferta: getJsonField(
-                                        columnGetThreadMessagesResponse
-                                            .jsonBody,
-                                        r'''$.data.messages[0].relatesTo.offer.title''',
-                                      ).toString(),
+                                      orderId: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.order.id''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      cena: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.order.totalCost.amount''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      image: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.offer.images[0].url''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      valuta: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.order.totalCost.currency''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      rynek: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.offer.marketplace.id''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      orderStatus: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.order.status''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      orderUrl: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.order.url''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      offerUrl: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.offer.url''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
+                                      oferta: functions
+                                          .getFirstMessage(getJsonField(
+                                            columnGetThreadMessagesResponse
+                                                .jsonBody,
+                                            r'''$.relatesTo.offer.title''',
+                                            true,
+                                          )!)
+                                          ?.toString(),
                                     ),
                                   );
                                 } else {

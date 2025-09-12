@@ -146,3 +146,34 @@ String? getThreadContextType(List<dynamic>? messagesList) {
     return "NONE";
   }
 }
+
+bool? isOfferChat(List<dynamic> messagesList) {
+  {
+    if (messagesList == null || messagesList.isEmpty) {
+      return false;
+    }
+    // Берем самое первое сообщение (последний элемент в списке)
+    var firstMessage = messagesList.last;
+    // Проверяем, есть ли в нем информация об оферте
+    if (firstMessage['offer'] != null) {
+      return true;
+    }
+    return false;
+  }
+}
+
+bool isOrderChat(List<dynamic> messagesList) {
+  {
+    if (messagesList == null || messagesList.isEmpty) {
+      return false;
+    }
+    // Берем самое первое сообщение
+    var firstMessage = messagesList.last;
+    // Проверяем, есть ли в нем информация о заказе
+    if (firstMessage['relatesTo'] != null &&
+        firstMessage['relatesTo']['order'] != null) {
+      return true;
+    }
+    return false;
+  }
+}

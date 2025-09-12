@@ -10,7 +10,7 @@ class OfferCardWidget extends StatefulWidget {
     super.key,
     this.oferta,
     this.cena,
-    this.imege,
+    this.image,
     this.valuta,
     this.rynek,
     this.offerUrl,
@@ -18,7 +18,7 @@ class OfferCardWidget extends StatefulWidget {
 
   final String? oferta;
   final String? cena;
-  final String? imege;
+  final String? image;
   final String? valuta;
   final String? rynek;
   final String? offerUrl;

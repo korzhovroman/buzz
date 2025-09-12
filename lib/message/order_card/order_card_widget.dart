@@ -10,7 +10,7 @@ class OrderCardWidget extends StatefulWidget {
     super.key,
     this.orderId,
     this.cena,
-    this.imege,
+    this.image,
     this.valuta,
     this.rynek,
     this.orderStatus,
@@ -21,7 +21,7 @@ class OrderCardWidget extends StatefulWidget {
 
   final String? orderId;
   final String? cena;
-  final String? imege;
+  final String? image;
   final String? valuta;
   final String? rynek;
   final String? orderStatus;
