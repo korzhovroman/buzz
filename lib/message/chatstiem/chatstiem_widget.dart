@@ -93,6 +93,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                 decoration: BoxDecoration(),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: 40.0,

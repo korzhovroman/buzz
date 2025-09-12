@@ -459,7 +459,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                       accountId:
                                                           widget.accountId!,
                                                       loadingMessage: () async {
-                                                        context.pushNamed(
+                                                        context.goNamed(
                                                           ChatitemMOBWidget
                                                               .routeName,
                                                           queryParameters: {
