@@ -179,30 +179,12 @@ bool isOrderChat(List<dynamic> messagesList) {
   }
 }
 
-dynamic getContextValue(
-  List<dynamic> messagesList,
-  String path,
-) {
+dynamic getFirstMessageFromList(List<dynamic> messagesList) {
   {
+    // Returns the last item from the list, which is the first message chronologically.
     if (messagesList == null || messagesList.isEmpty) {
       return null;
     }
-    // Берем самое первое сообщение (последний элемент в списке)
-    var firstMessage = messagesList.last;
-
-    // Разбиваем путь на части, например "relatesTo.offer.id"
-    List<String> keys = path.split('.');
-    dynamic currentValue = firstMessage;
-
-    // Проходим по пути, чтобы безопасно извлечь значение
-    for (String key in keys) {
-      if (currentValue is Map<String, dynamic> &&
-          currentValue.containsKey(key)) {
-        currentValue = currentValue[key];
-      } else {
-        return null; // Если какой-то ключ на пути не найден, возвращаем null
-      }
-    }
-    return currentValue;
+    return messagesList.last;
   }
 }
