@@ -13,7 +13,6 @@ class OfferCardWidget extends StatefulWidget {
     this.image,
     this.valuta,
     this.rynek,
-    this.offerUrl,
   });
 
   final String? oferta;
@@ -21,7 +20,6 @@ class OfferCardWidget extends StatefulWidget {
   final String? image;
   final String? valuta;
   final String? rynek;
-  final String? offerUrl;
 
   @override
   State<OfferCardWidget> createState() => _OfferCardWidgetState();

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
-import '/message/messageitem/messageitem_widget.dart';
 import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -97,7 +96,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      if (MediaQuery.sizeOf(context).width < 400.0)
+                      if (MediaQuery.sizeOf(context).width < 450.0)
                         FlutterFlowIconButton(
                           borderRadius: 8.0,
                           buttonSize: 40.0,
@@ -238,7 +237,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.title''',
+                                          r'''$.relatesTo.offer.name''',
                                         ).toString(),
                                         cena: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -248,7 +247,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.price.amount''',
+                                          r'''$.relatesTo.offer.sellingMode.price.amount''',
                                         ).toString(),
                                         image: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -258,7 +257,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.message''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.images[0].url''',
+                                          r'''$.relatesTo.offer.primaryImage.url''',
                                         ).toString(),
                                         valuta: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -268,7 +267,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.price.currency''',
+                                          r'''$.relatesTo.offer.sellingMode.price.currency''',
                                         ).toString(),
                                         rynek: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -278,17 +277,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.marketplace.id''',
-                                        ).toString(),
-                                        offerUrl: getJsonField(
-                                          functions.getFirstMessageFromList(
-                                              getJsonField(
-                                            columnGetThreadMessagesResponse
-                                                .jsonBody,
-                                            r'''$.data.messages''',
-                                            true,
-                                          )!),
-                                          r'''$.data.messages''',
+                                          r'''$.relatesTo.offer.publication.marketplaces.base.id''',
                                         ).toString(),
                                       ),
                                     );
@@ -335,7 +324,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.images[0].url''',
+                                          r'''$.relatesTo.offer.primaryImage.url''',
                                         ).toString(),
                                         valuta: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -355,7 +344,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.marketplace.id''',
+                                          r'''$.relatesTo.offer.publication.marketplaces.base.id''',
                                         ).toString(),
                                         orderStatus: getJsonField(
                                           functions.getFirstMessageFromList(
@@ -395,7 +384,7 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                                             r'''$.data.messages''',
                                             true,
                                           )!),
-                                          r'''$.relatesTo.offer.title''',
+                                          r'''$.relatesTo.offer.name''',
                                         ).toString(),
                                       ),
                                     );
@@ -425,57 +414,16 @@ class _ChatstiemWidgetState extends State<ChatstiemWidget> {
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 reverse: true,
-                                primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: messageItem.length,
                                 itemBuilder: (context, messageItemIndex) {
                                   final messageItemItem =
                                       messageItem[messageItemIndex];
-                                  return wrapWithModel(
-                                    model: _model.messageitemModels.getModel(
-                                      getJsonField(
-                                        messageItemItem,
-                                        r'''$.id''',
-                                      ).toString(),
-                                      messageItemIndex,
-                                    ),
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: MessageitemWidget(
-                                      key: Key(
-                                        'Keyp5h_${getJsonField(
-                                          messageItemItem,
-                                          r'''$.id''',
-                                        ).toString()}',
-                                      ),
-                                      messageText: getJsonField(
-                                        messageItemItem,
-                                        r'''$.text''',
-                                      ).toString(),
-                                      messageTime: functions
-                                          .formatDateString(getJsonField(
-                                        messageItemItem,
-                                        r'''$.createdAt''',
-                                      ).toString()),
-                                      isMyMessage:
-                                          functions.isMyMessage(getJsonField(
-                                        messageItemItem,
-                                        r'''$.author.role''',
-                                      ).toString())!,
-                                      attachmentUrl: getJsonField(
-                                        messageItemItem,
-                                        r'''$.attachments[0].url''',
-                                      ).toString(),
-                                      attachmentFileName: getJsonField(
-                                        messageItemItem,
-                                        r'''$.attachments[0].fileName''',
-                                      ).toString(),
-                                      authorName: getJsonField(
-                                        messageItemItem,
-                                        r'''$.author.login''',
-                                      ).toString(),
-                                    ),
-                                  );
+                                  return Container(
+                                      width: 100,
+                                      height: 100,
+                                      color: Colors.green);
                                 },
                               );
                             },
