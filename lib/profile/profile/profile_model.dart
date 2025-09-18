@@ -1,12 +1,11 @@
 import '/allegro/allegro_accounts_list/allegro_accounts_list_widget.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import '/playments/subscription_card/subscription_card_widget.dart';
 import '/profile/danedorozliczen/danedorozliczen_widget.dart';
 import '/teams/team_member_list/team_member_list_widget.dart';
-import '/index.dart';
 import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
 
@@ -23,6 +22,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late AllegroAccountsListModel allegroAccountsListModel1;
   // Model for TeamMemberList component.
   late TeamMemberListModel teamMemberListModel1;
+  // Model for appbarDriwer component.
+  late AppbarDriwerModel appbarDriwerModel;
   // Model for SubscriptionCard component.
   late SubscriptionCardModel subscriptionCardModel2;
   // Model for Danedorozliczen component.
@@ -31,10 +32,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late AllegroAccountsListModel allegroAccountsListModel2;
   // Model for TeamMemberList component.
   late TeamMemberListModel teamMemberListModel2;
-  // Stores action output result for [Backend Call - API (deleteAccount)] action in Button widget.
-  ApiCallResponse? apiResultDELET;
-  // Model for NawbarMob component.
-  late NawbarMobModel nawbarMobModel;
+  // Model for driwer component.
+  late DriwerModel driwerModel;
 
   @override
   void initState(BuildContext context) {
@@ -45,13 +44,14 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     allegroAccountsListModel1 =
         createModel(context, () => AllegroAccountsListModel());
     teamMemberListModel1 = createModel(context, () => TeamMemberListModel());
+    appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     subscriptionCardModel2 =
         createModel(context, () => SubscriptionCardModel());
     danedorozliczenModel2 = createModel(context, () => DanedorozliczenModel());
     allegroAccountsListModel2 =
         createModel(context, () => AllegroAccountsListModel());
     teamMemberListModel2 = createModel(context, () => TeamMemberListModel());
-    nawbarMobModel = createModel(context, () => NawbarMobModel());
+    driwerModel = createModel(context, () => DriwerModel());
   }
 
   @override
@@ -61,10 +61,11 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     danedorozliczenModel1.dispose();
     allegroAccountsListModel1.dispose();
     teamMemberListModel1.dispose();
+    appbarDriwerModel.dispose();
     subscriptionCardModel2.dispose();
     danedorozliczenModel2.dispose();
     allegroAccountsListModel2.dispose();
     teamMemberListModel2.dispose();
-    nawbarMobModel.dispose();
+    driwerModel.dispose();
   }
 }

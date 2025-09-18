@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
-import '/message/chatstiem/chatstiem_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
@@ -18,9 +18,11 @@ class WiadomociWidget extends StatefulWidget {
   const WiadomociWidget({
     super.key,
     required this.accountId,
-  });
+    String? namepage,
+  }) : this.namepage = namepage ?? 'wiadomoci';
 
   final int? accountId;
+  final String namepage;
 
   static String routeName = 'Wiadomoci';
   static String routePath = '/wiadomoci';
@@ -61,18 +63,20 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        drawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.driwerModel,
+            updateCallback: () => safeSetState(() {}),
+            child: DriwerWidget(
+              namepage: widget.namepage,
+            ),
+          ),
+        ),
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).secondary,
-                FlutterFlowTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(1.0, -0.87),
-              end: AlignmentDirectional(-1.0, 0.87),
-            ),
+            color: FlutterFlowTheme.of(context).primaryBackground,
           ),
           alignment: AlignmentDirectional(0.0, -1.0),
           child: Stack(
@@ -98,7 +102,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 60.0, 0.0, 0.0),
                               child: Container(
-                                width: 400.0,
+                                width: 350.0,
                                 decoration: BoxDecoration(),
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -225,34 +229,72 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                     chatItemItem,
                                                     r'''$.id''',
                                                   ).toString();
-                                                  _model.selectedThreadLogin =
-                                                      getJsonField(
-                                                    chatItemItem,
-                                                    r'''$.interlocutor.login''',
-                                                  ).toString();
-                                                  _model.selectedThreadAvatar =
-                                                      getJsonField(
-                                                    chatItemItem,
-                                                    r'''$.interlocutor.avatarUrl''',
-                                                  ).toString();
-                                                  _model.selectedThreadIsRead =
-                                                      getJsonField(
-                                                    chatItemItem,
-                                                    r'''$.read''',
-                                                  );
-                                                  _model.selectedThreadDate =
-                                                      functions
-                                                          .formatDateString(
-                                                              getJsonField(
-                                                    chatItemItem,
-                                                    r'''$.lastMessageDateTime''',
-                                                  ).toString());
-                                                  _model.selectedThreadLastMessage =
-                                                      getJsonField(
-                                                    chatItemItem,
-                                                    r'''$.lastMessageText''',
-                                                  ).toString();
-                                                  safeSetState(() {});
+                                                  if (MediaQuery.sizeOf(context)
+                                                          .width >=
+                                                      900.0) {
+                                                    _model.apiResultGETMessage =
+                                                        await ConversationsGroup
+                                                            .getThreadMessagesCall
+                                                            .call(
+                                                      accountId:
+                                                          widget.accountId,
+                                                      threadId: _model
+                                                          .selectedThreadId,
+                                                      authToken: FFAppState()
+                                                          .authToken,
+                                                    );
+
+                                                    _model.messagesList =
+                                                        getJsonField(
+                                                      (_model.apiResultGETMessage
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.data.messages''',
+                                                      true,
+                                                    )!
+                                                            .toList()
+                                                            .cast<dynamic>();
+                                                    _model.firstMessage = functions
+                                                        .getFirstMessageFromList(
+                                                            (_model.apiResultGETMessage
+                                                                    ?.jsonBody ??
+                                                                ''));
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    context.pushNamed(
+                                                      ChatWiadomociWidget
+                                                          .routeName,
+                                                      queryParameters: {
+                                                        'threadId':
+                                                            serializeParam(
+                                                          _model
+                                                              .selectedThreadId,
+                                                          ParamType.String,
+                                                        ),
+                                                        'accountId':
+                                                            serializeParam(
+                                                          widget.accountId,
+                                                          ParamType.int,
+                                                        ),
+                                                        'login': serializeParam(
+                                                          getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.login''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'avatar':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.avatarUrl''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  }
+
                                                   safeSetState(() {});
                                                 },
                                               ),
@@ -281,31 +323,8 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                       builder: (context) {
                                         if (_model.selectedThreadId != null &&
                                             _model.selectedThreadId != '') {
-                                          return Visibility(
-                                            visible: _model.selectedThreadId !=
-                                                    null &&
-                                                _model.selectedThreadId != '',
-                                            child: wrapWithModel(
-                                              model: _model.chatstiemModel,
-                                              updateCallback: () =>
-                                                  safeSetState(() {}),
-                                              updateOnChange: true,
-                                              child: ChatstiemWidget(
-                                                login:
-                                                    _model.selectedThreadLogin!,
-                                                date:
-                                                    _model.selectedThreadDate!,
-                                                lastMessage: _model
-                                                    .selectedThreadLastMessage!,
-                                                isRead: _model
-                                                    .selectedThreadIsRead!,
-                                                avatar: _model
-                                                    .selectedThreadAvatar!,
-                                                threadId:
-                                                    _model.selectedThreadId!,
-                                                accountId: widget.accountId!,
-                                              ),
-                                            ),
+                                          return Container(
+                                            decoration: BoxDecoration(),
                                           );
                                         } else {
                                           return Container(
@@ -326,6 +345,11 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          wrapWithModel(
+                            model: _model.appbarDriwerModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: AppbarDriwerWidget(),
+                          ),
                           Expanded(
                             child: Flex(
                               direction: Axis.vertical,
@@ -335,7 +359,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 60.0, 0.0, 0.0),
+                                        0.0, 10.0, 0.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius:
@@ -469,7 +493,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                           widget.accountId!,
                                                       loadingMessage: () async {
                                                         context.goNamed(
-                                                          ChatitemMOBWidget
+                                                          ChatWiadomociWidget
                                                               .routeName,
                                                           queryParameters: {
                                                             'threadId':
@@ -485,15 +509,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                               widget.accountId,
                                                               ParamType.int,
                                                             ),
-                                                            'avatar':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.interlocutor.avatarUrl''',
-                                                              ).toString(),
-                                                              ParamType.String,
-                                                            ),
-                                                            'name':
+                                                            'login':
                                                                 serializeParam(
                                                               getJsonField(
                                                                 chatItemItem,
@@ -501,31 +517,13 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                               ).toString(),
                                                               ParamType.String,
                                                             ),
-                                                            'date':
-                                                                serializeParam(
-                                                              functions
-                                                                  .formatDateString(
-                                                                      getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.lastMessageDateTime''',
-                                                              ).toString()),
-                                                              ParamType.String,
-                                                            ),
-                                                            'lastMessage':
+                                                            'avatar':
                                                                 serializeParam(
                                                               getJsonField(
                                                                 chatItemItem,
-                                                                r'''$.lastMessageText''',
+                                                                r'''$.interlocutor.avatarUrl''',
                                                               ).toString(),
                                                               ParamType.String,
-                                                            ),
-                                                            'isRead':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.read''',
-                                                              ),
-                                                              ParamType.bool,
                                                             ),
                                                           }.withoutNulls,
                                                         );
@@ -542,16 +540,6 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
-                            child: wrapWithModel(
-                              model: _model.nawbarMobModel,
-                              updateCallback: () => safeSetState(() {}),
-                              child: NawbarMobWidget(
-                                page: 'Wiadomoci',
-                              ),
                             ),
                           ),
                         ],

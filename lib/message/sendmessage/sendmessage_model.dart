@@ -1,21 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/message/offer_card/offer_card_widget.dart';
-import '/message/order_card/order_card_widget.dart';
-import 'chatstiem_widget.dart' show ChatstiemWidget;
+import 'sendmessage_widget.dart' show SendmessageWidget;
 import 'package:flutter/material.dart';
 
-class ChatstiemModel extends FlutterFlowModel<ChatstiemWidget> {
+class SendmessageModel extends FlutterFlowModel<SendmessageWidget> {
   ///  Local state fields for this component.
 
-  String? declareFile;
+  String? uploadfile;
 
   ///  State fields for stateful widgets in this component.
 
-  // Model for OfferCard component.
-  late OfferCardModel offerCardModel;
-  // Model for OrderCard component.
-  late OrderCardModel orderCardModel;
   bool isDataUploading_uploadFILE = false;
   FFUploadedFile uploadedLocalFile_uploadFILE =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -28,15 +22,10 @@ class ChatstiemModel extends FlutterFlowModel<ChatstiemWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
-  void initState(BuildContext context) {
-    offerCardModel = createModel(context, () => OfferCardModel());
-    orderCardModel = createModel(context, () => OrderCardModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    offerCardModel.dispose();
-    orderCardModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
   }

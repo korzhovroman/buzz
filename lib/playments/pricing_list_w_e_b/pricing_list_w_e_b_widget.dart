@@ -90,7 +90,7 @@ class _PricingListWEBWidgetState extends State<PricingListWEBWidget> {
                   ),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                        EdgeInsetsDirectional.fromSTEB(14.0, 24.0, 14.0, 24.0),
                     child: SingleChildScrollView(
                       primary: false,
                       child: Column(

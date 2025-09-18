@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import '/pages/message_home/message_home_widget.dart';
 import 'dashbord_widget.dart' show DashbordWidget;
@@ -28,24 +29,28 @@ class DashbordModel extends FlutterFlowModel<DashbordWidget> {
   late SideNavWebModel sideNavWebModel;
   // Models for messageHome dynamic component.
   late FlutterFlowDynamicModels<MessageHomeModel> messageHomeModels1;
+  // Model for appbarDriwer component.
+  late AppbarDriwerModel appbarDriwerModel;
   // Models for messageHome dynamic component.
   late FlutterFlowDynamicModels<MessageHomeModel> messageHomeModels2;
-  // Model for NawbarMob component.
-  late NawbarMobModel nawbarMobModel;
+  // Model for driwer component.
+  late DriwerModel driwerModel;
 
   @override
   void initState(BuildContext context) {
     sideNavWebModel = createModel(context, () => SideNavWebModel());
     messageHomeModels1 = FlutterFlowDynamicModels(() => MessageHomeModel());
+    appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     messageHomeModels2 = FlutterFlowDynamicModels(() => MessageHomeModel());
-    nawbarMobModel = createModel(context, () => NawbarMobModel());
+    driwerModel = createModel(context, () => DriwerModel());
   }
 
   @override
   void dispose() {
     sideNavWebModel.dispose();
     messageHomeModels1.dispose();
+    appbarDriwerModel.dispose();
     messageHomeModels2.dispose();
-    nawbarMobModel.dispose();
+    driwerModel.dispose();
   }
 }

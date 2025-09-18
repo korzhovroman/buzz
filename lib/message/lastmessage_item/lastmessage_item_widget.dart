@@ -96,6 +96,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -116,6 +117,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  fontSize: 12.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                   fontStyle: FlutterFlowTheme.of(context)
@@ -133,7 +135,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              fontSize: 12.0,
+                              fontSize: 10.0,
                               letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -252,8 +254,9 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                                 .primaryText
                                             : FlutterFlowTheme.of(context)
                                                 .secondaryText,
-                                        fontSize:
-                                            widget.isread == true ? 13.0 : 9.0,
+                                        fontSize: widget.isread == true
+                                            ? 13.0
+                                            : 11.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)

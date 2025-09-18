@@ -2,7 +2,8 @@ import '/allegro/listempty/listempty_widget.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import '/pages/message_home/message_home_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,12 @@ import 'dashbord_model.dart';
 export 'dashbord_model.dart';
 
 class DashbordWidget extends StatefulWidget {
-  const DashbordWidget({super.key});
+  const DashbordWidget({
+    super.key,
+    String? namepage,
+  }) : this.namepage = namepage ?? 'dashbord';
+
+  final String namepage;
 
   static String routeName = 'Dashbord';
   static String routePath = '/onbording';
@@ -70,18 +76,20 @@ class _DashbordWidgetState extends State<DashbordWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        drawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.driwerModel,
+            updateCallback: () => safeSetState(() {}),
+            child: DriwerWidget(
+              namepage: widget.namepage,
+            ),
+          ),
+        ),
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).secondary,
-                FlutterFlowTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(1.0, -0.87),
-              end: AlignmentDirectional(-1.0, 0.87),
-            ),
+            color: FlutterFlowTheme.of(context).alternate,
           ),
           alignment: AlignmentDirectional(0.0, -1.0),
           child: Stack(
@@ -209,6 +217,11 @@ class _DashbordWidgetState extends State<DashbordWidget> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          wrapWithModel(
+                            model: _model.appbarDriwerModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: AppbarDriwerWidget(),
+                          ),
                           Expanded(
                             flex: 1,
                             child: Flex(
@@ -223,7 +236,7 @@ class _DashbordWidgetState extends State<DashbordWidget> {
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 20.0, 8.0, 0.0),
+                                            8.0, 0.0, 8.0, 10.0),
                                         child: Builder(
                                           builder: (context) {
                                             final summaryItem =
@@ -293,16 +306,6 @@ class _DashbordWidgetState extends State<DashbordWidget> {
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
-                            child: wrapWithModel(
-                              model: _model.nawbarMobModel,
-                              updateCallback: () => safeSetState(() {}),
-                              child: NawbarMobWidget(
-                                page: 'Dashbord',
-                              ),
                             ),
                           ),
                         ],

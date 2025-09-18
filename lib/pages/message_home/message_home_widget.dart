@@ -169,7 +169,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).tertiary,
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
@@ -242,7 +242,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).error,
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: FlutterFlowIconButton(
                         borderRadius: 8.0,
@@ -316,7 +316,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).tertiary,
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
@@ -400,8 +400,8 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           color: FlutterFlowTheme.of(context).info,
                           size: 24.0,
                         ),
-                        onPressed: () {
-                          print('IconButton pressed ...');
+                        onPressed: () async {
+                          context.pushNamed(DyskusjeWidget.routeName);
                         },
                       ),
                     ),
@@ -455,7 +455,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                       height: 40.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).tertiary,
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
@@ -539,8 +539,8 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           color: FlutterFlowTheme.of(context).info,
                           size: 24.0,
                         ),
-                        onPressed: () {
-                          print('IconButton pressed ...');
+                        onPressed: () async {
+                          context.pushNamed(ReklamacjeWidget.routeName);
                         },
                       ),
                     ),

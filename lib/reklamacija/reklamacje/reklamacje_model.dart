@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import 'reklamacje_widget.dart' show ReklamacjeWidget;
 import 'package:flutter/material.dart';
@@ -13,18 +14,22 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
 
   // Model for SideNavWeb component.
   late SideNavWebModel sideNavWebModel;
-  // Model for NawbarMob component.
-  late NawbarMobModel nawbarMobModel;
+  // Model for appbarDriwer component.
+  late AppbarDriwerModel appbarDriwerModel;
+  // Model for driwer component.
+  late DriwerModel driwerModel;
 
   @override
   void initState(BuildContext context) {
     sideNavWebModel = createModel(context, () => SideNavWebModel());
-    nawbarMobModel = createModel(context, () => NawbarMobModel());
+    appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
+    driwerModel = createModel(context, () => DriwerModel());
   }
 
   @override
   void dispose() {
     sideNavWebModel.dispose();
-    nawbarMobModel.dispose();
+    appbarDriwerModel.dispose();
+    driwerModel.dispose();
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -548,6 +549,8 @@ class ConversationsGroup {
   static GetThreadMessagesCall getThreadMessagesCall = GetThreadMessagesCall();
   static PostMessageCall postMessageCall = PostMessageCall();
   static DeclareAttachmentCall declareAttachmentCall = DeclareAttachmentCall();
+  static GetOrderDetailsCall getOrderDetailsCall = GetOrderDetailsCall();
+  static GetOfferDetailsCall getOfferDetailsCall = GetOfferDetailsCall();
 }
 
 class GetSummaryCall {
@@ -637,6 +640,12 @@ class GetThreadMessagesCall {
       alwaysAllowBody: false,
     );
   }
+
+  List? messageList(dynamic response) => getJsonField(
+        response,
+        r'''$.data.messages''',
+        true,
+      ) as List?;
 }
 
 class PostMessageCall {
@@ -719,6 +728,68 @@ class DeclareAttachmentCall {
         response,
         r'''$.data.uploadUrl''',
       );
+}
+
+class GetOrderDetailsCall {
+  Future<ApiCallResponse> call({
+    String? orderId = '',
+    String? allegroAccountId = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getOrderDetails',
+      apiUrl: '${baseUrl}/allegro/orders/${orderId}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'allegro_account_id': allegroAccountId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetOfferDetailsCall {
+  Future<ApiCallResponse> call({
+    String? offerId = '',
+    String? allegroAccountId = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getOfferDetails',
+      apiUrl: '${baseUrl}/allegro/offers/${offerId}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'allegro_account_id': allegroAccountId,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
 }
 
 /// End conversations Group Code

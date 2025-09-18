@@ -63,15 +63,7 @@ class _AllegroWidgetState extends State<AllegroWidget> {
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).secondary,
-                FlutterFlowTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(1.0, -0.87),
-              end: AlignmentDirectional(-1.0, 0.87),
-            ),
+            color: FlutterFlowTheme.of(context).alternate,
           ),
           alignment: AlignmentDirectional(0.0, -1.0),
         ),

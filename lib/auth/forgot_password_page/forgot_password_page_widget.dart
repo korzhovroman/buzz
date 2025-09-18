@@ -97,15 +97,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).secondary,
-                FlutterFlowTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(1.0, -0.87),
-              end: AlignmentDirectional(-1.0, 0.87),
-            ),
+            color: FlutterFlowTheme.of(context).alternate,
           ),
           alignment: AlignmentDirectional(0.0, -1.0),
           child: SingleChildScrollView(
@@ -161,7 +153,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                                 ),
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .alternate,
+                                                        .secondary,
                                                 fontSize: 30.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight:

@@ -1,13 +1,19 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import 'package:flutter/material.dart';
 import 'dyskusje_model.dart';
 export 'dyskusje_model.dart';
 
 class DyskusjeWidget extends StatefulWidget {
-  const DyskusjeWidget({super.key});
+  const DyskusjeWidget({
+    super.key,
+    String? namepage,
+  }) : this.namepage = namepage ?? 'dyskusje';
+
+  final String namepage;
 
   static String routeName = 'Dyskusje';
   static String routePath = '/dyskusje';
@@ -46,18 +52,20 @@ class _DyskusjeWidgetState extends State<DyskusjeWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        drawer: Drawer(
+          elevation: 16.0,
+          child: wrapWithModel(
+            model: _model.driwerModel,
+            updateCallback: () => safeSetState(() {}),
+            child: DriwerWidget(
+              namepage: widget.namepage,
+            ),
+          ),
+        ),
         body: Container(
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                FlutterFlowTheme.of(context).secondary,
-                FlutterFlowTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(1.0, -0.87),
-              end: AlignmentDirectional(-1.0, 0.87),
-            ),
+            color: FlutterFlowTheme.of(context).alternate,
           ),
           alignment: AlignmentDirectional(0.0, -1.0),
           child: Stack(
@@ -95,6 +103,11 @@ class _DyskusjeWidgetState extends State<DyskusjeWidget> {
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          wrapWithModel(
+                            model: _model.appbarDriwerModel,
+                            updateCallback: () => safeSetState(() {}),
+                            child: AppbarDriwerWidget(),
+                          ),
                           Expanded(
                             flex: 1,
                             child: Flex(
@@ -102,16 +115,6 @@ class _DyskusjeWidgetState extends State<DyskusjeWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [],
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 1.0),
-                            child: wrapWithModel(
-                              model: _model.nawbarMobModel,
-                              updateCallback: () => safeSetState(() {}),
-                              child: NawbarMobWidget(
-                                page: 'Dyskusje',
-                              ),
                             ),
                           ),
                         ],

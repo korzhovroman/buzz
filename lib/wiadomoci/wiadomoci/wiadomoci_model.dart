@@ -1,8 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/menu/nawbar_mob/nawbar_mob_widget.dart';
+import '/menu/appbar_driwer/appbar_driwer_widget.dart';
+import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
-import '/message/chatstiem/chatstiem_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
 import '/index.dart';
 import 'wiadomoci_widget.dart' show WiadomociWidget;
@@ -24,6 +24,17 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   String? selectedThreadLastMessage;
 
+  List<dynamic> messagesList = [];
+  void addToMessagesList(dynamic item) => messagesList.add(item);
+  void removeFromMessagesList(dynamic item) => messagesList.remove(item);
+  void removeAtIndexFromMessagesList(int index) => messagesList.removeAt(index);
+  void insertAtIndexInMessagesList(int index, dynamic item) =>
+      messagesList.insert(index, item);
+  void updateMessagesListAtIndex(int index, Function(dynamic) updateFn) =>
+      messagesList[index] = updateFn(messagesList[index]);
+
+  dynamic firstMessage;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for SideNavWeb component.
@@ -35,8 +46,10 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels1;
-  // Model for chatstiem component.
-  late ChatstiemModel chatstiemModel;
+  // Stores action output result for [Backend Call - API (getThreadMessages)] action in lastmessageItem widget.
+  ApiCallResponse? apiResultGETMessage;
+  // Model for appbarDriwer component.
+  late AppbarDriwerModel appbarDriwerModel;
   // State field(s) for ListView widget.
 
   PagingController<ApiPagingParams, dynamic>? listViewPagingController2;
@@ -44,18 +57,18 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels2;
-  // Model for NawbarMob component.
-  late NawbarMobModel nawbarMobModel;
+  // Model for driwer component.
+  late DriwerModel driwerModel;
 
   @override
   void initState(BuildContext context) {
     sideNavWebModel = createModel(context, () => SideNavWebModel());
     lastmessageItemModels1 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
-    chatstiemModel = createModel(context, () => ChatstiemModel());
+    appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     lastmessageItemModels2 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
-    nawbarMobModel = createModel(context, () => NawbarMobModel());
+    driwerModel = createModel(context, () => DriwerModel());
   }
 
   @override
@@ -63,10 +76,10 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     sideNavWebModel.dispose();
     listViewPagingController1?.dispose();
     lastmessageItemModels1.dispose();
-    chatstiemModel.dispose();
+    appbarDriwerModel.dispose();
     listViewPagingController2?.dispose();
     lastmessageItemModels2.dispose();
-    nawbarMobModel.dispose();
+    driwerModel.dispose();
   }
 
   /// Additional helper methods.

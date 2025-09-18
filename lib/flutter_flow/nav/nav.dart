@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 
 import '/auth/base_auth_user_provider.dart';
@@ -119,17 +121,31 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'accountId',
               ParamType.int,
             ),
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
           ),
         ),
         FFRoute(
           name: ReklamacjeWidget.routeName,
           path: ReklamacjeWidget.routePath,
-          builder: (context, params) => ReklamacjeWidget(),
+          builder: (context, params) => ReklamacjeWidget(
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: DyskusjeWidget.routeName,
           path: DyskusjeWidget.routePath,
-          builder: (context, params) => DyskusjeWidget(),
+          builder: (context, params) => DyskusjeWidget(
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: HomePageWidget.routeName,
@@ -139,12 +155,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: DashbordWidget.routeName,
           path: DashbordWidget.routePath,
-          builder: (context, params) => DashbordWidget(),
+          builder: (context, params) => DashbordWidget(
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: ProfileWidget.routeName,
           path: ProfileWidget.routePath,
-          builder: (context, params) => ProfileWidget(),
+          builder: (context, params) => ProfileWidget(
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: PaymentSuccessWidget.routeName,
@@ -182,9 +208,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => IsSubscriptionNotactivWidget(),
         ),
         FFRoute(
-          name: ChatitemMOBWidget.routeName,
-          path: ChatitemMOBWidget.routePath,
-          builder: (context, params) => ChatitemMOBWidget(
+          name: ChatWiadomociWidget.routeName,
+          path: ChatWiadomociWidget.routePath,
+          builder: (context, params) => ChatWiadomociWidget(
             threadId: params.getParam(
               'threadId',
               ParamType.String,
@@ -193,25 +219,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'accountId',
               ParamType.int,
             ),
+            login: params.getParam(
+              'login',
+              ParamType.String,
+            ),
             avatar: params.getParam(
               'avatar',
               ParamType.String,
-            ),
-            name: params.getParam(
-              'name',
-              ParamType.String,
-            ),
-            date: params.getParam(
-              'date',
-              ParamType.String,
-            ),
-            lastMessage: params.getParam(
-              'lastMessage',
-              ParamType.String,
-            ),
-            isRead: params.getParam(
-              'isRead',
-              ParamType.bool,
             ),
           ),
         )
@@ -333,6 +347,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -351,6 +366,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

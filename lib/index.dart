@@ -7,7 +7,7 @@ export '/auth/forgot_password_page/forgot_password_page_widget.dart'
     show ForgotPasswordPageWidget;
 export '/auth/reset_password_page/reset_password_page_widget.dart'
     show ResetPasswordPageWidget;
-export '/message/wiadomoci/wiadomoci_widget.dart' show WiadomociWidget;
+export '/wiadomoci/wiadomoci/wiadomoci_widget.dart' show WiadomociWidget;
 export '/reklamacija/reklamacje/reklamacje_widget.dart' show ReklamacjeWidget;
 export '/dyskusije/dyskusje/dyskusje_widget.dart' show DyskusjeWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
@@ -24,5 +24,5 @@ export '/allegro/allegro_cancelled/allegro_cancelled_widget.dart'
 export '/allegro/allegro/allegro_widget.dart' show AllegroWidget;
 export '/playments/is_subscription_notactiv/is_subscription_notactiv_widget.dart'
     show IsSubscriptionNotactivWidget;
-export '/message/chatitem_m_o_b/chatitem_m_o_b_widget.dart'
-    show ChatitemMOBWidget;
+export '/wiadomoci/chat_wiadomoci/chat_wiadomoci_widget.dart'
+    show ChatWiadomociWidget;

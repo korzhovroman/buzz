@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
@@ -120,62 +121,39 @@ int getFileSize(FFUploadedFile uploadedFile) {
   return uploadedFile?.bytes?.length ?? 0;
 }
 
-dynamic getFirstMessage(List<dynamic> messagesList) {
+dynamic findMessageWithContext(List<dynamic> messagesList) {
   {
-    // Returns the last item from the list, which is the first message chronologically.
+    // Если список пустой, сразу выходим.
     if (messagesList == null || messagesList.isEmpty) {
       return null;
     }
-    return messagesList.last;
-  }
-}
 
-String? getThreadContextType(List<dynamic>? messagesList) {
-  {
-    if (messagesList == null || messagesList.isEmpty) {
-      return "NONE";
-    }
-    var firstMessage = messagesList.last;
-    if (firstMessage['offer'] != null) {
-      return "OFFER";
-    }
-    if (firstMessage['relatesTo'] != null &&
-        firstMessage['relatesTo']['order'] != null) {
-      return "ORDER";
-    }
-    return "NONE";
-  }
-}
+    // Идем по списку В ОБРАТНОМ ПОРЯДКЕ (от самых свежих к старым).
+    for (final item in messagesList) {
+      // Проверяем, что каждый элемент - это карта (объект JSON).
+      if (item is Map<String, dynamic>) {
+        // Проверяем, есть ли в нем ключ 'relatesTo'.
+        if (item.containsKey('relatesTo') &&
+            item['relatesTo'] is Map<String, dynamic>) {
+          final relatesTo = item['relatesTo'] as Map<String, dynamic>;
 
-bool isOfferChat(List<dynamic> messagesList) {
-  {
-    if (messagesList == null || messagesList.isEmpty) {
-      return false;
-    }
-    // Берем самое первое сообщение (последний элемент в списке)
-    var firstMessage = messagesList.last;
-    // Проверяем, есть ли в нем информация об оферте ВНУТРИ relatesTo
-    if (firstMessage['relatesTo'] != null &&
-        firstMessage['relatesTo']['offer'] != null) {
-      return true;
-    }
-    return false;
-  }
-}
+          // Проверяем, есть ли внутри 'relatesTo' ключ 'offer' и он не пустой.
+          if (relatesTo.containsKey('offer') && relatesTo['offer'] != null) {
+            // Нашли самое свежее! Возвращаем это сообщение.
+            return item;
+          }
 
-bool isOrderChat(List<dynamic> messagesList) {
-  {
-    if (messagesList == null || messagesList.isEmpty) {
-      return false;
+          // Проверяем, есть ли внутри 'relatesTo' ключ 'order' и он не пустой.
+          if (relatesTo.containsKey('order') && relatesTo['order'] != null) {
+            // Нашли самое свежее! Возвращаем это сообщение.
+            return item;
+          }
+        }
+      }
     }
-    // Берем самое первое сообщение
-    var firstMessage = messagesList.last;
-    // Проверяем, есть ли в нем информация о заказе
-    if (firstMessage['relatesTo'] != null &&
-        firstMessage['relatesTo']['order'] != null) {
-      return true;
-    }
-    return false;
+
+    // Если ничего не нашли, возвращаем null.
+    return null;
   }
 }
 
@@ -186,5 +164,78 @@ dynamic getFirstMessageFromList(List<dynamic> messagesList) {
       return null;
     }
     return messagesList.last;
+  }
+}
+
+String? buildOfferUrl(
+  String? marketplaceId,
+  String? offerId,
+) {
+  {
+    String domain = "allegro.pl"; // Домен по умолчанию
+    String path = "oferta"; // Путь по умолчанию
+
+    if (marketplaceId == "allegro-cz") {
+      domain = "allegro.cz";
+      path = "nabidka";
+    } else if (marketplaceId == "allegro-sk") {
+      domain = "allegro.sk";
+      path = "ponuka";
+    } else if (marketplaceId == "allegro-hu") {
+      // 👇 ДОБАВЛЕНО ДЛЯ ВЕНГРИИ
+      domain = "allegro.hu";
+      path = "ajanlat";
+    }
+    // Можно добавить другие рынки по аналогии
+
+    return "https://$domain/$path/$offerId";
+  }
+}
+
+String translateStatusToPolish(String? status) {
+  if (status == null || status.isEmpty) {
+    return 'Nieznany';
+  }
+
+  // Словарь для перевода статусов
+  final statusTranslations = {
+    'NEW': 'Nowe',
+    'PROCESSING': 'W realizacji',
+    'READY_FOR_SHIPMENT': 'Gotowe do wysyłki',
+    'READY_FOR_PICKUP': 'Gotowe do odbioru',
+    'SENT': 'Wysłane',
+    'PICKED_UP': 'Odebrane',
+    'CANCELLED': 'Anulowane',
+    'SUSPENDED': 'Wstrzymane',
+    'RETURNED': 'Zwrócone',
+    // Дополнительный статус, который тоже встречается
+    'READY_FOR_PROCESSING': 'Do realizacji'
+  };
+
+  // Возвращаем перевод или оригинальный статус, если перевода нет
+  return statusTranslations[status] ?? status;
+}
+
+List<dynamic> parseMessages(dynamic apiResponseBody) {
+  {
+    // Входные данные - это уже готовый JSON-объект.
+    // Нам не нужно его парсить, нужно просто получить доступ к полям.
+    try {
+      if (apiResponseBody == null) {
+        return [];
+      }
+
+      // Напрямую получаем доступ к ключам, как в обычном объекте.
+      final messages = apiResponseBody['data']['messages'];
+
+      if (messages is List) {
+        return messages;
+      }
+
+      return [];
+    } catch (e) {
+      print('Error accessing messages from JSON object: $e');
+      return [];
+    }
   }
 }

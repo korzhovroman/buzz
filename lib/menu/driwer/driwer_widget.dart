@@ -7,23 +7,23 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'side_nav_web_model.dart';
-export 'side_nav_web_model.dart';
+import 'driwer_model.dart';
+export 'driwer_model.dart';
 
-class SideNavWebWidget extends StatefulWidget {
-  const SideNavWebWidget({
+class DriwerWidget extends StatefulWidget {
+  const DriwerWidget({
     super.key,
-    required this.page,
+    required this.namepage,
   });
 
-  final String? page;
+  final String? namepage;
 
   @override
-  State<SideNavWebWidget> createState() => _SideNavWebWidgetState();
+  State<DriwerWidget> createState() => _DriwerWidgetState();
 }
 
-class _SideNavWebWidgetState extends State<SideNavWebWidget> {
-  late SideNavWebModel _model;
+class _DriwerWidgetState extends State<DriwerWidget> {
+  late DriwerModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -34,7 +34,7 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SideNavWebModel());
+    _model = createModel(context, () => DriwerModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -50,11 +50,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Visibility(
-      visible: responsiveVisibility(
-        context: context,
-        phone: false,
-        tablet: false,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(8.0),
+          topLeft: Radius.circular(0.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 1.0, 0.0),
@@ -71,10 +74,6 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
               bottomRight: Radius.circular(16.0),
               topLeft: Radius.circular(0.0),
               topRight: Radius.circular(16.0),
-            ),
-            border: Border.all(
-              color: FlutterFlowTheme.of(context).primary,
-              width: 1.0,
             ),
           ),
           child: Padding(
@@ -197,8 +196,8 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                           children: [
                             Icon(
                               Icons.dashboard_rounded,
-                              color: widget.page == 'Dashbord'
-                                  ? FlutterFlowTheme.of(context).primaryText
+                              color: widget.namepage == 'dashbord'
+                                  ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
                             ),
@@ -216,14 +215,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.page == 'Dashbord'
+                                      color: widget.namepage == 'dashbord'
                                           ? FlutterFlowTheme.of(context)
-                                              .primaryText
+                                              .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.page == 'Dashbord'
-                                          ? 16.0
-                                          : 14.0,
+                                      fontSize: widget.namepage == 'dashbord'
+                                          ? 14.0
+                                          : 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -270,8 +269,8 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                           children: [
                             Icon(
                               FFIcons.kbubbles,
-                              color: widget.page == 'Wiadomoci'
-                                  ? FlutterFlowTheme.of(context).primaryText
+                              color: widget.namepage == 'wiadomoci'
+                                  ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
                             ),
@@ -289,14 +288,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.page == 'Wiadomoci'
+                                      color: widget.namepage == 'wiadomoci'
                                           ? FlutterFlowTheme.of(context)
-                                              .primaryText
+                                              .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.page == 'Wiadomości'
-                                          ? 16.0
-                                          : 14.0,
+                                      fontSize: widget.namepage == 'wiadomoci'
+                                          ? 14.0
+                                          : 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -335,8 +334,8 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                           children: [
                             Icon(
                               FFIcons.knotification,
-                              color: widget.page == 'Dyskusje'
-                                  ? FlutterFlowTheme.of(context).primaryText
+                              color: widget.namepage == 'dyskusije'
+                                  ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
                             ),
@@ -354,14 +353,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.page == 'Dyskusje'
+                                      color: widget.namepage == 'dyskusje'
                                           ? FlutterFlowTheme.of(context)
-                                              .primaryText
+                                              .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.page == 'Dyskusje'
-                                          ? 16.0
-                                          : 14.0,
+                                      fontSize: widget.namepage == 'dyskusje'
+                                          ? 14.0
+                                          : 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -400,8 +399,8 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                           children: [
                             Icon(
                               FFIcons.kexclamationTriangle,
-                              color: widget.page == 'Reklamacje'
-                                  ? FlutterFlowTheme.of(context).primaryText
+                              color: widget.namepage == 'reklamacje'
+                                  ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
                             ),
@@ -419,14 +418,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.page == 'Reklamacje'
+                                      color: widget.namepage == 'reklamacje'
                                           ? FlutterFlowTheme.of(context)
-                                              .primaryText
+                                              .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.page == 'Reklamacje'
-                                          ? 16.0
-                                          : 14.0,
+                                      fontSize: widget.namepage == 'reklamacje'
+                                          ? 14.0
+                                          : 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
@@ -467,8 +466,8 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                             children: [
                               Icon(
                                 Icons.person_rounded,
-                                color: widget.page == 'Profile'
-                                    ? FlutterFlowTheme.of(context).primaryText
+                                color: widget.namepage == 'konto'
+                                    ? FlutterFlowTheme.of(context).secondary
                                     : FlutterFlowTheme.of(context).primary,
                                 size: 24.0,
                               ),
@@ -487,14 +486,14 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                                   .labelLarge
                                                   .fontStyle,
                                         ),
-                                        color: widget.page == 'Profile'
+                                        color: widget.namepage == 'konto'
                                             ? FlutterFlowTheme.of(context)
-                                                .primaryText
+                                                .secondary
                                             : FlutterFlowTheme.of(context)
                                                 .primary,
-                                        fontSize: widget.page == 'Profile'
-                                            ? 16.0
-                                            : 14.0,
+                                        fontSize: widget.namepage == 'konto'
+                                            ? 14.0
+                                            : 12.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
@@ -524,7 +523,7 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 12.0, 0.0, 0.0),
+                              0.0, 16.0, 0.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -537,35 +536,40 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        FFAppState().isOwner == true
-                                            ? FFAppState().namefirmy
-                                            : FFAppState().name,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .override(
-                                              font: GoogleFonts.poppins(
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 8.0),
+                                        child: Text(
+                                          FFAppState().isOwner == true
+                                              ? FFAppState().namefirmy
+                                              : FFAppState().name,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyLarge
+                                              .override(
+                                                font: GoogleFonts.poppins(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyLarge
+                                                          .fontStyle,
+                                                ),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .fontStyle,
-                                            ),
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 8.0, 0.0, 0.0),
+                                            0.0, 8.0, 0.0, 8.0),
                                         child: Text(
                                           currentUserEmail,
                                           style: FlutterFlowTheme.of(context)
@@ -582,7 +586,7 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
-                                                fontSize: 16.0,
+                                                fontSize: 14.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle:
@@ -635,6 +639,7 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                                                 .fontStyle,
                                                       ),
                                                       color: Colors.white,
+                                                      fontSize: 14.0,
                                                       letterSpacing: 0.0,
                                                       fontWeight:
                                                           FlutterFlowTheme.of(
@@ -746,6 +751,7 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                                                                   .fontStyle,
                                                         ),
                                                         color: Colors.white,
+                                                        fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
