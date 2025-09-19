@@ -65,7 +65,7 @@ class _ButtonConnectMemberWidgetState extends State<ButtonConnectMemberWidget> {
           iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
           color: FlutterFlowTheme.of(context).secondary,
           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                font: GoogleFonts.poppins(
+                font: GoogleFonts.robotoSerif(
                   fontWeight:
                       FlutterFlowTheme.of(context).titleSmall.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,

@@ -84,7 +84,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                       Text(
                         'Dane do rozliczeń ',
                         style: FlutterFlowTheme.of(context).titleLarge.override(
-                              font: GoogleFonts.poppins(
+                              font: GoogleFonts.robotoSerif(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .fontWeight,
@@ -119,7 +119,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -157,7 +157,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -204,7 +204,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -242,7 +242,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -289,7 +289,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -327,7 +327,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -374,7 +374,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -405,7 +405,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -444,7 +444,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -475,7 +475,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -522,7 +522,7 @@ class _DanedorozliczenWidgetState extends State<DanedorozliczenWidget> {
                           color: FlutterFlowTheme.of(context).secondary,
                           textStyle:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,

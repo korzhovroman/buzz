@@ -206,6 +206,16 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                           child: HeaderchatWidget(
                             avatar: widget.avatar!,
                             loginkupuecego: widget.login!,
+                            isOfferCardExpanded: _model.isOfferCardExpanded,
+                            isOfferCardShow: _model.firstMessage?.toString(),
+                            rozwin: () async {
+                              _model.isOfferCardExpanded = true;
+                              safeSetState(() {});
+                            },
+                            ukryj: () async {
+                              _model.isOfferCardExpanded = false;
+                              safeSetState(() {});
+                            },
                           ),
                         ),
                       ),
@@ -225,47 +235,51 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                         r'''$.data.sellingMode''',
                                       ) !=
                                       null) {
-                                    return Container(
-                                      height: 150.0,
-                                      decoration: BoxDecoration(),
-                                      child: wrapWithModel(
-                                        model: _model.offerCardModel,
-                                        updateCallback: () =>
-                                            safeSetState(() {}),
-                                        updateOnChange: true,
-                                        child: OfferCardWidget(
-                                          offerName: getJsonField(
-                                            _model.firstMessage,
-                                            r'''$.data.name''',
-                                          ).toString(),
-                                          cena: getJsonField(
-                                            _model.firstMessage,
-                                            r'''$.data.sellingMode.price.amount''',
-                                          ).toString(),
-                                          valuta: getJsonField(
-                                            _model.firstMessage,
-                                            r'''$.data.sellingMode.price.currency''',
-                                          ).toString(),
-                                          rynek: getJsonField(
-                                            _model.firstMessage,
-                                            r'''$.data.publication.marketplaces.base.id''',
-                                          ).toString(),
-                                          image: getJsonField(
-                                            _model.firstMessage,
-                                            r'''$.data.primaryImage.url''',
-                                          ).toString(),
-                                          offertaURL: () async {
-                                            await launchURL(
-                                                functions.buildOfferUrl(
-                                                    getJsonField(
-                                                      _model.firstMessage,
-                                                      r'''$.data.publication.marketplaces.base.id''',
-                                                    ).toString(),
-                                                    getJsonField(
-                                                      _model.firstMessage,
-                                                      r'''$.data.id''',
-                                                    ).toString())!);
-                                          },
+                                    return Visibility(
+                                      visible:
+                                          _model.isOfferCardExpanded == true,
+                                      child: Container(
+                                        height: 150.0,
+                                        decoration: BoxDecoration(),
+                                        child: wrapWithModel(
+                                          model: _model.offerCardModel,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          updateOnChange: true,
+                                          child: OfferCardWidget(
+                                            offerName: getJsonField(
+                                              _model.firstMessage,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            cena: getJsonField(
+                                              _model.firstMessage,
+                                              r'''$.data.sellingMode.price.amount''',
+                                            ).toString(),
+                                            valuta: getJsonField(
+                                              _model.firstMessage,
+                                              r'''$.data.sellingMode.price.currency''',
+                                            ).toString(),
+                                            rynek: getJsonField(
+                                              _model.firstMessage,
+                                              r'''$.data.publication.marketplaces.base.id''',
+                                            ).toString(),
+                                            image: getJsonField(
+                                              _model.firstMessage,
+                                              r'''$.data.primaryImage.url''',
+                                            ).toString(),
+                                            offertaURL: () async {
+                                              await launchURL(
+                                                  functions.buildOfferUrl(
+                                                      getJsonField(
+                                                        _model.firstMessage,
+                                                        r'''$.data.publication.marketplaces.base.id''',
+                                                      ).toString(),
+                                                      getJsonField(
+                                                        _model.firstMessage,
+                                                        r'''$.data.id''',
+                                                      ).toString())!);
+                                            },
+                                          ),
                                         ),
                                       ),
                                     );
@@ -274,38 +288,43 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                         r'''$.data.buyer''',
                                       ) !=
                                       null) {
-                                    return wrapWithModel(
-                                      model: _model.orderCardModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: OrderCardWidget(
-                                        nameOrder: getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.lineItems[0].offer.name''',
-                                        ).toString(),
-                                        cena: getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.summary.totalToPay.amount''',
-                                        ).toString(),
-                                        valuta: getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.summary.totalToPay.currency''',
-                                        ).toString(),
-                                        data: functions
-                                            .formatDateString(getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.lineItems[0].boughtAt''',
-                                        ).toString()),
-                                        rynek: getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.marketplace.id''',
-                                        ).toString(),
-                                        status:
-                                            functions.translateStatusToPolish(
-                                                getJsonField(
-                                          _model.firstMessage,
-                                          r'''$.data.fulfillment.status''',
-                                        ).toString()),
-                                        orderURL: () async {},
+                                    return Visibility(
+                                      visible:
+                                          _model.isOfferCardExpanded == true,
+                                      child: wrapWithModel(
+                                        model: _model.orderCardModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: OrderCardWidget(
+                                          nameOrder: getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.lineItems[0].offer.name''',
+                                          ).toString(),
+                                          cena: getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.summary.totalToPay.amount''',
+                                          ).toString(),
+                                          valuta: getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.summary.totalToPay.currency''',
+                                          ).toString(),
+                                          data: functions
+                                              .formatDateString(getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.lineItems[0].boughtAt''',
+                                          ).toString()),
+                                          rynek: getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.marketplace.id''',
+                                          ).toString(),
+                                          status:
+                                              functions.translateStatusToPolish(
+                                                  getJsonField(
+                                            _model.firstMessage,
+                                            r'''$.data.fulfillment.status''',
+                                          ).toString()),
+                                          orderURL: () async {},
+                                        ),
                                       ),
                                     );
                                   } else {
@@ -341,6 +360,7 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
 
                                           return ListView.builder(
                                             padding: EdgeInsets.zero,
+                                            reverse: true,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
                                             itemCount: chatsitem.length,
@@ -371,11 +391,11 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                     r'''$.text''',
                                                   ).toString(),
                                                   messageTime: functions
-                                                      .formatDateString(
+                                                      .formatDateStringAnswer(
                                                           getJsonField(
                                                     chatsitemItem,
                                                     r'''$.createdAt''',
-                                                  ).toString()),
+                                                  ).toString())!,
                                                   isMyMessage: getJsonField(
                                                     chatsitemItem,
                                                     r'''$.author.isInterlocutor''',
@@ -392,6 +412,10 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                   authorName: getJsonField(
                                                     chatsitemItem,
                                                     r'''$.author.login''',
+                                                  ).toString(),
+                                                  attachments: getJsonField(
+                                                    chatsitemItem,
+                                                    r'''$.attachments''',
                                                   ).toString(),
                                                 ),
                                               );

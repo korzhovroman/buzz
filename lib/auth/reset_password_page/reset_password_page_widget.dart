@@ -142,7 +142,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.poppins(
+                                                font: GoogleFonts.robotoSerif(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -174,7 +174,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.poppins(
+                                                font: GoogleFonts.robotoSerif(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -198,7 +198,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -269,7 +269,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .fontWeight,
@@ -303,7 +303,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelLarge
@@ -382,7 +382,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyLarge
@@ -426,7 +426,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelLarge
@@ -507,7 +507,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyLarge
@@ -606,7 +606,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget>
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.poppins(
+                                          font: GoogleFonts.robotoSerif(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall

@@ -70,7 +70,7 @@ class _ButtonConnectAllegroWidgetState
           iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
           color: FlutterFlowTheme.of(context).tertiary,
           textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                font: GoogleFonts.poppins(
+                font: GoogleFonts.robotoSerif(
                   fontWeight:
                       FlutterFlowTheme.of(context).titleSmall.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,

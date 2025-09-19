@@ -91,7 +91,7 @@ class _PricingListMOBWidgetState extends State<PricingListMOBWidget> {
                     child: Text(
                       'Plany subskrypcji',
                       style: FlutterFlowTheme.of(context).titleMedium.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .fontWeight,

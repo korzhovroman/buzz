@@ -162,7 +162,7 @@ class _ManagePermissionsDialogWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -183,7 +183,7 @@ class _ManagePermissionsDialogWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -204,7 +204,7 @@ class _ManagePermissionsDialogWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -221,7 +221,7 @@ class _ManagePermissionsDialogWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -249,7 +249,7 @@ class _ManagePermissionsDialogWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,

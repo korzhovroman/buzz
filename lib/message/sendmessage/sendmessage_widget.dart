@@ -194,7 +194,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -215,7 +215,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -267,7 +267,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -324,7 +324,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                       ),
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,

@@ -69,7 +69,7 @@ class _AllegroAccountItemWidgetState extends State<AllegroAccountItemWidget> {
               child: Text(
                 'Konto:',
                 style: FlutterFlowTheme.of(context).titleSmall.override(
-                      font: GoogleFonts.poppins(
+                      font: GoogleFonts.robotoSerif(
                         fontWeight:
                             FlutterFlowTheme.of(context).titleSmall.fontWeight,
                         fontStyle:
@@ -94,7 +94,7 @@ class _AllegroAccountItemWidgetState extends State<AllegroAccountItemWidget> {
               ).toString(),
               textAlign: TextAlign.start,
               style: FlutterFlowTheme.of(context).titleSmall.override(
-                    font: GoogleFonts.poppins(
+                    font: GoogleFonts.robotoSerif(
                       fontWeight:
                           FlutterFlowTheme.of(context).titleSmall.fontWeight,
                       fontStyle:

@@ -78,7 +78,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
               Text(
                 'Informacje o subskrypcji',
                 style: FlutterFlowTheme.of(context).titleLarge.override(
-                      font: GoogleFonts.poppins(
+                      font: GoogleFonts.robotoSerif(
                         fontWeight:
                             FlutterFlowTheme.of(context).titleLarge.fontWeight,
                         fontStyle:
@@ -107,7 +107,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                           'Subskrypcja:',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -133,7 +133,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         'Trial',
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .fontWeight,
@@ -170,7 +170,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                           'Wygasa:',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -196,7 +196,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         'No',
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .fontWeight,
@@ -233,7 +233,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                           'Liczba używanych kont:',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -259,7 +259,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         '0',
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .fontWeight,
@@ -296,7 +296,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                           'Limit:',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -322,7 +322,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         '0',
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .fontWeight,
@@ -385,7 +385,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).tertiary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.poppins(
+                          font: GoogleFonts.robotoSerif(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .fontWeight,
@@ -432,7 +432,7 @@ class _SubscriptionCardWidgetState extends State<SubscriptionCardWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).secondary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.poppins(
+                          font: GoogleFonts.robotoSerif(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .fontWeight,

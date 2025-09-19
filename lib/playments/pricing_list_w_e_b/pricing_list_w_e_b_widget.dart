@@ -124,7 +124,7 @@ class _PricingListWEBWidgetState extends State<PricingListWEBWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,

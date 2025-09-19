@@ -118,15 +118,15 @@ class LightModeTheme extends FlutterFlowTheme {
   @Deprecated('Use tertiary instead')
   Color get tertiaryColor => tertiary;
 
-  late Color primary = const Color(0xFF202022);
+  late Color primary = const Color(0xFF14181B);
   late Color secondary = const Color(0xFF7678ED);
   late Color tertiary = const Color(0xFFFF7A55);
   late Color alternate = const Color(0xFFF9F8F8);
-  late Color primaryText = const Color(0xFF14181B);
+  late Color primaryText = const Color(0xFF0A0A0A);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFF1F4F8);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
-  late Color accent1 = const Color(0x4C4B39EF);
+  late Color accent1 = const Color(0xFF0A0A0A);
   late Color accent2 = const Color(0x4D39D2C0);
   late Color accent3 = const Color(0x4DEE8B60);
   late Color accent4 = const Color(0xCCFFFFFF);
@@ -189,107 +189,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Poppins';
+  String get displayLargeFamily => 'Roboto Serif';
   bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.poppins(
+  TextStyle get displayLarge => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Poppins';
+  String get displayMediumFamily => 'Roboto Serif';
   bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.poppins(
+  TextStyle get displayMedium => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Poppins';
+  String get displaySmallFamily => 'Roboto Serif';
   bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.poppins(
+  TextStyle get displaySmall => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Poppins';
+  String get headlineLargeFamily => 'Roboto Serif';
   bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.poppins(
+  TextStyle get headlineLarge => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Poppins';
+  String get headlineMediumFamily => 'Roboto Serif';
   bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.poppins(
+  TextStyle get headlineMedium => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
-  String get headlineSmallFamily => 'Poppins';
+  String get headlineSmallFamily => 'Roboto Serif';
   bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.poppins(
+  TextStyle get headlineSmall => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Poppins';
+  String get titleLargeFamily => 'Roboto Serif';
   bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.poppins(
+  TextStyle get titleLarge => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20.0,
       );
-  String get titleMediumFamily => 'Poppins';
+  String get titleMediumFamily => 'Roboto Serif';
   bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.poppins(
+  TextStyle get titleMedium => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Poppins';
+  String get titleSmallFamily => 'Roboto Serif';
   bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.poppins(
+  TextStyle get titleSmall => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Poppins';
+  String get labelLargeFamily => 'Roboto Serif';
   bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.poppins(
+  TextStyle get labelLarge => GoogleFonts.robotoSerif(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Poppins';
+  String get labelMediumFamily => 'Roboto Serif';
   bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.poppins(
+  TextStyle get labelMedium => GoogleFonts.robotoSerif(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Poppins';
+  String get labelSmallFamily => 'Roboto Serif';
   bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.poppins(
+  TextStyle get labelSmall => GoogleFonts.robotoSerif(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Poppins';
+  String get bodyLargeFamily => 'Roboto Serif';
   bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.poppins(
+  TextStyle get bodyLarge => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Poppins';
+  String get bodyMediumFamily => 'Roboto Serif';
   bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.poppins(
+  TextStyle get bodyMedium => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Poppins';
+  String get bodySmallFamily => 'Roboto Serif';
   bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.poppins(
+  TextStyle get bodySmall => GoogleFonts.robotoSerif(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,

@@ -10,7 +10,6 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/auth/supabase_auth/auth_util.dart';
 
@@ -237,5 +236,18 @@ List<dynamic> parseMessages(dynamic apiResponseBody) {
       print('Error accessing messages from JSON object: $e');
       return [];
     }
+  }
+}
+
+String? formatDateStringAnswer(String dateString) {
+  if (dateString == null || dateString.isEmpty) {
+    return 'Brak';
+  }
+  try {
+    final DateTime parsedDate = DateTime.parse(dateString);
+    final DateFormat formatter = DateFormat('dd.MM.yyyy HH:mm', 'pl_PL');
+    return formatter.format(parsedDate);
+  } catch (e) {
+    return 'Błędna data';
   }
 }

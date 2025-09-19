@@ -119,7 +119,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .fontWeight,
@@ -146,7 +146,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                           maxLines: 3,
                           style:
                               FlutterFlowTheme.of(context).titleLarge.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleLarge
                                           .fontWeight,
@@ -179,7 +179,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight: FontWeight.normal,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -203,7 +203,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -231,7 +231,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight: FontWeight.w600,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -251,7 +251,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -289,7 +289,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -319,7 +319,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.poppins(
+                                            font: GoogleFonts.robotoSerif(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -339,7 +339,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.poppins(
+                                        font: GoogleFonts.robotoSerif(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium

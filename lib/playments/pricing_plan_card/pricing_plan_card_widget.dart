@@ -85,7 +85,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleMedium
                                           .fontWeight,
@@ -114,7 +114,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                           maxLines: 6,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -155,7 +155,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -176,7 +176,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                           text: ' ',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -193,7 +193,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                           text: 'PLN',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -212,7 +212,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                         )
                       ],
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            font: GoogleFonts.poppins(
+                            font: GoogleFonts.robotoSerif(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .fontWeight,
@@ -248,7 +248,7 @@ class _PricingPlanCardWidgetState extends State<PricingPlanCardWidget> {
                       color: FlutterFlowTheme.of(context).secondary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                font: GoogleFonts.poppins(
+                                font: GoogleFonts.robotoSerif(
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .fontWeight,

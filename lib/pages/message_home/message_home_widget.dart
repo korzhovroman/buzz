@@ -93,7 +93,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleMedium
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
@@ -143,7 +143,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodySmall
@@ -178,7 +178,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -218,7 +218,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             'Wszystkie wiadomości',
                             style:
                                 FlutterFlowTheme.of(context).bodySmall.override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodySmall
@@ -290,7 +290,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodySmall
@@ -325,7 +325,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -365,7 +365,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             'Wszystkie dyskusje',
                             style:
                                 FlutterFlowTheme.of(context).bodySmall.override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodySmall
@@ -429,7 +429,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .override(
-                                  font: GoogleFonts.poppins(
+                                  font: GoogleFonts.robotoSerif(
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodySmall
@@ -464,7 +464,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.poppins(
+                                    font: GoogleFonts.robotoSerif(
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -504,7 +504,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                             'Wszystkie reklamacje',
                             style:
                                 FlutterFlowTheme.of(context).bodySmall.override(
-                                      font: GoogleFonts.poppins(
+                                      font: GoogleFonts.robotoSerif(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodySmall

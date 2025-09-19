@@ -27,6 +27,8 @@ class ChatWiadomociModel extends FlutterFlowModel<ChatWiadomociWidget> {
 
   bool isLoading = true;
 
+  bool isOfferCardExpanded = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (getThreadMessages)] action in ChatWiadomoci widget.
