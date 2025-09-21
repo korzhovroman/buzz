@@ -103,7 +103,7 @@ class _PermissionSwitchTileWidgetState
             r'''$.allegro_login''',
           ).toString(),
           style: FlutterFlowTheme.of(context).titleLarge.override(
-                font: GoogleFonts.robotoSerif(
+                font: GoogleFonts.notoSans(
                   fontWeight:
                       FlutterFlowTheme.of(context).titleLarge.fontWeight,
                   fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,

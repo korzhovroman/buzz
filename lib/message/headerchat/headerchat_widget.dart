@@ -86,7 +86,7 @@ class _HeaderchatWidgetState extends State<HeaderchatWidget> {
                     'login',
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.robotoSerif(
+                        font: GoogleFonts.notoSans(
                           fontWeight: FontWeight.w600,
                           fontStyle:
                               FlutterFlowTheme.of(context).bodyMedium.fontStyle,
@@ -127,7 +127,7 @@ class _HeaderchatWidgetState extends State<HeaderchatWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -170,7 +170,7 @@ class _HeaderchatWidgetState extends State<HeaderchatWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FontWeight.w600,
                                       fontStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium

@@ -77,7 +77,7 @@ class _AllegroAccountsListWidgetState extends State<AllegroAccountsListWidget> {
                     child: Text(
                       'Moje konta',
                       style: FlutterFlowTheme.of(context).titleMedium.override(
-                            font: GoogleFonts.robotoSerif(
+                            font: GoogleFonts.notoSans(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .fontWeight,

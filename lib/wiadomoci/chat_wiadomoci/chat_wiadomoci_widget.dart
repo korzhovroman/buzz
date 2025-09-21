@@ -444,6 +444,26 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                     updateCallback: () => safeSetState(() {}),
                     child: SendmessageWidget(
                       accountid: widget.accountId!,
+                      threadId: widget.threadId!,
+                      onSendTapped: () async {
+                        _model.apiResultGETMessag2 =
+                            await ConversationsGroup.getThreadMessagesCall.call(
+                          accountId: widget.accountId,
+                          threadId: widget.threadId,
+                          authToken: FFAppState().authToken,
+                        );
+
+                        _model.messagesList = getJsonField(
+                          (_model.apiResultGETMessag2?.jsonBody ?? ''),
+                          r'''$.data.messages''',
+                          true,
+                        )!
+                            .toList()
+                            .cast<dynamic>();
+                        safeSetState(() {});
+
+                        safeSetState(() {});
+                      },
                     ),
                   ),
                 ),

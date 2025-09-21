@@ -49,6 +49,8 @@ class ChatWiadomociModel extends FlutterFlowModel<ChatWiadomociWidget> {
   late FlutterFlowDynamicModels<MessageitemModel> messageitemModels;
   // Model for sendmessage component.
   late SendmessageModel sendmessageModel;
+  // Stores action output result for [Backend Call - API (getThreadMessages)] action in sendmessage widget.
+  ApiCallResponse? apiResultGETMessag2;
 
   @override
   void initState(BuildContext context) {

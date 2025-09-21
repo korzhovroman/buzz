@@ -113,7 +113,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                           'Zaproś pracownika',
                           style:
                               FlutterFlowTheme.of(context).titleSmall.override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .fontWeight,
@@ -155,7 +155,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -174,7 +174,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -225,7 +225,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
@@ -275,7 +275,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -294,7 +294,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .fontWeight,
@@ -345,7 +345,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .fontWeight,
@@ -438,7 +438,7 @@ class _InviteMemberDialogWidgetState extends State<InviteMemberDialogWidget> {
                             textStyle: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodySmall
                                         .fontWeight,

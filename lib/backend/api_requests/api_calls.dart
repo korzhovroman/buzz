@@ -652,6 +652,7 @@ class PostMessageCall {
     int? accountId,
     String? threadId = '',
     String? messageText = '',
+    String? attachmentId = '',
     String? authToken = '',
   }) async {
     final baseUrl = ConversationsGroup.getBaseUrl(
@@ -696,8 +697,8 @@ class DeclareAttachmentCall {
 
     final ffApiRequestBody = '''
 {
-  "file_name": "${escapeStringForJson(fileName)}",
-  "file_size": ${fileSize}
+  "filename": "${escapeStringForJson(fileName)}",
+  "size": "${fileSize}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'declareAttachment',
@@ -718,15 +719,6 @@ class DeclareAttachmentCall {
       alwaysAllowBody: false,
     );
   }
-
-  dynamic attachmentId(dynamic response) => getJsonField(
-        response,
-        r'''$.data.id''',
-      );
-  dynamic uploadUrl(dynamic response) => getJsonField(
-        response,
-        r'''$.data.uploadUrl''',
-      );
 }
 
 class GetOrderDetailsCall {

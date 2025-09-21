@@ -103,7 +103,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleLarge
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleLarge
                                         .fontWeight,
@@ -130,7 +130,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                           maxLines: 3,
                           style:
                               FlutterFlowTheme.of(context).titleLarge.override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .titleLarge
                                           .fontWeight,
@@ -163,7 +163,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight: FontWeight.normal,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -187,7 +187,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -215,7 +215,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight: FontWeight.w600,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -235,7 +235,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.robotoSerif(
+                                        font: GoogleFonts.notoSans(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -267,7 +267,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.robotoSerif(
+                                              font: GoogleFonts.notoSans(
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
@@ -291,7 +291,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.robotoSerif(
+                                              font: GoogleFonts.notoSans(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
@@ -311,7 +311,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.robotoSerif(
+                                          font: GoogleFonts.notoSans(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -352,7 +352,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -382,7 +382,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight: FontWeight.bold,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
@@ -402,7 +402,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.robotoSerif(
+                                        font: GoogleFonts.notoSans(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .bodyMedium
@@ -434,7 +434,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.robotoSerif(
+                                              font: GoogleFonts.notoSans(
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -464,7 +464,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              font: GoogleFonts.robotoSerif(
+                                              font: GoogleFonts.notoSans(
                                                 fontWeight: FontWeight.bold,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
@@ -484,7 +484,7 @@ class _OrderCardWidgetState extends State<OrderCardWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.robotoSerif(
+                                          font: GoogleFonts.notoSans(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium

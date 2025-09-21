@@ -139,7 +139,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .titleLarge
                                               .override(
-                                                font: GoogleFonts.robotoSerif(
+                                                font: GoogleFonts.notoSans(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -171,7 +171,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                font: GoogleFonts.robotoSerif(
+                                                font: GoogleFonts.notoSans(
                                                   fontWeight: FontWeight.bold,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
@@ -195,7 +195,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .headlineSmall
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -266,7 +266,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                 style: FlutterFlowTheme.of(context)
                                     .displaySmall
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .fontWeight,
@@ -292,7 +292,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .labelMedium
                                       .override(
-                                        font: GoogleFonts.robotoSerif(
+                                        font: GoogleFonts.notoSans(
                                           fontWeight:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium
@@ -330,7 +330,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .labelLarge
@@ -393,7 +393,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          font: GoogleFonts.robotoSerif(
+                                          font: GoogleFonts.notoSans(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyLarge
@@ -482,7 +482,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget>
                                     textStyle: FlutterFlowTheme.of(context)
                                         .titleSmall
                                         .override(
-                                          font: GoogleFonts.robotoSerif(
+                                          font: GoogleFonts.notoSans(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall

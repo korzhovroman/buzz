@@ -20,6 +20,10 @@ class SendmessageModel extends FlutterFlowModel<SendmessageWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - API (postMessage)] action in send widget.
+  ApiCallResponse? apiResultpost;
+  // Stores action output result for [Backend Call - API (postMessage)] action in send widget.
+  ApiCallResponse? apiResultpost2;
 
   @override
   void initState(BuildContext context) {}

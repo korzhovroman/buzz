@@ -95,7 +95,7 @@ class _IsSubscriptionNotactivWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
@@ -113,7 +113,7 @@ class _IsSubscriptionNotactivWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FontStyle.italic,
                                       ),
@@ -126,7 +126,7 @@ class _IsSubscriptionNotactivWidgetState
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,

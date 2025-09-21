@@ -110,7 +110,7 @@ bool? isPermissionListEmpty(dynamic apiResponse) {
   return true;
 }
 
-String? getFileName(FFUploadedFile uploadedFile) {
+String getFileName(FFUploadedFile uploadedFile) {
   {
     return uploadedFile?.name ?? '';
   }

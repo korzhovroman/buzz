@@ -88,7 +88,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FontWeight.bold,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -104,7 +104,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                           )
                         ],
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.robotoSerif(
+                              font: GoogleFonts.notoSans(
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .fontWeight,
@@ -132,7 +132,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                         'yMMMd',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.robotoSerif(
+                            font: GoogleFonts.notoSans(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
@@ -219,7 +219,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        font: GoogleFonts.robotoSerif(
+                                        font: GoogleFonts.notoSans(
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
@@ -265,7 +265,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                         'konto',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.robotoSerif(
+                            font: GoogleFonts.notoSans(
                               fontWeight: FontWeight.bold,
                               fontStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -289,7 +289,7 @@ class _LastmessageItemWidgetState extends State<LastmessageItemWidget> {
                         'pracownik',
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.robotoSerif(
+                            font: GoogleFonts.notoSans(
                               fontWeight: FontWeight.bold,
                               fontStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium

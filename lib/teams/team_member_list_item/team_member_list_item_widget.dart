@@ -75,7 +75,7 @@ class _TeamMemberListItemWidgetState extends State<TeamMemberListItemWidget> {
                       r'''$.name''',
                     ).toString(),
                     style: FlutterFlowTheme.of(context).titleSmall.override(
-                          font: GoogleFonts.robotoSerif(
+                          font: GoogleFonts.notoSans(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .fontWeight,
@@ -103,7 +103,7 @@ class _TeamMemberListItemWidgetState extends State<TeamMemberListItemWidget> {
                   ).toString(),
                   textAlign: TextAlign.start,
                   style: FlutterFlowTheme.of(context).titleSmall.override(
-                        font: GoogleFonts.robotoSerif(
+                        font: GoogleFonts.notoSans(
                           fontWeight: FlutterFlowTheme.of(context)
                               .titleSmall
                               .fontWeight,

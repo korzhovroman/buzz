@@ -70,7 +70,7 @@ class _TeamMemberListWidgetState extends State<TeamMemberListWidget> {
                   child: Text(
                     'Lista pracowników',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
-                          font: GoogleFonts.robotoSerif(
+                          font: GoogleFonts.notoSans(
                             fontWeight: FlutterFlowTheme.of(context)
                                 .titleMedium
                                 .fontWeight,

@@ -189,107 +189,107 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Roboto Serif';
+  String get displayLargeFamily => 'Noto Sans';
   bool get displayLargeIsCustom => false;
-  TextStyle get displayLarge => GoogleFonts.robotoSerif(
+  TextStyle get displayLarge => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Roboto Serif';
+  String get displayMediumFamily => 'Noto Sans';
   bool get displayMediumIsCustom => false;
-  TextStyle get displayMedium => GoogleFonts.robotoSerif(
+  TextStyle get displayMedium => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Roboto Serif';
+  String get displaySmallFamily => 'Noto Sans';
   bool get displaySmallIsCustom => false;
-  TextStyle get displaySmall => GoogleFonts.robotoSerif(
+  TextStyle get displaySmall => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Roboto Serif';
+  String get headlineLargeFamily => 'Noto Sans';
   bool get headlineLargeIsCustom => false;
-  TextStyle get headlineLarge => GoogleFonts.robotoSerif(
+  TextStyle get headlineLarge => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Roboto Serif';
+  String get headlineMediumFamily => 'Noto Sans';
   bool get headlineMediumIsCustom => false;
-  TextStyle get headlineMedium => GoogleFonts.robotoSerif(
+  TextStyle get headlineMedium => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
-  String get headlineSmallFamily => 'Roboto Serif';
+  String get headlineSmallFamily => 'Noto Sans';
   bool get headlineSmallIsCustom => false;
-  TextStyle get headlineSmall => GoogleFonts.robotoSerif(
+  TextStyle get headlineSmall => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 24.0,
       );
-  String get titleLargeFamily => 'Roboto Serif';
+  String get titleLargeFamily => 'Noto Sans';
   bool get titleLargeIsCustom => false;
-  TextStyle get titleLarge => GoogleFonts.robotoSerif(
+  TextStyle get titleLarge => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20.0,
       );
-  String get titleMediumFamily => 'Roboto Serif';
+  String get titleMediumFamily => 'Noto Sans';
   bool get titleMediumIsCustom => false;
-  TextStyle get titleMedium => GoogleFonts.robotoSerif(
+  TextStyle get titleMedium => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Roboto Serif';
+  String get titleSmallFamily => 'Noto Sans';
   bool get titleSmallIsCustom => false;
-  TextStyle get titleSmall => GoogleFonts.robotoSerif(
+  TextStyle get titleSmall => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Roboto Serif';
+  String get labelLargeFamily => 'Noto Sans';
   bool get labelLargeIsCustom => false;
-  TextStyle get labelLarge => GoogleFonts.robotoSerif(
+  TextStyle get labelLarge => GoogleFonts.notoSans(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Roboto Serif';
+  String get labelMediumFamily => 'Noto Sans';
   bool get labelMediumIsCustom => false;
-  TextStyle get labelMedium => GoogleFonts.robotoSerif(
+  TextStyle get labelMedium => GoogleFonts.notoSans(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get labelSmallFamily => 'Roboto Serif';
+  String get labelSmallFamily => 'Noto Sans';
   bool get labelSmallIsCustom => false;
-  TextStyle get labelSmall => GoogleFonts.robotoSerif(
+  TextStyle get labelSmall => GoogleFonts.notoSans(
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Roboto Serif';
+  String get bodyLargeFamily => 'Noto Sans';
   bool get bodyLargeIsCustom => false;
-  TextStyle get bodyLarge => GoogleFonts.robotoSerif(
+  TextStyle get bodyLarge => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Roboto Serif';
+  String get bodyMediumFamily => 'Noto Sans';
   bool get bodyMediumIsCustom => false;
-  TextStyle get bodyMedium => GoogleFonts.robotoSerif(
+  TextStyle get bodyMedium => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Roboto Serif';
+  String get bodySmallFamily => 'Noto Sans';
   bool get bodySmallIsCustom => false;
-  TextStyle get bodySmall => GoogleFonts.robotoSerif(
+  TextStyle get bodySmall => GoogleFonts.notoSans(
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,

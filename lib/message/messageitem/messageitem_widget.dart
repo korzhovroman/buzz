@@ -1,11 +1,7 @@
-import '/backend/custom_cloud_functions/custom_cloud_function_response_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'messageitem_model.dart';
 export 'messageitem_model.dart';
 
@@ -59,8 +55,6 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       decoration: BoxDecoration(),
       child: Stack(
@@ -78,7 +72,17 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                     child: Container(
                       width: 300.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
+                        color: FlutterFlowTheme.of(context).accent4,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4.0,
+                            color: Color(0x33000000),
+                            offset: Offset(
+                              0.0,
+                              2.0,
+                            ),
+                          )
+                        ],
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
@@ -150,62 +154,10 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      if (isWeb) {
-                                        try {
-                                          final result = await FirebaseFunctions
-                                                  .instanceFor(
-                                                      region: 'europe-west1')
-                                              .httpsCallable('fileProxy')
-                                              .call({
-                                            "fileUrl": widget.attachmentUrl,
-                                            "authToken": FFAppState().authToken,
-                                          });
-                                          _model.cloudFunctionq1 =
-                                              FileProxyCloudFunctionCallResponse(
-                                            succeeded: true,
-                                          );
-                                        } on FirebaseFunctionsException catch (error) {
-                                          _model.cloudFunctionq1 =
-                                              FileProxyCloudFunctionCallResponse(
-                                            errorCode: error.code,
-                                            succeeded: false,
-                                          );
-                                        }
-
-                                        await actions.triggerBrowserDownload(
-                                          getJsonField(
-                                            _model.cloudFunctionq1?.jsonBody,
-                                            r'''$.fileContents''',
-                                          ).toString(),
-                                          widget.attachmentFileName,
-                                          getJsonField(
-                                            _model.cloudFunctionq1?.jsonBody,
-                                            r'''$.contentType''',
-                                          ).toString(),
-                                        );
-                                      } else {
-                                        _model.localFilePath = await actions
-                                            .downloadAuthenticatedFile(
-                                          widget.attachmentUrl,
-                                          FFAppState().authToken,
-                                        );
-                                        await launchURL(_model.localFilePath!);
-                                      }
-
-                                      safeSetState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.image_search,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 24.0,
-                                    ),
+                                  Icon(
+                                    Icons.image_search,
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 24.0,
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -218,7 +170,7 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -266,7 +218,17 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                     child: Container(
                       width: 300.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).accent4,
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4.0,
+                            color: Color(0x33000000),
+                            offset: Offset(
+                              0.0,
+                              2.0,
+                            ),
+                          )
+                        ],
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
@@ -339,7 +301,7 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
-                                          font: GoogleFonts.robotoSerif(
+                                          font: GoogleFonts.notoSans(
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -373,62 +335,10 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      if (isWeb) {
-                                        try {
-                                          final result = await FirebaseFunctions
-                                                  .instanceFor(
-                                                      region: 'europe-west1')
-                                              .httpsCallable('fileProxy')
-                                              .call({
-                                            "fileUrl": widget.attachmentUrl,
-                                            "authToken": FFAppState().authToken,
-                                          });
-                                          _model.cloudFunctionq =
-                                              FileProxyCloudFunctionCallResponse(
-                                            succeeded: true,
-                                          );
-                                        } on FirebaseFunctionsException catch (error) {
-                                          _model.cloudFunctionq =
-                                              FileProxyCloudFunctionCallResponse(
-                                            errorCode: error.code,
-                                            succeeded: false,
-                                          );
-                                        }
-
-                                        await actions.triggerBrowserDownload(
-                                          getJsonField(
-                                            _model.cloudFunctionq?.jsonBody,
-                                            r'''$.fileContents''',
-                                          ).toString(),
-                                          widget.attachmentFileName,
-                                          getJsonField(
-                                            _model.cloudFunctionq?.jsonBody,
-                                            r'''$.contentType''',
-                                          ).toString(),
-                                        );
-                                      } else {
-                                        _model.localFilePath1 = await actions
-                                            .downloadAuthenticatedFile(
-                                          widget.attachmentUrl,
-                                          FFAppState().authToken,
-                                        );
-                                        await launchURL(_model.localFilePath1!);
-                                      }
-
-                                      safeSetState(() {});
-                                    },
-                                    child: Icon(
-                                      Icons.image_search,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 24.0,
-                                    ),
+                                  Icon(
+                                    Icons.image_search,
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 24.0,
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -441,7 +351,7 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            font: GoogleFonts.robotoSerif(
+                                            font: GoogleFonts.notoSans(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

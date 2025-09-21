@@ -94,7 +94,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
@@ -113,7 +113,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      font: GoogleFonts.robotoSerif(
+                                      font: GoogleFonts.notoSans(
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FontStyle.italic,
                                       ),
@@ -126,7 +126,7 @@ class _PaymentSuccessWidgetState extends State<PaymentSuccessWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,

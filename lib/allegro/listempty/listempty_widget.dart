@@ -66,7 +66,7 @@ class _ListemptyWidgetState extends State<ListemptyWidget> {
                     'Nie znaleziono połączonych kont',
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          font: GoogleFonts.robotoSerif(
+                          font: GoogleFonts.notoSans(
                             fontWeight: FontWeight.w600,
                             fontStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium

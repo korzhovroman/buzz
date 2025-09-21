@@ -14,9 +14,13 @@ class SendmessageWidget extends StatefulWidget {
   const SendmessageWidget({
     super.key,
     required this.accountid,
+    required this.onSendTapped,
+    required this.threadId,
   });
 
   final int? accountid;
+  final Future Function()? onSendTapped;
+  final String? threadId;
 
   @override
   State<SendmessageWidget> createState() => _SendmessageWidgetState();
@@ -121,6 +125,11 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           }
                         }
 
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 600,
+                          ),
+                        );
                         _model.apiResultDeclareFile =
                             await ConversationsGroup.declareAttachmentCall.call(
                           accountId: widget.accountid,
@@ -139,7 +148,9 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           FFAppState().authToken,
                           _model.uploadedLocalFile_uploadFILE,
                         );
-                        _model.uploadfile = _model.uploadfile;
+                        _model.uploadfile =
+                            (_model.apiResultDeclareFile?.jsonBody ?? '')
+                                .toString();
                         safeSetState(() {});
 
                         safeSetState(() {});
@@ -194,7 +205,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -215,7 +226,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  font: GoogleFonts.robotoSerif(
+                                  font: GoogleFonts.notoSans(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .fontWeight,
@@ -267,7 +278,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           ),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.robotoSerif(
+                                    font: GoogleFonts.notoSans(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -292,19 +303,55 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                         ),
                       ),
                     ),
-                    Container(
-                      width: 40.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Icon(
-                          Icons.send_rounded,
-                          color: Colors.white,
-                          size: 24.0,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        if (_model.uploadfile != null &&
+                            _model.uploadfile != '') {
+                          _model.apiResultpost =
+                              await ConversationsGroup.postMessageCall.call(
+                            accountId: widget.accountid,
+                            threadId: widget.threadId,
+                            authToken: FFAppState().authToken,
+                            messageText: _model.textController.text,
+                            attachmentId: _model.uploadfile,
+                          );
+                        } else {
+                          _model.apiResultpost2 =
+                              await ConversationsGroup.postMessageCall.call(
+                            accountId: widget.accountid,
+                            threadId: widget.threadId,
+                            authToken: FFAppState().authToken,
+                            messageText: _model.textController.text,
+                          );
+                        }
+
+                        _model.uploadfile = null;
+                        safeSetState(() {});
+                        safeSetState(() {
+                          _model.textController?.clear();
+                        });
+                        await widget.onSendTapped?.call();
+
+                        safeSetState(() {});
+                      },
+                      child: Container(
+                        width: 40.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Icon(
+                            Icons.send_rounded,
+                            color: Colors.white,
+                            size: 24.0,
+                          ),
                         ),
                       ),
                     ),
@@ -324,7 +371,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                       ),
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.robotoSerif(
+                            font: GoogleFonts.notoSans(
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
