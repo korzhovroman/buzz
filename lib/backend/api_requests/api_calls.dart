@@ -550,6 +550,8 @@ class ConversationsGroup {
   static DeclareAttachmentCall declareAttachmentCall = DeclareAttachmentCall();
   static GetOrderDetailsCall getOrderDetailsCall = GetOrderDetailsCall();
   static GetOfferDetailsCall getOfferDetailsCall = GetOfferDetailsCall();
+  static UploadFileToAllegroCall uploadFileToAllegroCall =
+      UploadFileToAllegroCall();
 }
 
 class GetSummaryCall {
@@ -661,7 +663,8 @@ class PostMessageCall {
 
     final ffApiRequestBody = '''
 {
-  "text": "${escapeStringForJson(messageText)}"
+  "text": "${escapeStringForJson(messageText)}",
+  "attachment_id": "${escapeStringForJson(attachmentId)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'postMessage',
@@ -773,6 +776,38 @@ class GetOfferDetailsCall {
       params: {
         'allegro_account_id': allegroAccountId,
       },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UploadFileToAllegroCall {
+  Future<ApiCallResponse> call({
+    String? allegroAccountId = '',
+    FFUploadedFile? file,
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'uploadFileToAllegro',
+      apiUrl: '${baseUrl}/allegro/${allegroAccountId}/attachments/upload',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'file': file,
+      },
+      bodyType: BodyType.MULTIPART,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 class SendmessageModel extends FlutterFlowModel<SendmessageWidget> {
   ///  Local state fields for this component.
 
-  String? uploadfile;
+  String? attachmentId;
+
+  bool? hasAttachment = false;
 
   ///  State fields for stateful widgets in this component.
 
@@ -14,8 +16,8 @@ class SendmessageModel extends FlutterFlowModel<SendmessageWidget> {
   FFUploadedFile uploadedLocalFile_uploadFILE =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
-  // Stores action output result for [Backend Call - API (declareAttachment)] action in file widget.
-  ApiCallResponse? apiResultDeclareFile;
+  // Stores action output result for [Backend Call - API (uploadFileToAllegro)] action in file widget.
+  ApiCallResponse? apiResultFile;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

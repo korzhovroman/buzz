@@ -100,7 +100,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                           Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 60.0, 0.0, 0.0),
+                                  0.0, 30.0, 0.0, 0.0),
                               child: Container(
                                 width: 350.0,
                                 decoration: BoxDecoration(),
@@ -325,6 +325,10 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                             _model.selectedThreadId != '') {
                                           return Container(
                                             decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [],
+                                            ),
                                           );
                                         } else {
                                           return Container(

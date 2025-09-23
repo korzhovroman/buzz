@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -125,33 +124,42 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           }
                         }
 
-                        await Future.delayed(
-                          Duration(
-                            milliseconds: 600,
-                          ),
-                        );
-                        _model.apiResultDeclareFile =
-                            await ConversationsGroup.declareAttachmentCall.call(
-                          accountId: widget.accountid,
+                        _model.apiResultFile = await ConversationsGroup
+                            .uploadFileToAllegroCall
+                            .call(
+                          allegroAccountId: widget.accountid?.toString(),
                           authToken: FFAppState().authToken,
-                          fileName: functions
-                              .getFileName(_model.uploadedLocalFile_uploadFILE),
-                          fileSize: functions
-                              .getFileSize(_model.uploadedLocalFile_uploadFILE),
+                          file: _model.uploadedLocalFile_uploadFILE,
                         );
 
-                        await actions.uploadFileToUrl(
-                          getJsonField(
-                            (_model.apiResultDeclareFile?.jsonBody ?? ''),
-                            r'''$.data.uploadUrl''',
-                          ).toString(),
-                          FFAppState().authToken,
-                          _model.uploadedLocalFile_uploadFILE,
+                        await Future.delayed(
+                          Duration(
+                            milliseconds: 2000,
+                          ),
                         );
-                        _model.uploadfile =
-                            (_model.apiResultDeclareFile?.jsonBody ?? '')
-                                .toString();
-                        safeSetState(() {});
+                        if ((_model.apiResultFile?.succeeded ?? true)) {
+                          _model.attachmentId = getJsonField(
+                            (_model.apiResultFile?.jsonBody ?? ''),
+                            r'''$.data.attachment_id''',
+                          ).toString();
+                          _model.hasAttachment = true;
+                          safeSetState(() {});
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                (_model.apiResultFile?.exceptionMessage ?? ''),
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 4000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                        }
 
                         safeSetState(() {});
                       },
@@ -166,8 +174,8 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           children: [
                             Builder(
                               builder: (context) {
-                                if (_model.uploadfile != null &&
-                                    _model.uploadfile != '') {
+                                if (_model.attachmentId != null &&
+                                    _model.attachmentId != '') {
                                   return Align(
                                     alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Icon(
@@ -309,15 +317,16 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        if (_model.uploadfile != null &&
-                            _model.uploadfile != '') {
+                        if ((_model.attachmentId != null &&
+                                _model.attachmentId != '') &&
+                            (_model.hasAttachment == true)) {
                           _model.apiResultpost =
                               await ConversationsGroup.postMessageCall.call(
                             accountId: widget.accountid,
                             threadId: widget.threadId,
                             authToken: FFAppState().authToken,
                             messageText: _model.textController.text,
-                            attachmentId: _model.uploadfile,
+                            attachmentId: _model.attachmentId,
                           );
                         } else {
                           _model.apiResultpost2 =
@@ -329,7 +338,7 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                           );
                         }
 
-                        _model.uploadfile = null;
+                        _model.attachmentId = null;
                         safeSetState(() {});
                         safeSetState(() {
                           _model.textController?.clear();

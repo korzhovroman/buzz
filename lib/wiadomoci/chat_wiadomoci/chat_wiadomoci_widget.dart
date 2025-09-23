@@ -417,6 +417,8 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                     chatsitemItem,
                                                     r'''$.attachments''',
                                                   ).toString(),
+                                                  allegroAccountId:
+                                                      widget.accountId!,
                                                 ),
                                               );
                                             },
