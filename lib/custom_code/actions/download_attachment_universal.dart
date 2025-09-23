@@ -11,8 +11,7 @@ import 'package:flutter/material.dart';
 
 // Custom Action: downloadAttachmentUniversal
 // Parameters:
-// - attachmentId (String) - ID вложения
-// - attachmentUrl (String) - URL файла (для мобильных)
+// - attachmentUrl (String) - URL файла
 // - fileName (String) - имя файла
 // - authToken (String) - токен авторизации
 // - allegroAccountId (int) - ID аккаунта Allegro
@@ -23,7 +22,7 @@ import 'dart:io' show Platform, Directory, File;
 import 'dart:typed_data';
 
 // Импорты для веб
-import 'dart:html' as html show window;
+import 'dart:html' as html show window, document, AnchorElement, Url;
 
 // Импорты для мобильных (только если не веб)
 import 'package:path_provider/path_provider.dart';

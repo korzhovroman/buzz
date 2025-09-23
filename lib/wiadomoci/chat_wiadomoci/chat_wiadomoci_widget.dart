@@ -410,9 +410,18 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                     r'''$.attachments[0].fileName''',
                                                   ).toString(),
                                                   authorName: getJsonField(
-                                                    chatsitemItem,
-                                                    r'''$.author.login''',
-                                                  ).toString(),
+                                                            chatsitemItem,
+                                                            r'''$.authorName''',
+                                                          ) !=
+                                                          null
+                                                      ? getJsonField(
+                                                          chatsitemItem,
+                                                          r'''$.authorName''',
+                                                        ).toString()
+                                                      : getJsonField(
+                                                          chatsitemItem,
+                                                          r'''$.author.login''',
+                                                        ).toString(),
                                                   attachments: getJsonField(
                                                     chatsitemItem,
                                                     r'''$.attachments''',

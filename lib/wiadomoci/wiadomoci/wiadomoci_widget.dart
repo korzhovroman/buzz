@@ -4,7 +4,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/menu/appbar_driwer/appbar_driwer_widget.dart';
 import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
+import '/message/headerchat/headerchat_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
+import '/message/offer_card/offer_card_widget.dart';
+import '/message/order_card/order_card_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -314,28 +317,213 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                               direction: Axis.vertical,
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 60.0, 24.0, 0.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(),
-                                    child: Builder(
-                                      builder: (context) {
-                                        if (_model.selectedThreadId != null &&
-                                            _model.selectedThreadId != '') {
-                                          return Container(
-                                            decoration: BoxDecoration(),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [],
-                                            ),
-                                          );
-                                        } else {
-                                          return Container(
-                                            decoration: BoxDecoration(),
-                                          );
-                                        }
-                                      },
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 30.0, 24.0, 0.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(),
+                                      child: Builder(
+                                        builder: (context) {
+                                          if (_model.selectedThreadId != null &&
+                                              _model.selectedThreadId != '') {
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 4.0, 0.0, 0.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    wrapWithModel(
+                                                      model: _model
+                                                          .headerchatModel,
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      child: HeaderchatWidget(
+                                                        avatar: _model
+                                                            .selectedThreadAvatar!,
+                                                        loginkupuecego: _model
+                                                            .selectedThreadLogin!,
+                                                        isOfferCardExpanded: _model
+                                                            .isOfferCardExpanded,
+                                                        isOfferCardShow: _model
+                                                            .firstMessage
+                                                            ?.toString(),
+                                                        rozwin: () async {
+                                                          _model.isOfferCardExpanded =
+                                                              true;
+                                                          safeSetState(() {});
+                                                          safeSetState(() {});
+                                                        },
+                                                        ukryj: () async {
+                                                          _model.isOfferCardExpanded =
+                                                              false;
+                                                          safeSetState(() {});
+                                                          safeSetState(() {});
+                                                        },
+                                                      ),
+                                                    ),
+                                                    if (_model.firstMessage !=
+                                                        null)
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            if (getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.data.sellingMode''',
+                                                                ) !=
+                                                                null) {
+                                                              return Visibility(
+                                                                visible: _model
+                                                                        .isOfferCardExpanded ==
+                                                                    true,
+                                                                child:
+                                                                    Container(
+                                                                  height: 150.0,
+                                                                  decoration:
+                                                                      BoxDecoration(),
+                                                                  child:
+                                                                      wrapWithModel(
+                                                                    model: _model
+                                                                        .offerCardModel,
+                                                                    updateCallback: () =>
+                                                                        safeSetState(
+                                                                            () {}),
+                                                                    child:
+                                                                        OfferCardWidget(
+                                                                      offerName:
+                                                                          getJsonField(
+                                                                        _model
+                                                                            .firstMessage,
+                                                                        r'''$.data.name''',
+                                                                      ).toString(),
+                                                                      cena:
+                                                                          getJsonField(
+                                                                        _model
+                                                                            .firstMessage,
+                                                                        r'''$.data.sellingMode.price.amount''',
+                                                                      ).toString(),
+                                                                      valuta:
+                                                                          getJsonField(
+                                                                        _model
+                                                                            .firstMessage,
+                                                                        r'''$.data.sellingMode.price.currency''',
+                                                                      ).toString(),
+                                                                      rynek:
+                                                                          getJsonField(
+                                                                        _model
+                                                                            .firstMessage,
+                                                                        r'''$.data.publication.marketplaces.base.id''',
+                                                                      ).toString(),
+                                                                      image:
+                                                                          getJsonField(
+                                                                        _model
+                                                                            .firstMessage,
+                                                                        r'''$.data.primaryImage.url''',
+                                                                      ).toString(),
+                                                                      offertaURL:
+                                                                          () async {
+                                                                        await launchURL(functions.buildOfferUrl(
+                                                                            getJsonField(
+                                                                              _model.firstMessage,
+                                                                              r'''$.data.publication.marketplaces.base.id''',
+                                                                            ).toString(),
+                                                                            getJsonField(
+                                                                              _model.firstMessage,
+                                                                              r'''$.data.id''',
+                                                                            ).toString())!);
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            } else if (getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.data.buyer''',
+                                                                ) !=
+                                                                null) {
+                                                              return Visibility(
+                                                                visible: _model
+                                                                        .isOfferCardExpanded ==
+                                                                    true,
+                                                                child:
+                                                                    wrapWithModel(
+                                                                  model: _model
+                                                                      .orderCardModel,
+                                                                  updateCallback: () =>
+                                                                      safeSetState(
+                                                                          () {}),
+                                                                  child:
+                                                                      OrderCardWidget(
+                                                                    nameOrder:
+                                                                        getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.lineItems[0].offer.name''',
+                                                                    ).toString(),
+                                                                    cena:
+                                                                        getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.summary.totalToPay.amount''',
+                                                                    ).toString(),
+                                                                    valuta:
+                                                                        getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.summary.totalToPay.currency''',
+                                                                    ).toString(),
+                                                                    data: functions
+                                                                        .formatDateString(
+                                                                            getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.lineItems[0].boughtAt''',
+                                                                    ).toString()),
+                                                                    rynek:
+                                                                        getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.marketplace.id''',
+                                                                    ).toString(),
+                                                                    status: functions
+                                                                        .translateStatusToPolish(
+                                                                            getJsonField(
+                                                                      _model
+                                                                          .firstMessage,
+                                                                      r'''$.data.fulfillment.status''',
+                                                                    ).toString()),
+                                                                    orderURL:
+                                                                        () async {},
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            } else {
+                                                              return Container(
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                              );
+                                                            }
+                                                          },
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            return Container(
+                                              decoration: BoxDecoration(),
+                                            );
+                                          }
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),

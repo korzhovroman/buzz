@@ -3,7 +3,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/menu/appbar_driwer/appbar_driwer_widget.dart';
 import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
+import '/message/headerchat/headerchat_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
+import '/message/offer_card/offer_card_widget.dart';
+import '/message/order_card/order_card_widget.dart';
 import '/index.dart';
 import 'wiadomoci_widget.dart' show WiadomociWidget;
 import 'package:flutter/material.dart';
@@ -35,6 +38,8 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   dynamic firstMessage;
 
+  bool isOfferCardExpanded = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for SideNavWeb component.
@@ -48,6 +53,12 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels1;
   // Stores action output result for [Backend Call - API (getThreadMessages)] action in lastmessageItem widget.
   ApiCallResponse? apiResultGETMessage;
+  // Model for headerchat component.
+  late HeaderchatModel headerchatModel;
+  // Model for OfferCard component.
+  late OfferCardModel offerCardModel;
+  // Model for OrderCard component.
+  late OrderCardModel orderCardModel;
   // Model for appbarDriwer component.
   late AppbarDriwerModel appbarDriwerModel;
   // State field(s) for ListView widget.
@@ -65,6 +76,9 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     sideNavWebModel = createModel(context, () => SideNavWebModel());
     lastmessageItemModels1 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
+    headerchatModel = createModel(context, () => HeaderchatModel());
+    offerCardModel = createModel(context, () => OfferCardModel());
+    orderCardModel = createModel(context, () => OrderCardModel());
     appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     lastmessageItemModels2 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
@@ -76,6 +90,9 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     sideNavWebModel.dispose();
     listViewPagingController1?.dispose();
     lastmessageItemModels1.dispose();
+    headerchatModel.dispose();
+    offerCardModel.dispose();
+    orderCardModel.dispose();
     appbarDriwerModel.dispose();
     listViewPagingController2?.dispose();
     lastmessageItemModels2.dispose();

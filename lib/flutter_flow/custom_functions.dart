@@ -244,7 +244,10 @@ String? formatDateStringAnswer(String dateString) {
     return 'Brak';
   }
   try {
-    final DateTime parsedDate = DateTime.parse(dateString);
+    // Простое удаление timezone info
+    String localDateString =
+        dateString.replaceAll(RegExp(r'[+\-]\d{2}:\d{2}$'), '');
+    final DateTime parsedDate = DateTime.parse(localDateString);
     final DateFormat formatter = DateFormat('dd.MM.yyyy HH:mm', 'pl_PL');
     return formatter.format(parsedDate);
   } catch (e) {
