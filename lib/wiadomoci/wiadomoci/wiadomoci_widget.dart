@@ -6,8 +6,10 @@ import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import '/message/headerchat/headerchat_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
+import '/message/messageitem/messageitem_widget.dart';
 import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
+import '/message/sendmessage/sendmessage_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -513,6 +515,189 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                           },
                                                         ),
                                                       ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      14.0,
+                                                                      0.0,
+                                                                      14.0,
+                                                                      4.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                    Container(
+                                                                  decoration:
+                                                                      BoxDecoration(),
+                                                                  child:
+                                                                      Builder(
+                                                                    builder:
+                                                                        (context) {
+                                                                      final chatsitem = _model
+                                                                          .messagesList
+                                                                          .toList();
+
+                                                                      return ListView
+                                                                          .builder(
+                                                                        padding:
+                                                                            EdgeInsets.zero,
+                                                                        reverse:
+                                                                            true,
+                                                                        shrinkWrap:
+                                                                            true,
+                                                                        scrollDirection:
+                                                                            Axis.vertical,
+                                                                        itemCount:
+                                                                            chatsitem.length,
+                                                                        itemBuilder:
+                                                                            (context,
+                                                                                chatsitemIndex) {
+                                                                          final chatsitemItem =
+                                                                              chatsitem[chatsitemIndex];
+                                                                          return wrapWithModel(
+                                                                            model:
+                                                                                _model.messageitemModels.getModel(
+                                                                              getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.id''',
+                                                                              ).toString(),
+                                                                              chatsitemIndex,
+                                                                            ),
+                                                                            updateCallback: () =>
+                                                                                safeSetState(() {}),
+                                                                            child:
+                                                                                MessageitemWidget(
+                                                                              key: Key(
+                                                                                'Key43l_${getJsonField(
+                                                                                  chatsitemItem,
+                                                                                  r'''$.id''',
+                                                                                ).toString()}',
+                                                                              ),
+                                                                              messageText: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.text''',
+                                                                              ).toString(),
+                                                                              messageTime: functions.formatDateStringAnswer(getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.createdAt''',
+                                                                              ).toString())!,
+                                                                              isMyMessage: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.author.isInterlocutor''',
+                                                                              ),
+                                                                              attachmentUrl: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.attachments[0].url''',
+                                                                              ).toString(),
+                                                                              attachmentFileName: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.attachments[0].fileName''',
+                                                                              ).toString(),
+                                                                              authorName: getJsonField(
+                                                                                        chatsitemItem,
+                                                                                        r'''$.authorName''',
+                                                                                      ) !=
+                                                                                      null
+                                                                                  ? getJsonField(
+                                                                                      chatsitemItem,
+                                                                                      r'''$.authorName''',
+                                                                                    ).toString()
+                                                                                  : getJsonField(
+                                                                                      chatsitemItem,
+                                                                                      r'''$.author.login''',
+                                                                                    ).toString(),
+                                                                              attachments: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.attachments''',
+                                                                              ).toString(),
+                                                                              allegroAccountId: widget.accountId!,
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  14.0),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: wrapWithModel(
+                                                          model: _model
+                                                              .sendmessageModel,
+                                                          updateCallback: () =>
+                                                              safeSetState(
+                                                                  () {}),
+                                                          child:
+                                                              SendmessageWidget(
+                                                            accountid: widget
+                                                                .accountId!,
+                                                            threadId: _model
+                                                                .selectedThreadId!,
+                                                            onSendTapped:
+                                                                () async {
+                                                              _model.apiResultGETMessag =
+                                                                  await ConversationsGroup
+                                                                      .getThreadMessagesCall
+                                                                      .call(
+                                                                accountId: widget
+                                                                    .accountId,
+                                                                threadId: _model
+                                                                    .selectedThreadId,
+                                                                authToken:
+                                                                    FFAppState()
+                                                                        .authToken,
+                                                              );
+
+                                                              _model.messagesList =
+                                                                  getJsonField(
+                                                                (_model.apiResultGETMessag
+                                                                        ?.jsonBody ??
+                                                                    ''),
+                                                                r'''$.data.messages''',
+                                                                true,
+                                                              )!
+                                                                      .toList()
+                                                                      .cast<
+                                                                          dynamic>();
+                                                              safeSetState(
+                                                                  () {});
+
+                                                              safeSetState(
+                                                                  () {});
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -569,7 +754,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                           child: PagedListView<ApiPagingParams,
                                               dynamic>(
                                             pagingController:
-                                                _model.setListViewController2(
+                                                _model.setListViewController3(
                                               (nextPageMarker) =>
                                                   ConversationsGroup
                                                       .getAccountThreadsCall
@@ -620,7 +805,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                               itemBuilder:
                                                   (context, _, chatItemIndex) {
                                                 final chatItemItem = _model
-                                                    .listViewPagingController2!
+                                                    .listViewPagingController3!
                                                     .itemList![chatItemIndex];
                                                 return Padding(
                                                   padding: EdgeInsetsDirectional

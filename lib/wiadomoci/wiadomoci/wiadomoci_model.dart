@@ -5,8 +5,10 @@ import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
 import '/message/headerchat/headerchat_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
+import '/message/messageitem/messageitem_widget.dart';
 import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
+import '/message/sendmessage/sendmessage_widget.dart';
 import '/index.dart';
 import 'wiadomoci_widget.dart' show WiadomociWidget;
 import 'package:flutter/material.dart';
@@ -59,12 +61,18 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   late OfferCardModel offerCardModel;
   // Model for OrderCard component.
   late OrderCardModel orderCardModel;
+  // Models for messageitem dynamic component.
+  late FlutterFlowDynamicModels<MessageitemModel> messageitemModels;
+  // Model for sendmessage component.
+  late SendmessageModel sendmessageModel;
+  // Stores action output result for [Backend Call - API (getThreadMessages)] action in sendmessage widget.
+  ApiCallResponse? apiResultGETMessag;
   // Model for appbarDriwer component.
   late AppbarDriwerModel appbarDriwerModel;
   // State field(s) for ListView widget.
 
-  PagingController<ApiPagingParams, dynamic>? listViewPagingController2;
-  Function(ApiPagingParams nextPageMarker)? listViewApiCall2;
+  PagingController<ApiPagingParams, dynamic>? listViewPagingController3;
+  Function(ApiPagingParams nextPageMarker)? listViewApiCall3;
 
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels2;
@@ -79,6 +87,8 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     headerchatModel = createModel(context, () => HeaderchatModel());
     offerCardModel = createModel(context, () => OfferCardModel());
     orderCardModel = createModel(context, () => OrderCardModel());
+    messageitemModels = FlutterFlowDynamicModels(() => MessageitemModel());
+    sendmessageModel = createModel(context, () => SendmessageModel());
     appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     lastmessageItemModels2 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
@@ -93,8 +103,10 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     headerchatModel.dispose();
     offerCardModel.dispose();
     orderCardModel.dispose();
+    messageitemModels.dispose();
+    sendmessageModel.dispose();
     appbarDriwerModel.dispose();
-    listViewPagingController2?.dispose();
+    listViewPagingController3?.dispose();
     lastmessageItemModels2.dispose();
     driwerModel.dispose();
   }
@@ -142,14 +154,14 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
         );
       });
 
-  PagingController<ApiPagingParams, dynamic> setListViewController2(
+  PagingController<ApiPagingParams, dynamic> setListViewController3(
     Function(ApiPagingParams) apiCall,
   ) {
-    listViewApiCall2 = apiCall;
-    return listViewPagingController2 ??= _createListViewController2(apiCall);
+    listViewApiCall3 = apiCall;
+    return listViewPagingController3 ??= _createListViewController3(apiCall);
   }
 
-  PagingController<ApiPagingParams, dynamic> _createListViewController2(
+  PagingController<ApiPagingParams, dynamic> _createListViewController3(
     Function(ApiPagingParams) query,
   ) {
     final controller = PagingController<ApiPagingParams, dynamic>(
@@ -159,11 +171,11 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
         lastResponse: null,
       ),
     );
-    return controller..addPageRequestListener(listViewGetAccountThreadsPage2);
+    return controller..addPageRequestListener(listViewGetAccountThreadsPage3);
   }
 
-  void listViewGetAccountThreadsPage2(ApiPagingParams nextPageMarker) =>
-      listViewApiCall2!(nextPageMarker)
+  void listViewGetAccountThreadsPage3(ApiPagingParams nextPageMarker) =>
+      listViewApiCall3!(nextPageMarker)
           .then((listViewGetAccountThreadsResponse) {
         final pageItems = (getJsonField(
                   listViewGetAccountThreadsResponse.jsonBody,
@@ -172,7 +184,7 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
                 [])
             .toList() as List;
         final newNumItems = nextPageMarker.numItems + pageItems.length;
-        listViewPagingController2?.appendPage(
+        listViewPagingController3?.appendPage(
           pageItems,
           (pageItems.length > 0)
               ? ApiPagingParams(
