@@ -410,6 +410,10 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                     _model.isLoad = false;
                                                     safeSetState(() {});
                                                   } else {
+                                                    if (Navigator.of(context)
+                                                        .canPop()) {
+                                                      context.pop();
+                                                    }
                                                     context.pushNamed(
                                                       ChatWiadomociWidget
                                                           .routeName,
@@ -785,7 +789,10 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                                                 r'''$.attachments''',
                                                                               ).toString(),
                                                                               allegroAccountId: widget.accountId!,
-                                                                              treadId: _model.selectedThreadId!,
+                                                                              treadId: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.id''',
+                                                                              ).toString(),
                                                                               shouldMarkAsRead: true,
                                                                             ),
                                                                           );
@@ -1025,7 +1032,12 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                       accountId:
                                                           widget.accountId!,
                                                       loadingMessage: () async {
-                                                        context.goNamed(
+                                                        if (Navigator.of(
+                                                                context)
+                                                            .canPop()) {
+                                                          context.pop();
+                                                        }
+                                                        context.pushNamed(
                                                           ChatWiadomociWidget
                                                               .routeName,
                                                           queryParameters: {
