@@ -9,22 +9,18 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-// Custom Action: downloadAttachmentUniversal
-// Parameters:
-// - attachmentUrl (String) - URL файла
-// - fileName (String) - имя файла
-// - authToken (String) - токен авторизации
-// - allegroAccountId (int) - ID аккаунта Allegro
+import 'index.dart'; // Imports other custom actions
 
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform, Directory, File;
-import 'dart:typed_data';
 
-// Импорты для веб
-import 'dart:html' as html show window, document, AnchorElement, Url;
+// --------- НОВЫЕ ИМПОРТЫ ДЛЯ ВЕБ (ЭТО ИСПРАВЛЕНИЕ) ---------
+import 'package:http/http.dart' as http;
+import 'dart:html' as html;
+// ---------------------------------------------------------
 
-// Импорты для мобильных (только если не веб)
+// Импорты для мобильных
+import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
@@ -36,141 +32,91 @@ Future<bool> downloadAttachmentUniversal(
   int allegroAccountId,
 ) async {
   try {
-    print('=== СКАЧИВАНИЕ ФАЙЛА ===');
-    print('Платформа: ${kIsWeb ? "WEB" : "МОБИЛЬНАЯ"}');
-    print('Файл: $fileName');
-
     if (kIsWeb) {
-      // === ВЕБ-ВЕРСИЯ - ГЛАВНОЕ ИСПРАВЛЕНИЕ ===
-
-      // Извлекаем ID из URL лучше
+      // === ВЕБ-ВЕРСИЯ: ИСПРАВЛЕННАЯ ЛОГИКА ===
       String? attachmentId = _getAttachmentId(attachmentUrl);
-
       if (attachmentId == null) {
-        print('ОШИБКА: Не удалось найти ID файла');
+        print('ОШИБКА: Не удалось найти ID файла из URL: $attachmentUrl');
         return false;
       }
 
-      print('ID файла: $attachmentId');
-
-      // Строим правильный URL
       final baseUrl = html.window.location.origin;
       final downloadUrl =
           '$baseUrl/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy?download=true&filename=${Uri.encodeComponent(fileName)}';
 
-      print('URL для скачивания: $downloadUrl');
+      // 1. Делаем аутентифицированный запрос с помощью http-клиента
+      final response = await http.get(
+        Uri.parse(downloadUrl),
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      );
 
-      try {
-        // Метод 1: Открываем в новой вкладке
-        html.window.open(downloadUrl, '_blank');
-        await Future.delayed(Duration(milliseconds: 500));
-        print('Файл открыт в новой вкладке');
+      // 2. Проверяем, что запрос успешен
+      if (response.statusCode == 200) {
+        // 3. Создаем Blob из байтов файла
+        final blob = html.Blob([response.bodyBytes]);
+        // 4. Создаем временный URL для этого Blob
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        // 5. Создаем невидимый элемент <a> для скачивания
+        final anchor = html.document.createElement('a') as html.AnchorElement
+          ..href = url
+          ..style.display = 'none'
+          ..download = fileName;
+        html.document.body!.children.add(anchor);
+
+        // 6. "Кликаем" по ссылке, чтобы запустить скачивание
+        anchor.click();
+
+        // 7. Убираем временные элементы
+        html.document.body!.children.remove(anchor);
+        html.Url.revokeObjectUrl(url);
+
+        print('Скачивание в вебе инициировано успешно.');
         return true;
-      } catch (e) {
-        print('Ошибка открытия в новой вкладке: $e');
-
-        try {
-          // Метод 2: Создаем ссылку для скачивания
-          final link = html.document.createElement('a') as html.AnchorElement;
-          link.href = downloadUrl;
-          link.download = fileName;
-          link.click();
-          print('Скачивание через ссылку');
-          return true;
-        } catch (e2) {
-          print('Все методы не сработали: $e2');
-          return false;
-        }
+      } else {
+        print(
+            'ОШИБКА: Запрос на скачивание файла провалился со статусом ${response.statusCode}');
+        return false;
       }
     } else {
       // === МОБИЛЬНАЯ ВЕРСИЯ (без изменений) ===
-
-      // Проверяем разрешения для Android
       if (Platform.isAndroid) {
-        var status = await Permission.storage.status;
-        if (!status.isGranted) {
-          status = await Permission.storage.request();
-          if (!status.isGranted) {
-            print('ОШИБКА: Нет разрешений');
-            return false;
-          }
+        if (await Permission.storage.request().isGranted) {
+          // либо есть разрешение, либо оно было только что дано
+        } else {
+          print('ОШИБКА: Нет разрешений на запись в хранилище.');
+          return false;
         }
       }
 
-      // Определяем папку
-      Directory saveDir;
-      if (Platform.isAndroid) {
-        saveDir = Directory('/storage/emulated/0/Download');
-        if (!saveDir.existsSync()) {
-          saveDir = await getApplicationDocumentsDirectory();
-        }
-      } else {
-        saveDir = await getApplicationDocumentsDirectory();
-      }
+      Directory? saveDir = await getTemporaryDirectory();
 
       final filePath = '${saveDir.path}/$fileName';
-      print('Сохраняем в: $filePath');
 
-      // Скачиваем
       final dio = Dio();
       dio.options.headers['Authorization'] = 'Bearer $authToken';
       dio.options.headers['Accept'] = '*/*';
-      dio.options.connectTimeout = Duration(seconds: 30);
-      dio.options.receiveTimeout = Duration(minutes: 5);
 
       await dio.download(attachmentUrl, filePath);
 
-      // Проверяем
       final file = File(filePath);
-      if (file.existsSync()) {
-        print('Файл сохранен');
-        try {
-          await OpenFile.open(filePath);
-        } catch (e) {
-          print('Не удалось открыть: $e');
-        }
+      if (await file.exists()) {
+        OpenFile.open(filePath);
         return true;
       }
       return false;
     }
   } catch (e) {
-    print('ОШИБКА: $e');
+    print('КРИТИЧЕСКАЯ ОШИБКА: $e');
     return false;
   }
 }
 
-// ГЛАВНАЯ ФУНКЦИЯ - ИСПРАВЛЕННОЕ ИЗВЛЕЧЕНИЕ ID
 String? _getAttachmentId(String input) {
   if (input.isEmpty) return null;
-
-  // Если в URL есть /message-attachments/
-  if (input.contains('/message-attachments/')) {
-    final parts = input.split('/message-attachments/');
-    if (parts.length >= 2) {
-      String id = parts[1].split('?')[0].split('/')[0];
-      if (id.isNotEmpty) {
-        print('ID извлечен из URL: $id');
-        return id;
-      }
-    }
-  }
-
-  // Ищем UUID pattern
   final uuidRegex =
       RegExp(r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}');
   final match = uuidRegex.firstMatch(input);
-  if (match != null) {
-    print('UUID найден: ${match.group(0)}');
-    return match.group(0);
-  }
-
-  // Возможно это уже ID
-  if (!input.startsWith('http') && input.length > 10 && input.length < 100) {
-    print('Используем как прямой ID: $input');
-    return input.trim();
-  }
-
-  return null;
+  return match?.group(0);
 }
-// Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the green button on the right!
