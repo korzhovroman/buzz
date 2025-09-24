@@ -12,7 +12,6 @@ import '/message/sendmessage/sendmessage_widget.dart';
 import '/index.dart';
 import 'wiadomoci_widget.dart' show WiadomociWidget;
 import 'package:flutter/material.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   ///  Local state fields for this page.
@@ -74,11 +73,6 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   ApiCallResponse? apiResultGETMessag;
   // Model for appbarDriwer component.
   late AppbarDriwerModel appbarDriwerModel;
-  // State field(s) for ListView widget.
-
-  PagingController<ApiPagingParams, dynamic>? listViewPagingController3;
-  Function(ApiPagingParams nextPageMarker)? listViewApiCall3;
-
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels2;
   // Model for driwer component.
@@ -110,51 +104,7 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     messageitemModels.dispose();
     sendmessageModel.dispose();
     appbarDriwerModel.dispose();
-    listViewPagingController3?.dispose();
     lastmessageItemModels2.dispose();
     driwerModel.dispose();
   }
-
-  /// Additional helper methods.
-  PagingController<ApiPagingParams, dynamic> setListViewController3(
-    Function(ApiPagingParams) apiCall,
-  ) {
-    listViewApiCall3 = apiCall;
-    return listViewPagingController3 ??= _createListViewController3(apiCall);
-  }
-
-  PagingController<ApiPagingParams, dynamic> _createListViewController3(
-    Function(ApiPagingParams) query,
-  ) {
-    final controller = PagingController<ApiPagingParams, dynamic>(
-      firstPageKey: ApiPagingParams(
-        nextPageNumber: 0,
-        numItems: 0,
-        lastResponse: null,
-      ),
-    );
-    return controller..addPageRequestListener(listViewGetAccountThreadsPage3);
-  }
-
-  void listViewGetAccountThreadsPage3(ApiPagingParams nextPageMarker) =>
-      listViewApiCall3!(nextPageMarker)
-          .then((listViewGetAccountThreadsResponse) {
-        final pageItems = (getJsonField(
-                  listViewGetAccountThreadsResponse.jsonBody,
-                  r'''$.data.threads''',
-                ) ??
-                [])
-            .toList() as List;
-        final newNumItems = nextPageMarker.numItems + pageItems.length;
-        listViewPagingController3?.appendPage(
-          pageItems,
-          (pageItems.length > 0)
-              ? ApiPagingParams(
-                  nextPageNumber: nextPageMarker.nextPageNumber + 1,
-                  numItems: newNumItems,
-                  lastResponse: listViewGetAccountThreadsResponse,
-                )
-              : null,
-        );
-      });
 }

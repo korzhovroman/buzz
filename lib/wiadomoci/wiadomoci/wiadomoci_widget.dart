@@ -14,8 +14,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'wiadomoci_model.dart';
 export 'wiadomoci_model.dart';
@@ -136,7 +134,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                           final chatItem = getJsonField(
                                             (_model.getALLChats?.jsonBody ??
                                                 ''),
-                                            r'''$.data.item''',
+                                            r'''$.data.items''',
                                           ).toList();
 
                                           return ListView.builder(
@@ -174,41 +172,41 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                     ),
                                                     login: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.interlocutor.login''',
+                                                      r'''$.interlocutor.login''',
                                                     ).toString(),
                                                     date: functions
                                                         .formatDateString(
                                                             getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.lastMessageDateTime''',
+                                                      r'''$.lastMessageDateTime''',
                                                     ).toString()),
                                                     konto: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.allegroAccountLogin''',
+                                                      r'''$.allegroAccountLogin''',
                                                     ).toString(),
                                                     author: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.lastMessageAuthor''',
+                                                      r'''$.lastMessageAuthor''',
                                                     ).toString(),
                                                     lastmessage: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.lastMessageText''',
+                                                      r'''$.lastMessageText''',
                                                     ).toString(),
                                                     isread: !getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.read''',
+                                                      r'''$.read''',
                                                     ),
                                                     avatar: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.interlocutor.avatarUrl''',
+                                                      r'''$.interlocutor.avatarUrl''',
                                                     ).toString(),
                                                     threadId: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.id''',
+                                                      r'''$.id''',
                                                     ).toString(),
                                                     accountId: getJsonField(
                                                       chatItemItem,
-                                                      r'''$.item.allegroAccountId''',
+                                                      r'''$.allegroAccountId''',
                                                     ),
                                                     loadingMessage: () async {
                                                       var _shouldSetState =
@@ -216,12 +214,12 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                       _model.selectedThreadId =
                                                           getJsonField(
                                                         chatItemItem,
-                                                        r'''$.item.id''',
+                                                        r'''$.id''',
                                                       ).toString();
                                                       _model.allegroAccountId =
                                                           getJsonField(
                                                         chatItemItem,
-                                                        r'''$.item.allegroAccountId''',
+                                                        r'''$.allegroAccountId''',
                                                       );
                                                       if (MediaQuery.sizeOf(
                                                                   context)
@@ -230,12 +228,12 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                         _model.selectedThreadLogin =
                                                             getJsonField(
                                                           chatItemItem,
-                                                          r'''$.item.interlocutor.login''',
+                                                          r'''$.interlocutor.login''',
                                                         ).toString();
                                                         _model.selectedThreadAvatar =
                                                             getJsonField(
                                                           chatItemItem,
-                                                          r'''$.iitem.nterlocutor.avatarUrl''',
+                                                          r'''$.interlocutor.avatarUrl''',
                                                         ).toString();
                                                         _model.apiResultGETMessageWEB =
                                                             await ConversationsGroup
@@ -402,16 +400,19 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                         _model.isLoad = false;
                                                         safeSetState(() {});
                                                       } else {
+                                                        if (Navigator.of(
+                                                                context)
+                                                            .canPop()) {
+                                                          context.pop();
+                                                        }
                                                         context.pushNamed(
                                                           ChatWiadomociWidget
                                                               .routeName,
                                                           queryParameters: {
                                                             'threadId':
                                                                 serializeParam(
-                                                              getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.item.id''',
-                                                              ).toString(),
+                                                              _model
+                                                                  .selectedThreadId,
                                                               ParamType.String,
                                                             ),
                                                             'accountId':
@@ -424,7 +425,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                                 serializeParam(
                                                               getJsonField(
                                                                 chatItemItem,
-                                                                r'''$.item.interlocutor.login''',
+                                                                r'''$.interlocutor.login''',
                                                               ).toString(),
                                                               ParamType.String,
                                                             ),
@@ -432,7 +433,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                                 serializeParam(
                                                               getJsonField(
                                                                 chatItemItem,
-                                                                r'''$.item.interlocutor.avatarUrl''',
+                                                                r'''$.interlocutor.avatarUrl''',
                                                               ).toString(),
                                                               ParamType.String,
                                                             ),
@@ -907,176 +908,148 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
-                                            child: PagedListView<
-                                                ApiPagingParams, dynamic>(
-                                              pagingController:
-                                                  _model.setListViewController3(
-                                                (nextPageMarker) =>
-                                                    ConversationsGroup
-                                                        .getAccountThreadsCall
-                                                        .call(
-                                                  authToken:
-                                                      FFAppState().authToken,
-                                                  limit: 20,
-                                                  offset:
-                                                      nextPageMarker.numItems,
-                                                  accountId:
-                                                      _model.allegroAccountId,
-                                                ),
-                                              ),
-                                              padding: EdgeInsets.zero,
-                                              primary: false,
-                                              reverse: false,
-                                              scrollDirection: Axis.vertical,
-                                              builderDelegate:
-                                                  PagedChildBuilderDelegate<
-                                                      dynamic>(
-                                                // Customize what your widget looks like when it's loading the first page.
-                                                firstPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitChasingDots(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tertiary,
-                                                      size: 50.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                                // Customize what your widget looks like when it's loading another page.
-                                                newPageProgressIndicatorBuilder:
-                                                    (_) => Center(
-                                                  child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
-                                                    child: SpinKitChasingDots(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .tertiary,
-                                                      size: 50.0,
-                                                    ),
-                                                  ),
-                                                ),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final chatItem = getJsonField(
+                                                  (_model.getALLChats
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.data.items''',
+                                                ).toList();
 
-                                                itemBuilder: (context, _,
-                                                    chatItemIndex) {
-                                                  final chatItemItem = _model
-                                                      .listViewPagingController3!
-                                                      .itemList![chatItemIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 4.0,
-                                                                0.0, 4.0),
-                                                    child: wrapWithModel(
-                                                      model: _model
-                                                          .lastmessageItemModels2
-                                                          .getModel(
-                                                        getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.id''',
-                                                        ).toString(),
-                                                        chatItemIndex,
-                                                      ),
-                                                      updateCallback: () =>
-                                                          safeSetState(() {}),
-                                                      updateOnChange: true,
-                                                      child:
-                                                          LastmessageItemWidget(
-                                                        key: Key(
-                                                          'Keyzwg_${getJsonField(
+                                                return ListView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  primary: false,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount: chatItem.length,
+                                                  itemBuilder:
+                                                      (context, chatItemIndex) {
+                                                    final chatItemItem =
+                                                        chatItem[chatItemIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0,
+                                                                  4.0),
+                                                      child: wrapWithModel(
+                                                        model: _model
+                                                            .lastmessageItemModels2
+                                                            .getModel(
+                                                          getJsonField(
                                                             chatItemItem,
                                                             r'''$.id''',
-                                                          ).toString()}',
+                                                          ).toString(),
+                                                          chatItemIndex,
                                                         ),
-                                                        login: getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.interlocutor.login''',
-                                                        ).toString(),
-                                                        date: functions
-                                                            .formatDateString(
-                                                                getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.lastMessageDateTime''',
-                                                        ).toString()),
-                                                        konto: getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.allegroAccountLogin''',
-                                                        ).toString(),
-                                                        author: getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.lastMessageAuthor''',
-                                                        ).toString(),
-                                                        lastmessage:
-                                                            getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.lastMessageText''',
-                                                        ).toString(),
-                                                        isread: !getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.read''',
+                                                        updateCallback: () =>
+                                                            safeSetState(() {}),
+                                                        updateOnChange: true,
+                                                        child:
+                                                            LastmessageItemWidget(
+                                                          key: Key(
+                                                            'Keyzwg_${getJsonField(
+                                                              chatItemItem,
+                                                              r'''$.id''',
+                                                            ).toString()}',
+                                                          ),
+                                                          login: getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.login''',
+                                                          ).toString(),
+                                                          date: functions
+                                                              .formatDateString(
+                                                                  getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.lastMessageDateTime''',
+                                                          ).toString()),
+                                                          konto: getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.allegroAccountLogin''',
+                                                          ).toString(),
+                                                          author: getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.lastMessageAuthor''',
+                                                          ).toString(),
+                                                          lastmessage:
+                                                              getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.lastMessageText''',
+                                                          ).toString(),
+                                                          isread: !getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.read''',
+                                                          ),
+                                                          avatar: getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.avatarUrl''',
+                                                          ).toString(),
+                                                          threadId:
+                                                              getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.id''',
+                                                          ).toString(),
+                                                          accountId:
+                                                              getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.allegroAccountId''',
+                                                          ),
+                                                          loadingMessage:
+                                                              () async {
+                                                            if (Navigator.of(
+                                                                    context)
+                                                                .canPop()) {
+                                                              context.pop();
+                                                            }
+                                                            context.pushNamed(
+                                                              ChatWiadomociWidget
+                                                                  .routeName,
+                                                              queryParameters: {
+                                                                'threadId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    chatItemItem,
+                                                                    r'''$.id''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'accountId':
+                                                                    serializeParam(
+                                                                  _model
+                                                                      .allegroAccountId,
+                                                                  ParamType.int,
+                                                                ),
+                                                                'login':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    chatItemItem,
+                                                                    r'''$.interlocutor.login''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                                'avatar':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    chatItemItem,
+                                                                    r'''$.interlocutor.avatarUrl''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
                                                         ),
-                                                        avatar: getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.interlocutor.avatarUrl''',
-                                                        ).toString(),
-                                                        threadId: getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.id''',
-                                                        ).toString(),
-                                                        accountId: _model
-                                                            .allegroAccountId!,
-                                                        loadingMessage:
-                                                            () async {
-                                                          context.goNamed(
-                                                            ChatWiadomociWidget
-                                                                .routeName,
-                                                            queryParameters: {
-                                                              'threadId':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  chatItemItem,
-                                                                  r'''$.id''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'accountId':
-                                                                  serializeParam(
-                                                                _model
-                                                                    .allegroAccountId,
-                                                                ParamType.int,
-                                                              ),
-                                                              'login':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  chatItemItem,
-                                                                  r'''$.interlocutor.login''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'avatar':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  chatItemItem,
-                                                                  r'''$.interlocutor.avatarUrl''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        },
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
+                                                    );
+                                                  },
+                                                );
+                                              },
                                             ),
                                           ),
                                         ),
