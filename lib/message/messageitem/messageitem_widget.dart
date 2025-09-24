@@ -1,9 +1,7 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'messageitem_model.dart';
@@ -52,17 +50,6 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MessageitemModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.shouldMarkAsRead == true) {
-        _model.apiResultb = await ConversationsGroup.markChatAsReadCall.call(
-          accountId: widget.allegroAccountId,
-          threadId: widget.treadId,
-          authToken: FFAppState().authToken,
-        );
-      }
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }

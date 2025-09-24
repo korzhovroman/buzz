@@ -42,7 +42,7 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   bool isOfferCardExpanded = false;
 
-  bool isLoad = false;
+  bool isLoad = true;
 
   int? allegroAccountId;
 
