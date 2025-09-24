@@ -346,12 +346,6 @@ class _SendmessageWidgetState extends State<SendmessageWidget> {
                       safeSetState(() {
                         _model.textController?.clear();
                       });
-                      await ConversationsGroup.markChatAsReadCall.call(
-                        accountId: widget.accountid,
-                        threadId: widget.threadId,
-                        authToken: FFAppState().authToken,
-                      );
-
                       await widget.onSendTapped?.call();
 
                       safeSetState(() {});

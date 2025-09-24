@@ -21,7 +21,8 @@ class MessageitemWidget extends StatefulWidget {
     this.attachments,
     required this.allegroAccountId,
     required this.treadId,
-  });
+    bool? shouldMarkAsRead,
+  }) : this.shouldMarkAsRead = shouldMarkAsRead ?? true;
 
   final String? messageText;
   final String? messageTime;
@@ -32,6 +33,7 @@ class MessageitemWidget extends StatefulWidget {
   final String? attachments;
   final int? allegroAccountId;
   final String? treadId;
+  final bool shouldMarkAsRead;
 
   @override
   State<MessageitemWidget> createState() => _MessageitemWidgetState();
@@ -53,16 +55,13 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(
-        Duration(
-          milliseconds: 6000,
-        ),
-      );
-      _model.apiResultb = await ConversationsGroup.markChatAsReadCall.call(
-        accountId: widget.allegroAccountId,
-        threadId: widget.treadId,
-        authToken: FFAppState().authToken,
-      );
+      if (widget.shouldMarkAsRead == true) {
+        _model.apiResultb = await ConversationsGroup.markChatAsReadCall.call(
+          accountId: widget.allegroAccountId,
+          threadId: widget.treadId,
+          authToken: FFAppState().authToken,
+        );
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));

@@ -238,6 +238,11 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                     chatItemItem,
                                                     r'''$.id''',
                                                   ).toString();
+                                                  await Future.delayed(
+                                                    Duration(
+                                                      milliseconds: 300,
+                                                    ),
+                                                  );
                                                   if (MediaQuery.sizeOf(context)
                                                           .width >=
                                                       900.0) {
@@ -781,6 +786,7 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                                               ).toString(),
                                                                               allegroAccountId: widget.accountId!,
                                                                               treadId: _model.selectedThreadId!,
+                                                                              shouldMarkAsRead: true,
                                                                             ),
                                                                           );
                                                                         },

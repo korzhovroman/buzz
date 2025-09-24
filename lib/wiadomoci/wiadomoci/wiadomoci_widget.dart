@@ -120,10 +120,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                   0.0, 30.0, 0.0, 0.0),
                               child: Container(
                                 width: 350.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                ),
+                                decoration: BoxDecoration(),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -135,7 +132,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                       builder: (context) {
                                         final chatItem = getJsonField(
                                           (_model.getALLChats?.jsonBody ?? ''),
-                                          r'''$.data.item''',
+                                          r'''$.data.items''',
                                         ).toList();
 
                                         return ListView.builder(
@@ -401,8 +398,10 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                         queryParameters: {
                                                           'threadId':
                                                               serializeParam(
-                                                            _model
-                                                                .selectedThreadId,
+                                                            getJsonField(
+                                                              chatItemItem,
+                                                              r'''$.item.id''',
+                                                            ).toString(),
                                                             ParamType.String,
                                                           ),
                                                           'accountId':

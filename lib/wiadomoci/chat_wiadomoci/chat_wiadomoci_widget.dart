@@ -49,115 +49,99 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if ((widget.accountId != null) &&
-          (widget.threadId != null && widget.threadId != '')) {
-        _model.apiResultGETMessage =
-            await ConversationsGroup.getThreadMessagesCall.call(
-          accountId: widget.accountId,
-          threadId: widget.threadId,
-          authToken: FFAppState().authToken,
-        );
-
-        _model.messagesList = getJsonField(
-          (_model.apiResultGETMessage?.jsonBody ?? ''),
-          r'''$.data.messages''',
-          true,
-        )!
-            .toList()
-            .cast<dynamic>();
-        _model.firstMessage =
-            functions.findMessageWithContext(_model.messagesList.toList());
-        await Future.wait([
-          Future(() async {
-            if ((getJsonField(
-                      _model.firstMessage,
-                      r'''$.relatesTo.order''',
-                    ) !=
-                    null) &&
-                (getJsonField(
-                      _model.firstMessage,
-                      r'''$.relatesTo.offer''',
-                    ) ==
-                    null)) {
-              _model.apiResultORDER =
-                  await ConversationsGroup.getOrderDetailsCall.call(
-                orderId: getJsonField(
-                  _model.firstMessage,
-                  r'''$.relatesTo.order.id''',
-                ).toString(),
-                allegroAccountId: widget.accountId?.toString(),
-                authToken: FFAppState().authToken,
-              );
-
-              _model.firstMessage = (_model.apiResultORDER?.jsonBody ?? '');
-              _model.messagesList = functions
-                  .parseMessages((_model.apiResultGETMessage?.jsonBody ?? ''))
-                  .toList()
-                  .cast<dynamic>();
-            } else {
-              _model.messagesList = functions
-                  .parseMessages((_model.apiResultGETMessage?.jsonBody ?? ''))
-                  .toList()
-                  .cast<dynamic>();
-              _model.isLoading = false;
-              safeSetState(() {});
-              return;
-            }
-          }),
-          Future(() async {
-            if ((getJsonField(
-                      _model.firstMessage,
-                      r'''$.relatesTo.offer''',
-                    ) !=
-                    null) &&
-                (getJsonField(
-                      _model.firstMessage,
-                      r'''$.relatesTo.order''',
-                    ) ==
-                    null)) {
-              _model.apiResultOffer =
-                  await ConversationsGroup.getOfferDetailsCall.call(
-                offerId: getJsonField(
-                  _model.firstMessage,
-                  r'''$.relatesTo.offer.id''',
-                ).toString(),
-                allegroAccountId: widget.accountId?.toString(),
-                authToken: FFAppState().authToken,
-              );
-
-              _model.firstMessage = (_model.apiResultOffer?.jsonBody ?? '');
-              _model.messagesList = functions
-                  .parseMessages((_model.apiResultGETMessage?.jsonBody ?? ''))
-                  .toList()
-                  .cast<dynamic>();
-            } else {
-              _model.messagesList = functions
-                  .parseMessages((_model.apiResultGETMessage?.jsonBody ?? ''))
-                  .toList()
-                  .cast<dynamic>();
-              _model.isLoading = false;
-              safeSetState(() {});
-              return;
-            }
-          }),
-        ]);
-        safeSetState(() {});
-        _model.isLoading = false;
-        safeSetState(() {});
-      } else {
-        return;
-      }
-
-      await Future.delayed(
-        Duration(
-          milliseconds: 6000,
-        ),
-      );
-      _model.apiResultbl3 = await ConversationsGroup.markChatAsReadCall.call(
+      _model.apiResultGETMessage1 =
+          await ConversationsGroup.getThreadMessagesCall.call(
         accountId: widget.accountId,
         threadId: widget.threadId,
         authToken: FFAppState().authToken,
       );
+
+      _model.messagesList = getJsonField(
+        (_model.apiResultGETMessage1?.jsonBody ?? ''),
+        r'''$.data.messages''',
+        true,
+      )!
+          .toList()
+          .cast<dynamic>();
+      _model.firstMessage =
+          functions.findMessageWithContext(_model.messagesList.toList());
+      await Future.wait([
+        Future(() async {
+          if ((getJsonField(
+                    _model.firstMessage,
+                    r'''$.relatesTo.order''',
+                  ) !=
+                  null) &&
+              (getJsonField(
+                    _model.firstMessage,
+                    r'''$.relatesTo.offer''',
+                  ) ==
+                  null)) {
+            _model.apiResultORDER =
+                await ConversationsGroup.getOrderDetailsCall.call(
+              orderId: getJsonField(
+                _model.firstMessage,
+                r'''$.relatesTo.order.id''',
+              ).toString(),
+              allegroAccountId: widget.accountId?.toString(),
+              authToken: FFAppState().authToken,
+            );
+
+            _model.firstMessage = (_model.apiResultORDER?.jsonBody ?? '');
+            _model.messagesList = functions
+                .parseMessages((_model.apiResultGETMessage1?.jsonBody ?? ''))
+                .toList()
+                .cast<dynamic>();
+          } else {
+            _model.messagesList = functions
+                .parseMessages((_model.apiResultGETMessage1?.jsonBody ?? ''))
+                .toList()
+                .cast<dynamic>();
+            _model.isLoading = false;
+            safeSetState(() {});
+            return;
+          }
+        }),
+        Future(() async {
+          if ((getJsonField(
+                    _model.firstMessage,
+                    r'''$.relatesTo.offer''',
+                  ) !=
+                  null) &&
+              (getJsonField(
+                    _model.firstMessage,
+                    r'''$.relatesTo.order''',
+                  ) ==
+                  null)) {
+            _model.apiResultOffer =
+                await ConversationsGroup.getOfferDetailsCall.call(
+              offerId: getJsonField(
+                _model.firstMessage,
+                r'''$.relatesTo.offer.id''',
+              ).toString(),
+              allegroAccountId: widget.accountId?.toString(),
+              authToken: FFAppState().authToken,
+            );
+
+            _model.firstMessage = (_model.apiResultOffer?.jsonBody ?? '');
+            _model.messagesList = functions
+                .parseMessages((_model.apiResultGETMessage1?.jsonBody ?? ''))
+                .toList()
+                .cast<dynamic>();
+          } else {
+            _model.messagesList = functions
+                .parseMessages((_model.apiResultGETMessage1?.jsonBody ?? ''))
+                .toList()
+                .cast<dynamic>();
+            _model.isLoading = false;
+            safeSetState(() {});
+            return;
+          }
+        }),
+      ]);
+      safeSetState(() {});
+      _model.isLoading = false;
+      safeSetState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -205,6 +189,10 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                 'accountId': serializeParam(
                                   widget.accountId,
                                   ParamType.int,
+                                ),
+                                'namepage': serializeParam(
+                                  '',
+                                  ParamType.String,
                                 ),
                               }.withoutNulls,
                             );
@@ -403,6 +391,7 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                 ),
                                                 updateCallback: () =>
                                                     safeSetState(() {}),
+                                                updateOnChange: true,
                                                 child: MessageitemWidget(
                                                   key: Key(
                                                     'Keyro0_${getJsonField(
@@ -453,6 +442,7 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                   allegroAccountId:
                                                       widget.accountId!,
                                                   treadId: widget.threadId!,
+                                                  shouldMarkAsRead: false,
                                                 ),
                                               );
                                             },
