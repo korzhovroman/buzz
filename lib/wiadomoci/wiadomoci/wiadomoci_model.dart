@@ -12,6 +12,7 @@ import '/message/sendmessage/sendmessage_widget.dart';
 import '/index.dart';
 import 'wiadomoci_widget.dart' show WiadomociWidget;
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   ///  Local state fields for this page.
@@ -47,10 +48,13 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (getAllChats)] action in Wiadomoci widget.
-  ApiCallResponse? getALLChats;
   // Model for SideNavWeb component.
   late SideNavWebModel sideNavWebModel;
+  // State field(s) for ListView widget.
+
+  PagingController<ApiPagingParams, dynamic>? listViewPagingController1;
+  Function(ApiPagingParams nextPageMarker)? listViewApiCall1;
+
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels1;
   // Stores action output result for [Backend Call - API (getThreadMessages)] action in lastmessageItem widget.
@@ -59,6 +63,8 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   ApiCallResponse? apiResultORDERWEB;
   // Stores action output result for [Backend Call - API (getOfferDetails)] action in lastmessageItem widget.
   ApiCallResponse? apiResultOfferWEB;
+  // Stores action output result for [Backend Call - API (markChatAsRead)] action in lastmessageItem widget.
+  ApiCallResponse? apiResultjqq;
   // Model for headerchat component.
   late HeaderchatModel headerchatModel;
   // Model for OfferCard component.
@@ -73,6 +79,11 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   ApiCallResponse? apiResultGETMessag;
   // Model for appbarDriwer component.
   late AppbarDriwerModel appbarDriwerModel;
+  // State field(s) for ListView widget.
+
+  PagingController<ApiPagingParams, dynamic>? listViewPagingController3;
+  Function(ApiPagingParams nextPageMarker)? listViewApiCall3;
+
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels2;
   // Model for driwer component.
@@ -97,6 +108,7 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   @override
   void dispose() {
     sideNavWebModel.dispose();
+    listViewPagingController1?.dispose();
     lastmessageItemModels1.dispose();
     headerchatModel.dispose();
     offerCardModel.dispose();
@@ -104,7 +116,91 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
     messageitemModels.dispose();
     sendmessageModel.dispose();
     appbarDriwerModel.dispose();
+    listViewPagingController3?.dispose();
     lastmessageItemModels2.dispose();
     driwerModel.dispose();
   }
+
+  /// Additional helper methods.
+  PagingController<ApiPagingParams, dynamic> setListViewController1(
+    Function(ApiPagingParams) apiCall,
+  ) {
+    listViewApiCall1 = apiCall;
+    return listViewPagingController1 ??= _createListViewController1(apiCall);
+  }
+
+  PagingController<ApiPagingParams, dynamic> _createListViewController1(
+    Function(ApiPagingParams) query,
+  ) {
+    final controller = PagingController<ApiPagingParams, dynamic>(
+      firstPageKey: ApiPagingParams(
+        nextPageNumber: 0,
+        numItems: 0,
+        lastResponse: null,
+      ),
+    );
+    return controller..addPageRequestListener(listViewGetAllChatsPage1);
+  }
+
+  void listViewGetAllChatsPage1(ApiPagingParams nextPageMarker) =>
+      listViewApiCall1!(nextPageMarker).then((listViewGetAllChatsResponse) {
+        final pageItems = (getJsonField(
+                  listViewGetAllChatsResponse.jsonBody,
+                  r'''$.data.items''',
+                ) ??
+                [])
+            .toList() as List;
+        final newNumItems = nextPageMarker.numItems + pageItems.length;
+        listViewPagingController1?.appendPage(
+          pageItems,
+          (pageItems.length > 0)
+              ? ApiPagingParams(
+                  nextPageNumber: nextPageMarker.nextPageNumber + 1,
+                  numItems: newNumItems,
+                  lastResponse: listViewGetAllChatsResponse,
+                )
+              : null,
+        );
+      });
+
+  PagingController<ApiPagingParams, dynamic> setListViewController3(
+    Function(ApiPagingParams) apiCall,
+  ) {
+    listViewApiCall3 = apiCall;
+    return listViewPagingController3 ??= _createListViewController3(apiCall);
+  }
+
+  PagingController<ApiPagingParams, dynamic> _createListViewController3(
+    Function(ApiPagingParams) query,
+  ) {
+    final controller = PagingController<ApiPagingParams, dynamic>(
+      firstPageKey: ApiPagingParams(
+        nextPageNumber: 0,
+        numItems: 0,
+        lastResponse: null,
+      ),
+    );
+    return controller..addPageRequestListener(listViewGetAllChatsPage3);
+  }
+
+  void listViewGetAllChatsPage3(ApiPagingParams nextPageMarker) =>
+      listViewApiCall3!(nextPageMarker).then((listViewGetAllChatsResponse) {
+        final pageItems = (getJsonField(
+                  listViewGetAllChatsResponse.jsonBody,
+                  r'''$.data.items''',
+                ) ??
+                [])
+            .toList() as List;
+        final newNumItems = nextPageMarker.numItems + pageItems.length;
+        listViewPagingController3?.appendPage(
+          pageItems,
+          (pageItems.length > 0)
+              ? ApiPagingParams(
+                  nextPageNumber: nextPageMarker.nextPageNumber + 1,
+                  numItems: newNumItems,
+                  lastResponse: listViewGetAllChatsResponse,
+                )
+              : null,
+        );
+      });
 }

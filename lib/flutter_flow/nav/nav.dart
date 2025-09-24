@@ -221,6 +221,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'avatar',
               ParamType.String,
             ),
+            isThreadRead: params.getParam(
+              'isThreadRead',
+              ParamType.bool,
+            ),
           ),
         ),
         FFRoute(

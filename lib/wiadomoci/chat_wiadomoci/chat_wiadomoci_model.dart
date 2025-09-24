@@ -38,6 +38,8 @@ class ChatWiadomociModel extends FlutterFlowModel<ChatWiadomociWidget> {
   ApiCallResponse? apiResultORDER;
   // Stores action output result for [Backend Call - API (getOfferDetails)] action in ChatWiadomoci widget.
   ApiCallResponse? apiResultOffer;
+  // Stores action output result for [Backend Call - API (markChatAsRead)] action in ChatWiadomoci widget.
+  ApiCallResponse? apiResultjqq;
   // Model for appbarmob component.
   late AppbarmobModel appbarmobModel;
   // Model for headerchat component.

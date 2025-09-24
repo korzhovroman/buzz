@@ -23,12 +23,14 @@ class ChatWiadomociWidget extends StatefulWidget {
     required this.accountId,
     required this.login,
     required this.avatar,
+    required this.isThreadRead,
   });
 
   final String? threadId;
   final int? accountId;
   final String? login;
   final String? avatar;
+  final bool? isThreadRead;
 
   static String routeName = 'ChatWiadomoci';
   static String routePath = '/chatWiadomoci';
@@ -141,6 +143,14 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
       ]);
       safeSetState(() {});
       _model.isLoading = false;
+      safeSetState(() {});
+      if (widget.isThreadRead == false) {
+        _model.apiResultjqq = await ConversationsGroup.markChatAsReadCall.call(
+          accountId: widget.accountId,
+          threadId: widget.threadId,
+          authToken: FFAppState().authToken,
+        );
+      }
       safeSetState(() {});
     });
 
@@ -442,7 +452,9 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                   allegroAccountId:
                                                       widget.accountId!,
                                                   treadId: widget.threadId!,
-                                                  shouldMarkAsRead: false,
+                                                  shouldMarkAsRead:
+                                                      widget.isThreadRead ==
+                                                          false,
                                                 ),
                                               );
                                             },

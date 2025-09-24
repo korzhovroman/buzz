@@ -20,7 +20,7 @@ class MessageitemWidget extends StatefulWidget {
     required this.allegroAccountId,
     required this.treadId,
     bool? shouldMarkAsRead,
-  }) : this.shouldMarkAsRead = shouldMarkAsRead ?? true;
+  }) : this.shouldMarkAsRead = shouldMarkAsRead ?? false;
 
   final String? messageText;
   final String? messageTime;

@@ -61,6 +61,8 @@ class WiadomociAccountModel extends FlutterFlowModel<WiadomociAccountWidget> {
   ApiCallResponse? apiResultORDERWEB;
   // Stores action output result for [Backend Call - API (getOfferDetails)] action in lastmessageItem widget.
   ApiCallResponse? apiResultOfferWEB;
+  // Stores action output result for [Backend Call - API (markChatAsRead)] action in lastmessageItem widget.
+  ApiCallResponse? apiResultjqq;
   // Model for headerchat component.
   late HeaderchatModel headerchatModel;
   // Model for OfferCard component.

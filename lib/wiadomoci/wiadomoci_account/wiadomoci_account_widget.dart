@@ -238,6 +238,11 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                     chatItemItem,
                                                     r'''$.id''',
                                                   ).toString();
+                                                  _model.selectedThreadIsRead =
+                                                      getJsonField(
+                                                    chatItemItem,
+                                                    r'''$.read''',
+                                                  );
                                                   await Future.delayed(
                                                     Duration(
                                                       milliseconds: 300,
@@ -444,6 +449,12 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                           ).toString(),
                                                           ParamType.String,
                                                         ),
+                                                        'isThreadRead':
+                                                            serializeParam(
+                                                          _model
+                                                              .selectedThreadIsRead,
+                                                          ParamType.bool,
+                                                        ),
                                                       }.withoutNulls,
                                                     );
 
@@ -452,6 +463,24 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                     return;
                                                   }
 
+                                                  if (_model
+                                                          .selectedThreadIsRead ==
+                                                      false) {
+                                                    _model.apiResultjqq =
+                                                        await ConversationsGroup
+                                                            .markChatAsReadCall
+                                                            .call(
+                                                      accountId:
+                                                          widget.accountId,
+                                                      threadId: _model
+                                                          .selectedThreadId,
+                                                      authToken: FFAppState()
+                                                          .authToken,
+                                                    );
+
+                                                    _shouldSetState = true;
+                                                  }
+                                                  safeSetState(() {});
                                                   if (_shouldSetState)
                                                     safeSetState(() {});
                                                 },
@@ -793,7 +822,7 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                                                 chatsitemItem,
                                                                                 r'''$.id''',
                                                                               ).toString(),
-                                                                              shouldMarkAsRead: true,
+                                                                              shouldMarkAsRead: chatsitemItem,
                                                                             ),
                                                                           );
                                                                         },
@@ -1069,6 +1098,14 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                                 r'''$.interlocutor.avatarUrl''',
                                                               ).toString(),
                                                               ParamType.String,
+                                                            ),
+                                                            'isThreadRead':
+                                                                serializeParam(
+                                                              getJsonField(
+                                                                chatItemItem,
+                                                                r'''$.read''',
+                                                              ),
+                                                              ParamType.bool,
                                                             ),
                                                           }.withoutNulls,
                                                         );

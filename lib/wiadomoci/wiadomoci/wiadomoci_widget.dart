@@ -13,7 +13,7 @@ import '/message/sendmessage/sendmessage_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'wiadomoci_model.dart';
 export 'wiadomoci_model.dart';
@@ -42,21 +42,6 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => WiadomociModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.getALLChats = await ConversationsGroup.getAllChatsCall.call(
-        authToken: FFAppState().authToken,
-      );
-
-      await Future.delayed(
-        Duration(
-          milliseconds: 3000,
-        ),
-      );
-      _model.isLoad = false;
-      safeSetState(() {});
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -114,344 +99,370 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                               page: 'Wiadomoci',
                             ),
                           ),
-                          if (_model.isLoad == false)
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 30.0, 0.0, 0.0),
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 30.0, 0.0, 0.0),
+                              child: Container(
+                                width: 350.0,
+                                decoration: BoxDecoration(),
                                 child: Container(
-                                  width: 350.0,
-                                  decoration: BoxDecoration(),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          24.0, 0.0, 24.0, 0.0),
-                                      child: Builder(
-                                        builder: (context) {
-                                          final chatItem = getJsonField(
-                                            (_model.getALLChats?.jsonBody ??
-                                                ''),
-                                            r'''$.data.items''',
-                                          ).toList();
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        24.0, 0.0, 24.0, 0.0),
+                                    child:
+                                        PagedListView<ApiPagingParams, dynamic>(
+                                      pagingController:
+                                          _model.setListViewController1(
+                                        (nextPageMarker) => ConversationsGroup
+                                            .getAllChatsCall
+                                            .call(
+                                          offset: 0,
+                                          limit: 20,
+                                          authToken: FFAppState().authToken,
+                                        ),
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                      primary: false,
+                                      reverse: false,
+                                      scrollDirection: Axis.vertical,
+                                      builderDelegate:
+                                          PagedChildBuilderDelegate<dynamic>(
+                                        // Customize what your widget looks like when it's loading the first page.
+                                        firstPageProgressIndicatorBuilder:
+                                            (_) => Image.asset(
+                                          'assets/images/Bees_&_Bombs.gif',
+                                        ),
+                                        // Customize what your widget looks like when it's loading another page.
+                                        newPageProgressIndicatorBuilder: (_) =>
+                                            Image.asset(
+                                          'assets/images/Bees_&_Bombs.gif',
+                                        ),
 
-                                          return ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            primary: false,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: chatItem.length,
-                                            itemBuilder:
-                                                (context, chatItemIndex) {
-                                              final chatItemItem =
-                                                  chatItem[chatItemIndex];
-                                              return Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 4.0),
-                                                child: wrapWithModel(
-                                                  model: _model
-                                                      .lastmessageItemModels1
-                                                      .getModel(
-                                                    getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.id''',
-                                                    ).toString(),
-                                                    chatItemIndex,
-                                                  ),
-                                                  updateCallback: () =>
-                                                      safeSetState(() {}),
-                                                  updateOnChange: true,
-                                                  child: LastmessageItemWidget(
-                                                    key: Key(
-                                                      'Key8gh_${getJsonField(
-                                                        chatItemItem,
-                                                        r'''$.id''',
-                                                      ).toString()}',
-                                                    ),
-                                                    login: getJsonField(
+                                        itemBuilder:
+                                            (context, _, chatItemIndex) {
+                                          final chatItemItem = _model
+                                              .listViewPagingController1!
+                                              .itemList![chatItemIndex];
+                                          return Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 4.0),
+                                            child: wrapWithModel(
+                                              model: _model
+                                                  .lastmessageItemModels1
+                                                  .getModel(
+                                                getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.id''',
+                                                ).toString(),
+                                                chatItemIndex,
+                                              ),
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              updateOnChange: true,
+                                              child: LastmessageItemWidget(
+                                                key: Key(
+                                                  'Key8gh_${getJsonField(
+                                                    chatItemItem,
+                                                    r'''$.id''',
+                                                  ).toString()}',
+                                                ),
+                                                login: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.interlocutor.login''',
+                                                ).toString(),
+                                                date:
+                                                    functions.formatDateString(
+                                                        getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.lastMessageDateTime''',
+                                                ).toString()),
+                                                konto: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.allegroAccountLogin''',
+                                                ).toString(),
+                                                author: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.lastMessageAuthor''',
+                                                ).toString(),
+                                                lastmessage: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.lastMessageText''',
+                                                ).toString(),
+                                                isread: !getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.read''',
+                                                ),
+                                                avatar: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.interlocutor.avatarUrl''',
+                                                ).toString(),
+                                                threadId: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.id''',
+                                                ).toString(),
+                                                accountId: getJsonField(
+                                                  chatItemItem,
+                                                  r'''$.allegroAccountId''',
+                                                ),
+                                                loadingMessage: () async {
+                                                  var _shouldSetState = false;
+                                                  _model.selectedThreadId =
+                                                      getJsonField(
+                                                    chatItemItem,
+                                                    r'''$.id''',
+                                                  ).toString();
+                                                  _model.allegroAccountId =
+                                                      getJsonField(
+                                                    chatItemItem,
+                                                    r'''$.allegroAccountId''',
+                                                  );
+                                                  _model.selectedThreadIsRead =
+                                                      getJsonField(
+                                                    chatItemItem,
+                                                    r'''$.read''',
+                                                  );
+                                                  if (MediaQuery.sizeOf(context)
+                                                          .width >=
+                                                      900.0) {
+                                                    _model.selectedThreadLogin =
+                                                        getJsonField(
                                                       chatItemItem,
                                                       r'''$.interlocutor.login''',
-                                                    ).toString(),
-                                                    date: functions
-                                                        .formatDateString(
-                                                            getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.lastMessageDateTime''',
-                                                    ).toString()),
-                                                    konto: getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.allegroAccountLogin''',
-                                                    ).toString(),
-                                                    author: getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.lastMessageAuthor''',
-                                                    ).toString(),
-                                                    lastmessage: getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.lastMessageText''',
-                                                    ).toString(),
-                                                    isread: !getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.read''',
-                                                    ),
-                                                    avatar: getJsonField(
+                                                    ).toString();
+                                                    _model.selectedThreadAvatar =
+                                                        getJsonField(
                                                       chatItemItem,
                                                       r'''$.interlocutor.avatarUrl''',
-                                                    ).toString(),
-                                                    threadId: getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.id''',
-                                                    ).toString(),
-                                                    accountId: getJsonField(
-                                                      chatItemItem,
-                                                      r'''$.allegroAccountId''',
-                                                    ),
-                                                    loadingMessage: () async {
-                                                      var _shouldSetState =
-                                                          false;
-                                                      _model.selectedThreadId =
-                                                          getJsonField(
-                                                        chatItemItem,
-                                                        r'''$.id''',
-                                                      ).toString();
-                                                      _model.allegroAccountId =
-                                                          getJsonField(
-                                                        chatItemItem,
-                                                        r'''$.allegroAccountId''',
-                                                      );
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width >=
-                                                          900.0) {
-                                                        _model.selectedThreadLogin =
-                                                            getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.interlocutor.login''',
-                                                        ).toString();
-                                                        _model.selectedThreadAvatar =
-                                                            getJsonField(
-                                                          chatItemItem,
-                                                          r'''$.interlocutor.avatarUrl''',
-                                                        ).toString();
-                                                        _model.apiResultGETMessageWEB =
-                                                            await ConversationsGroup
-                                                                .getThreadMessagesCall
-                                                                .call(
-                                                          accountId: _model
-                                                              .allegroAccountId,
-                                                          threadId: _model
-                                                              .selectedThreadId,
-                                                          authToken:
-                                                              FFAppState()
-                                                                  .authToken,
-                                                        );
+                                                    ).toString();
+                                                    _model.apiResultGETMessageWEB =
+                                                        await ConversationsGroup
+                                                            .getThreadMessagesCall
+                                                            .call(
+                                                      accountId: _model
+                                                          .allegroAccountId,
+                                                      threadId: _model
+                                                          .selectedThreadId,
+                                                      authToken: FFAppState()
+                                                          .authToken,
+                                                    );
 
-                                                        _shouldSetState = true;
-                                                        _model.messagesList =
-                                                            getJsonField(
-                                                          (_model.apiResultGETMessageWEB
+                                                    _shouldSetState = true;
+                                                    _model.messagesList =
+                                                        getJsonField(
+                                                      (_model.apiResultGETMessageWEB
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.data.messages''',
+                                                      true,
+                                                    )!
+                                                            .toList()
+                                                            .cast<dynamic>();
+                                                    _model.firstMessage = functions
+                                                        .findMessageWithContext(
+                                                            _model.messagesList
+                                                                .toList());
+                                                    await Future.wait([
+                                                      Future(() async {
+                                                        if ((getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.relatesTo.order''',
+                                                                ) !=
+                                                                null) &&
+                                                            (getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.relatesTo.offer''',
+                                                                ) ==
+                                                                null)) {
+                                                          _model.apiResultORDERWEB =
+                                                              await ConversationsGroup
+                                                                  .getOrderDetailsCall
+                                                                  .call(
+                                                            orderId:
+                                                                getJsonField(
+                                                              _model
+                                                                  .firstMessage,
+                                                              r'''$.relatesTo.order.id''',
+                                                            ).toString(),
+                                                            allegroAccountId: _model
+                                                                .allegroAccountId
+                                                                ?.toString(),
+                                                            authToken:
+                                                                FFAppState()
+                                                                    .authToken,
+                                                          );
+
+                                                          _shouldSetState =
+                                                              true;
+                                                          _model
+                                                              .firstMessage = (_model
+                                                                  .apiResultORDERWEB
                                                                   ?.jsonBody ??
-                                                              ''),
-                                                          r'''$.data.messages''',
-                                                          true,
-                                                        )!
-                                                                .toList()
-                                                                .cast<
-                                                                    dynamic>();
-                                                        _model.firstMessage = functions
-                                                            .findMessageWithContext(
-                                                                _model
-                                                                    .messagesList
-                                                                    .toList());
-                                                        await Future.wait([
-                                                          Future(() async {
-                                                            if ((getJsonField(
-                                                                      _model
-                                                                          .firstMessage,
-                                                                      r'''$.relatesTo.order''',
-                                                                    ) !=
-                                                                    null) &&
-                                                                (getJsonField(
-                                                                      _model
-                                                                          .firstMessage,
-                                                                      r'''$.relatesTo.offer''',
-                                                                    ) ==
-                                                                    null)) {
-                                                              _model.apiResultORDERWEB =
-                                                                  await ConversationsGroup
-                                                                      .getOrderDetailsCall
-                                                                      .call(
-                                                                orderId:
-                                                                    getJsonField(
-                                                                  _model
-                                                                      .firstMessage,
-                                                                  r'''$.relatesTo.order.id''',
-                                                                ).toString(),
-                                                                allegroAccountId: _model
-                                                                    .allegroAccountId
-                                                                    ?.toString(),
-                                                                authToken:
-                                                                    FFAppState()
-                                                                        .authToken,
-                                                              );
-
-                                                              _shouldSetState =
-                                                                  true;
-                                                              _model
-                                                                  .firstMessage = (_model
-                                                                      .apiResultORDERWEB
+                                                              '');
+                                                          _model.messagesList = functions
+                                                              .parseMessages((_model
+                                                                      .apiResultGETMessageWEB
                                                                       ?.jsonBody ??
-                                                                  '');
-                                                              _model.messagesList = functions
-                                                                  .parseMessages((_model
-                                                                          .apiResultGETMessageWEB
-                                                                          ?.jsonBody ??
-                                                                      ''))
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                            } else {
-                                                              _model.messagesList = functions
-                                                                  .parseMessages((_model
-                                                                          .apiResultGETMessageWEB
-                                                                          ?.jsonBody ??
-                                                                      ''))
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                              _model.isLoad =
-                                                                  false;
-                                                              safeSetState(
-                                                                  () {});
-                                                              if (_shouldSetState)
-                                                                safeSetState(
-                                                                    () {});
-                                                              return;
-                                                            }
-                                                          }),
-                                                          Future(() async {
-                                                            if ((getJsonField(
-                                                                      _model
-                                                                          .firstMessage,
-                                                                      r'''$.relatesTo.offer''',
-                                                                    ) !=
-                                                                    null) &&
-                                                                (getJsonField(
-                                                                      _model
-                                                                          .firstMessage,
-                                                                      r'''$.relatesTo.order''',
-                                                                    ) ==
-                                                                    null)) {
-                                                              _model.apiResultOfferWEB =
-                                                                  await ConversationsGroup
-                                                                      .getOfferDetailsCall
-                                                                      .call(
-                                                                offerId:
-                                                                    getJsonField(
-                                                                  _model
-                                                                      .firstMessage,
-                                                                  r'''$.relatesTo.offer.id''',
-                                                                ).toString(),
-                                                                allegroAccountId: _model
-                                                                    .allegroAccountId
-                                                                    ?.toString(),
-                                                                authToken:
-                                                                    FFAppState()
-                                                                        .authToken,
-                                                              );
-
-                                                              _shouldSetState =
-                                                                  true;
-                                                              _model
-                                                                  .firstMessage = (_model
-                                                                      .apiResultOfferWEB
+                                                                  ''))
+                                                              .toList()
+                                                              .cast<dynamic>();
+                                                        } else {
+                                                          _model.messagesList = functions
+                                                              .parseMessages((_model
+                                                                      .apiResultGETMessageWEB
                                                                       ?.jsonBody ??
-                                                                  '');
-                                                              _model.messagesList = functions
-                                                                  .parseMessages((_model
-                                                                          .apiResultGETMessageWEB
-                                                                          ?.jsonBody ??
-                                                                      ''))
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                            } else {
-                                                              _model.messagesList = functions
-                                                                  .parseMessages((_model
-                                                                          .apiResultGETMessageWEB
-                                                                          ?.jsonBody ??
-                                                                      ''))
-                                                                  .toList()
-                                                                  .cast<
-                                                                      dynamic>();
-                                                              _model.isLoad =
-                                                                  false;
-                                                              safeSetState(
-                                                                  () {});
-                                                              if (_shouldSetState)
-                                                                safeSetState(
-                                                                    () {});
-                                                              return;
-                                                            }
-                                                          }),
-                                                        ]);
-                                                        _model.isLoad = false;
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        if (Navigator.of(
-                                                                context)
-                                                            .canPop()) {
-                                                          context.pop();
-                                                        }
-                                                        context.pushNamed(
-                                                          ChatWiadomociWidget
-                                                              .routeName,
-                                                          queryParameters: {
-                                                            'threadId':
-                                                                serializeParam(
-                                                              _model
-                                                                  .selectedThreadId,
-                                                              ParamType.String,
-                                                            ),
-                                                            'accountId':
-                                                                serializeParam(
-                                                              _model
-                                                                  .allegroAccountId,
-                                                              ParamType.int,
-                                                            ),
-                                                            'login':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.interlocutor.login''',
-                                                              ).toString(),
-                                                              ParamType.String,
-                                                            ),
-                                                            'avatar':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                chatItemItem,
-                                                                r'''$.interlocutor.avatarUrl''',
-                                                              ).toString(),
-                                                              ParamType.String,
-                                                            ),
-                                                          }.withoutNulls,
-                                                        );
-
-                                                        if (_shouldSetState)
+                                                                  ''))
+                                                              .toList()
+                                                              .cast<dynamic>();
+                                                          _model.isLoad = false;
                                                           safeSetState(() {});
-                                                        return;
-                                                      }
+                                                          if (_shouldSetState)
+                                                            safeSetState(() {});
+                                                          return;
+                                                        }
+                                                      }),
+                                                      Future(() async {
+                                                        if ((getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.relatesTo.offer''',
+                                                                ) !=
+                                                                null) &&
+                                                            (getJsonField(
+                                                                  _model
+                                                                      .firstMessage,
+                                                                  r'''$.relatesTo.order''',
+                                                                ) ==
+                                                                null)) {
+                                                          _model.apiResultOfferWEB =
+                                                              await ConversationsGroup
+                                                                  .getOfferDetailsCall
+                                                                  .call(
+                                                            offerId:
+                                                                getJsonField(
+                                                              _model
+                                                                  .firstMessage,
+                                                              r'''$.relatesTo.offer.id''',
+                                                            ).toString(),
+                                                            allegroAccountId: _model
+                                                                .allegroAccountId
+                                                                ?.toString(),
+                                                            authToken:
+                                                                FFAppState()
+                                                                    .authToken,
+                                                          );
 
-                                                      if (_shouldSetState)
-                                                        safeSetState(() {});
-                                                    },
-                                                  ),
-                                                ),
-                                              );
-                                            },
+                                                          _shouldSetState =
+                                                              true;
+                                                          _model
+                                                              .firstMessage = (_model
+                                                                  .apiResultOfferWEB
+                                                                  ?.jsonBody ??
+                                                              '');
+                                                          _model.messagesList = functions
+                                                              .parseMessages((_model
+                                                                      .apiResultGETMessageWEB
+                                                                      ?.jsonBody ??
+                                                                  ''))
+                                                              .toList()
+                                                              .cast<dynamic>();
+                                                        } else {
+                                                          _model.messagesList = functions
+                                                              .parseMessages((_model
+                                                                      .apiResultGETMessageWEB
+                                                                      ?.jsonBody ??
+                                                                  ''))
+                                                              .toList()
+                                                              .cast<dynamic>();
+                                                          _model.isLoad = false;
+                                                          safeSetState(() {});
+                                                          if (_shouldSetState)
+                                                            safeSetState(() {});
+                                                          return;
+                                                        }
+                                                      }),
+                                                    ]);
+                                                    _model.isLoad = false;
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    if (Navigator.of(context)
+                                                        .canPop()) {
+                                                      context.pop();
+                                                    }
+                                                    context.pushNamed(
+                                                      ChatWiadomociWidget
+                                                          .routeName,
+                                                      queryParameters: {
+                                                        'threadId':
+                                                            serializeParam(
+                                                          _model
+                                                              .selectedThreadId,
+                                                          ParamType.String,
+                                                        ),
+                                                        'accountId':
+                                                            serializeParam(
+                                                          _model
+                                                              .allegroAccountId,
+                                                          ParamType.int,
+                                                        ),
+                                                        'login': serializeParam(
+                                                          getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.login''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'avatar':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.interlocutor.avatarUrl''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'isThreadRead':
+                                                            serializeParam(
+                                                          _model
+                                                              .selectedThreadIsRead,
+                                                          ParamType.bool,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+
+                                                    if (_shouldSetState)
+                                                      safeSetState(() {});
+                                                    return;
+                                                  }
+
+                                                  if (_model
+                                                          .selectedThreadIsRead ==
+                                                      false) {
+                                                    _model.apiResultjqq =
+                                                        await ConversationsGroup
+                                                            .markChatAsReadCall
+                                                            .call(
+                                                      accountId: _model
+                                                          .allegroAccountId,
+                                                      threadId: _model
+                                                          .selectedThreadId,
+                                                      authToken: FFAppState()
+                                                          .authToken,
+                                                    );
+
+                                                    _shouldSetState = true;
+                                                  }
+                                                  safeSetState(() {});
+                                                  if (_shouldSetState)
+                                                    safeSetState(() {});
+                                                },
+                                              ),
+                                            ),
                                           );
                                         },
                                       ),
@@ -460,6 +471,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                 ),
                               ),
                             ),
+                          ),
                           Expanded(
                             flex: 1,
                             child: Flex(
@@ -908,148 +920,170 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 0.0, 24.0, 0.0),
-                                            child: Builder(
-                                              builder: (context) {
-                                                final chatItem = getJsonField(
-                                                  (_model.getALLChats
-                                                          ?.jsonBody ??
-                                                      ''),
-                                                  r'''$.data.items''',
-                                                ).toList();
+                                            child: PagedListView<
+                                                ApiPagingParams, dynamic>(
+                                              pagingController:
+                                                  _model.setListViewController3(
+                                                (nextPageMarker) =>
+                                                    ConversationsGroup
+                                                        .getAllChatsCall
+                                                        .call(
+                                                  offset: 0,
+                                                  limit: 20,
+                                                  authToken:
+                                                      FFAppState().authToken,
+                                                ),
+                                              ),
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              reverse: false,
+                                              scrollDirection: Axis.vertical,
+                                              builderDelegate:
+                                                  PagedChildBuilderDelegate<
+                                                      dynamic>(
+                                                // Customize what your widget looks like when it's loading the first page.
+                                                firstPageProgressIndicatorBuilder:
+                                                    (_) => Image.asset(
+                                                  'assets/images/Bees_&_Bombs.gif',
+                                                ),
+                                                // Customize what your widget looks like when it's loading another page.
+                                                newPageProgressIndicatorBuilder:
+                                                    (_) => Image.asset(
+                                                  'assets/images/Bees_&_Bombs.gif',
+                                                ),
 
-                                                return ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount: chatItem.length,
-                                                  itemBuilder:
-                                                      (context, chatItemIndex) {
-                                                    final chatItemItem =
-                                                        chatItem[chatItemIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  4.0,
-                                                                  0.0,
-                                                                  4.0),
-                                                      child: wrapWithModel(
-                                                        model: _model
-                                                            .lastmessageItemModels2
-                                                            .getModel(
-                                                          getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.id''',
-                                                          ).toString(),
-                                                          chatItemIndex,
-                                                        ),
-                                                        updateCallback: () =>
-                                                            safeSetState(() {}),
-                                                        updateOnChange: true,
-                                                        child:
-                                                            LastmessageItemWidget(
-                                                          key: Key(
-                                                            'Keyzwg_${getJsonField(
-                                                              chatItemItem,
-                                                              r'''$.id''',
-                                                            ).toString()}',
-                                                          ),
-                                                          login: getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.interlocutor.login''',
-                                                          ).toString(),
-                                                          date: functions
-                                                              .formatDateString(
-                                                                  getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.lastMessageDateTime''',
-                                                          ).toString()),
-                                                          konto: getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.allegroAccountLogin''',
-                                                          ).toString(),
-                                                          author: getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.lastMessageAuthor''',
-                                                          ).toString(),
-                                                          lastmessage:
-                                                              getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.lastMessageText''',
-                                                          ).toString(),
-                                                          isread: !getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.read''',
-                                                          ),
-                                                          avatar: getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.interlocutor.avatarUrl''',
-                                                          ).toString(),
-                                                          threadId:
-                                                              getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.id''',
-                                                          ).toString(),
-                                                          accountId:
-                                                              getJsonField(
-                                                            chatItemItem,
-                                                            r'''$.allegroAccountId''',
-                                                          ),
-                                                          loadingMessage:
-                                                              () async {
-                                                            if (Navigator.of(
-                                                                    context)
-                                                                .canPop()) {
-                                                              context.pop();
-                                                            }
-                                                            context.pushNamed(
-                                                              ChatWiadomociWidget
-                                                                  .routeName,
-                                                              queryParameters: {
-                                                                'threadId':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    chatItemItem,
-                                                                    r'''$.id''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                                'accountId':
-                                                                    serializeParam(
-                                                                  _model
-                                                                      .allegroAccountId,
-                                                                  ParamType.int,
-                                                                ),
-                                                                'login':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    chatItemItem,
-                                                                    r'''$.interlocutor.login''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                                'avatar':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    chatItemItem,
-                                                                    r'''$.interlocutor.avatarUrl''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          },
-                                                        ),
+                                                itemBuilder: (context, _,
+                                                    chatItemIndex) {
+                                                  final chatItemItem = _model
+                                                      .listViewPagingController3!
+                                                      .itemList![chatItemIndex];
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                0.0, 4.0),
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .lastmessageItemModels2
+                                                          .getModel(
+                                                        getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.id''',
+                                                        ).toString(),
+                                                        chatItemIndex,
                                                       ),
-                                                    );
-                                                  },
-                                                );
-                                              },
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      updateOnChange: true,
+                                                      child:
+                                                          LastmessageItemWidget(
+                                                        key: Key(
+                                                          'Keyzwg_${getJsonField(
+                                                            chatItemItem,
+                                                            r'''$.id''',
+                                                          ).toString()}',
+                                                        ),
+                                                        login: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.interlocutor.login''',
+                                                        ).toString(),
+                                                        date: functions
+                                                            .formatDateString(
+                                                                getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.lastMessageDateTime''',
+                                                        ).toString()),
+                                                        konto: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.allegroAccountLogin''',
+                                                        ).toString(),
+                                                        author: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.lastMessageAuthor''',
+                                                        ).toString(),
+                                                        lastmessage:
+                                                            getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.lastMessageText''',
+                                                        ).toString(),
+                                                        isread: !getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.read''',
+                                                        ),
+                                                        avatar: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.interlocutor.avatarUrl''',
+                                                        ).toString(),
+                                                        threadId: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.id''',
+                                                        ).toString(),
+                                                        accountId: getJsonField(
+                                                          chatItemItem,
+                                                          r'''$.allegroAccountId''',
+                                                        ),
+                                                        loadingMessage:
+                                                            () async {
+                                                          if (Navigator.of(
+                                                                  context)
+                                                              .canPop()) {
+                                                            context.pop();
+                                                          }
+                                                          context.pushNamed(
+                                                            ChatWiadomociWidget
+                                                                .routeName,
+                                                            queryParameters: {
+                                                              'threadId':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatItemItem,
+                                                                  r'''$.id''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'accountId':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatItemItem,
+                                                                  r'''$.allegroAccountId''',
+                                                                ),
+                                                                ParamType.int,
+                                                              ),
+                                                              'login':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatItemItem,
+                                                                  r'''$.interlocutor.login''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'avatar':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatItemItem,
+                                                                  r'''$.interlocutor.avatarUrl''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'isThreadRead':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatItemItem,
+                                                                  r'''$.read''',
+                                                                ),
+                                                                ParamType.bool,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ),
                                         ),

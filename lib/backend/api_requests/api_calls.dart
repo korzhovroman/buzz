@@ -822,6 +822,8 @@ class UploadFileToAllegroCall {
 
 class GetAllChatsCall {
   Future<ApiCallResponse> call({
+    int? offset = 0,
+    int? limit = 20,
     String? authToken = '',
   }) async {
     final baseUrl = ConversationsGroup.getBaseUrl(
@@ -837,8 +839,8 @@ class GetAllChatsCall {
         'Content-Type': 'application/json',
       },
       params: {
-        'limit': 20,
-        'offset': 0,
+        'limit': limit,
+        'offset': offset,
       },
       returnBody: true,
       encodeBodyUtf8: false,
