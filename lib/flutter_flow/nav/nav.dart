@@ -115,10 +115,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: WiadomociWidget.routeName,
           path: WiadomociWidget.routePath,
           builder: (context, params) => WiadomociWidget(
-            accountId: params.getParam(
-              'accountId',
-              ParamType.int,
-            ),
             namepage: params.getParam(
               'namepage',
               ParamType.String,
@@ -223,6 +219,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             ),
             avatar: params.getParam(
               'avatar',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: WiadomociAccountWidget.routeName,
+          path: WiadomociAccountWidget.routePath,
+          builder: (context, params) => WiadomociAccountWidget(
+            accountId: params.getParam(
+              'accountId',
+              ParamType.int,
+            ),
+            namepage: params.getParam(
+              'namepage',
               ParamType.String,
             ),
           ),

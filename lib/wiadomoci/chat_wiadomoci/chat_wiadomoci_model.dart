@@ -6,6 +6,7 @@ import '/message/messageitem/messageitem_widget.dart';
 import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
 import '/message/sendmessage/sendmessage_widget.dart';
+import '/index.dart';
 import 'chat_wiadomoci_widget.dart' show ChatWiadomociWidget;
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,8 @@ class ChatWiadomociModel extends FlutterFlowModel<ChatWiadomociWidget> {
   ApiCallResponse? apiResultORDER;
   // Stores action output result for [Backend Call - API (getOfferDetails)] action in ChatWiadomoci widget.
   ApiCallResponse? apiResultOffer;
+  // Stores action output result for [Backend Call - API (markChatAsRead)] action in ChatWiadomoci widget.
+  ApiCallResponse? apiResultbl3;
   // Model for appbarmob component.
   late AppbarmobModel appbarmobModel;
   // Model for headerchat component.

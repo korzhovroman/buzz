@@ -552,6 +552,8 @@ class ConversationsGroup {
   static GetOfferDetailsCall getOfferDetailsCall = GetOfferDetailsCall();
   static UploadFileToAllegroCall uploadFileToAllegroCall =
       UploadFileToAllegroCall();
+  static GetAllChatsCall getAllChatsCall = GetAllChatsCall();
+  static MarkChatAsReadCall markChatAsReadCall = MarkChatAsReadCall();
 }
 
 class GetSummaryCall {
@@ -808,6 +810,66 @@ class UploadFileToAllegroCall {
         'file': file,
       },
       bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetAllChatsCall {
+  Future<ApiCallResponse> call({
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAllChats',
+      apiUrl: '${baseUrl}/allegro/all-threads',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'limit': 20,
+        'offset': 0,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class MarkChatAsReadCall {
+  Future<ApiCallResponse> call({
+    int? accountId,
+    String? threadId = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'markChatAsRead',
+      apiUrl: '${baseUrl}/allegro/${accountId}/threads/${threadId}/read',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

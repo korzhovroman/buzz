@@ -52,6 +52,16 @@ class _DriwerWidgetState extends State<DriwerWidget> {
 
     return Container(
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4.0,
+            color: Color(0x33000000),
+            offset: Offset(
+              0.0,
+              2.0,
+            ),
+          )
+        ],
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(8.0),
@@ -245,15 +255,7 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(
-                        WiadomociWidget.routeName,
-                        queryParameters: {
-                          'accountId': serializeParam(
-                            0,
-                            ParamType.int,
-                          ),
-                        }.withoutNulls,
-                      );
+                      context.pushNamed(WiadomociWidget.routeName);
                     },
                     child: Container(
                       width: double.infinity,

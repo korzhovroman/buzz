@@ -10,11 +10,11 @@ import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
 import '/message/sendmessage/sendmessage_widget.dart';
 import '/index.dart';
-import 'wiadomoci_widget.dart' show WiadomociWidget;
+import 'wiadomoci_account_widget.dart' show WiadomociAccountWidget;
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
+class WiadomociAccountModel extends FlutterFlowModel<WiadomociAccountWidget> {
   ///  Local state fields for this page.
 
   String? selectedThreadId;
@@ -44,14 +44,15 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
 
   bool isLoad = false;
 
-  int? allegroAccountId;
-
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (getAllChats)] action in Wiadomoci widget.
-  ApiCallResponse? getALLChats;
   // Model for SideNavWeb component.
   late SideNavWebModel sideNavWebModel;
+  // State field(s) for ListView widget.
+
+  PagingController<ApiPagingParams, dynamic>? listViewPagingController1;
+  Function(ApiPagingParams nextPageMarker)? listViewApiCall1;
+
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels1;
   // Stores action output result for [Backend Call - API (getThreadMessages)] action in lastmessageItem widget.
@@ -103,6 +104,7 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   @override
   void dispose() {
     sideNavWebModel.dispose();
+    listViewPagingController1?.dispose();
     lastmessageItemModels1.dispose();
     headerchatModel.dispose();
     offerCardModel.dispose();
@@ -116,6 +118,48 @@ class WiadomociModel extends FlutterFlowModel<WiadomociWidget> {
   }
 
   /// Additional helper methods.
+  PagingController<ApiPagingParams, dynamic> setListViewController1(
+    Function(ApiPagingParams) apiCall,
+  ) {
+    listViewApiCall1 = apiCall;
+    return listViewPagingController1 ??= _createListViewController1(apiCall);
+  }
+
+  PagingController<ApiPagingParams, dynamic> _createListViewController1(
+    Function(ApiPagingParams) query,
+  ) {
+    final controller = PagingController<ApiPagingParams, dynamic>(
+      firstPageKey: ApiPagingParams(
+        nextPageNumber: 0,
+        numItems: 0,
+        lastResponse: null,
+      ),
+    );
+    return controller..addPageRequestListener(listViewGetAccountThreadsPage1);
+  }
+
+  void listViewGetAccountThreadsPage1(ApiPagingParams nextPageMarker) =>
+      listViewApiCall1!(nextPageMarker)
+          .then((listViewGetAccountThreadsResponse) {
+        final pageItems = (getJsonField(
+                  listViewGetAccountThreadsResponse.jsonBody,
+                  r'''$.data.threads''',
+                ) ??
+                [])
+            .toList() as List;
+        final newNumItems = nextPageMarker.numItems + pageItems.length;
+        listViewPagingController1?.appendPage(
+          pageItems,
+          (pageItems.length > 0)
+              ? ApiPagingParams(
+                  nextPageNumber: nextPageMarker.nextPageNumber + 1,
+                  numItems: newNumItems,
+                  lastResponse: listViewGetAccountThreadsResponse,
+                )
+              : null,
+        );
+      });
+
   PagingController<ApiPagingParams, dynamic> setListViewController3(
     Function(ApiPagingParams) apiCall,
   ) {

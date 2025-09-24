@@ -62,7 +62,7 @@ class _OfferCardWidgetState extends State<OfferCardWidget> {
           boxShadow: [
             BoxShadow(
               blurRadius: 5.0,
-              color: Color(0x44111417),
+              color: Color(0x33000000),
               offset: Offset(
                 0.0,
                 2.0,

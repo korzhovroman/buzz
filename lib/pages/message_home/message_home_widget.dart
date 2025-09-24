@@ -255,7 +255,7 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                         ),
                         onPressed: () async {
                           context.pushNamed(
-                            WiadomociWidget.routeName,
+                            WiadomociAccountWidget.routeName,
                             queryParameters: {
                               'accountId': serializeParam(
                                 widget.accountId,

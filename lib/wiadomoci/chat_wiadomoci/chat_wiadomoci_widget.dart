@@ -7,6 +7,7 @@ import '/message/offer_card/offer_card_widget.dart';
 import '/message/order_card/order_card_widget.dart';
 import '/message/sendmessage/sendmessage_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -146,6 +147,17 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
       } else {
         return;
       }
+
+      await Future.delayed(
+        Duration(
+          milliseconds: 6000,
+        ),
+      );
+      _model.apiResultbl3 = await ConversationsGroup.markChatAsReadCall.call(
+        accountId: widget.accountId,
+        threadId: widget.threadId,
+        authToken: FFAppState().authToken,
+      );
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -185,7 +197,19 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                       child: wrapWithModel(
                         model: _model.appbarmobModel,
                         updateCallback: () => safeSetState(() {}),
-                        child: AppbarmobWidget(),
+                        child: AppbarmobWidget(
+                          onTap: () async {
+                            context.pushNamed(
+                              WiadomociAccountWidget.routeName,
+                              queryParameters: {
+                                'accountId': serializeParam(
+                                  widget.accountId,
+                                  ParamType.int,
+                                ),
+                              }.withoutNulls,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
@@ -428,6 +452,7 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                   ).toString(),
                                                   allegroAccountId:
                                                       widget.accountId!,
+                                                  treadId: widget.threadId!,
                                                 ),
                                               );
                                             },

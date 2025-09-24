@@ -6,7 +6,12 @@ import 'appbarmob_model.dart';
 export 'appbarmob_model.dart';
 
 class AppbarmobWidget extends StatefulWidget {
-  const AppbarmobWidget({super.key});
+  const AppbarmobWidget({
+    super.key,
+    required this.onTap,
+  });
+
+  final Future Function()? onTap;
 
   @override
   State<AppbarmobWidget> createState() => _AppbarmobWidgetState();
@@ -51,7 +56,7 @@ class _AppbarmobWidgetState extends State<AppbarmobWidget> {
               size: 34.0,
             ),
             onPressed: () async {
-              context.safePop();
+              await widget.onTap?.call();
             },
           ),
         ],

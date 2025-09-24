@@ -26,3 +26,5 @@ export '/playments/is_subscription_notactiv/is_subscription_notactiv_widget.dart
     show IsSubscriptionNotactivWidget;
 export '/wiadomoci/chat_wiadomoci/chat_wiadomoci_widget.dart'
     show ChatWiadomociWidget;
+export '/wiadomoci/wiadomoci_account/wiadomoci_account_widget.dart'
+    show WiadomociAccountWidget;

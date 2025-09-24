@@ -36,72 +36,69 @@ Future<bool> downloadAttachmentUniversal(
   int allegroAccountId,
 ) async {
   try {
-    print('=== УНИВЕРСАЛЬНОЕ СКАЧИВАНИЕ ===');
-    print('Платформа: ${kIsWeb ? "WEB" : Platform.operatingSystem}');
+    print('=== СКАЧИВАНИЕ ФАЙЛА ===');
+    print('Платформа: ${kIsWeb ? "WEB" : "МОБИЛЬНАЯ"}');
     print('Файл: $fileName');
-    print('URL: $attachmentUrl');
 
     if (kIsWeb) {
-      // === ЛОГИКА ДЛЯ ВЕБ-БРАУЗЕРА ===
-      print('Используем веб-версию скачивания...');
+      // === ВЕБ-ВЕРСИЯ - ГЛАВНОЕ ИСПРАВЛЕНИЕ ===
 
-      // Извлекаем ID из URL
-      // URL формат: https://upload.allegro.pl/message-center/message-attachments/{ID}
-      final uri = Uri.parse(attachmentUrl);
-      final pathSegments = uri.pathSegments;
-
-      String? attachmentId;
-      for (int i = 0; i < pathSegments.length; i++) {
-        if (pathSegments[i] == 'message-attachments' &&
-            i + 1 < pathSegments.length) {
-          attachmentId = pathSegments[i + 1];
-          break;
-        }
-      }
+      // Извлекаем ID из URL лучше
+      String? attachmentId = _getAttachmentId(attachmentUrl);
 
       if (attachmentId == null) {
-        print('ОШИБКА: Не удалось извлечь ID из URL');
+        print('ОШИБКА: Не удалось найти ID файла');
         return false;
       }
 
-      print('Извлеченный ID: $attachmentId');
+      print('ID файла: $attachmentId');
 
-      // Строим URL для proxy эндпоинта
-      final proxyUrl =
-          '/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy';
-      print('Proxy URL: $proxyUrl');
+      // Строим правильный URL
+      final baseUrl = html.window.location.origin;
+      final downloadUrl =
+          '$baseUrl/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy?download=true&filename=${Uri.encodeComponent(fileName)}';
 
-      // Открываем в новой вкладке - браузер сам предложит скачать
-      html.window.open(proxyUrl, '_blank');
+      print('URL для скачивания: $downloadUrl');
 
-      print('Файл открыт в новой вкладке');
-      return true;
+      try {
+        // Метод 1: Открываем в новой вкладке
+        html.window.open(downloadUrl, '_blank');
+        await Future.delayed(Duration(milliseconds: 500));
+        print('Файл открыт в новой вкладке');
+        return true;
+      } catch (e) {
+        print('Ошибка открытия в новой вкладке: $e');
+
+        try {
+          // Метод 2: Создаем ссылку для скачивания
+          final link = html.document.createElement('a') as html.AnchorElement;
+          link.href = downloadUrl;
+          link.download = fileName;
+          link.click();
+          print('Скачивание через ссылку');
+          return true;
+        } catch (e2) {
+          print('Все методы не сработали: $e2');
+          return false;
+        }
+      }
     } else {
-      // === ЛОГИКА ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ===
-      print('Используем мобильную версию скачивания...');
-
-      // Проверяем параметры
-      if (attachmentUrl.isEmpty || fileName.isEmpty || authToken.isEmpty) {
-        print('ОШИБКА: Пустые параметры');
-        return false;
-      }
+      // === МОБИЛЬНАЯ ВЕРСИЯ (без изменений) ===
 
       // Проверяем разрешения для Android
       if (Platform.isAndroid) {
-        print('Android: проверяем разрешения...');
         var status = await Permission.storage.status;
         if (!status.isGranted) {
           status = await Permission.storage.request();
           if (!status.isGranted) {
-            print('ОШИБКА: Разрешения отклонены');
+            print('ОШИБКА: Нет разрешений');
             return false;
           }
         }
-        print('Разрешения получены');
       }
 
-      // Выбираем папку для сохранения
-      Directory? saveDir;
+      // Определяем папку
+      Directory saveDir;
       if (Platform.isAndroid) {
         saveDir = Directory('/storage/emulated/0/Download');
         if (!saveDir.existsSync()) {
@@ -114,47 +111,66 @@ Future<bool> downloadAttachmentUniversal(
       final filePath = '${saveDir.path}/$fileName';
       print('Сохраняем в: $filePath');
 
-      // Скачиваем файл
+      // Скачиваем
       final dio = Dio();
       dio.options.headers['Authorization'] = 'Bearer $authToken';
       dio.options.headers['Accept'] = '*/*';
       dio.options.connectTimeout = Duration(seconds: 30);
       dio.options.receiveTimeout = Duration(minutes: 5);
 
-      await dio.download(
-        attachmentUrl,
-        filePath,
-        onReceiveProgress: (received, total) {
-          if (total != -1) {
-            final progress = (received / total * 100).toStringAsFixed(0);
-            print('Прогресс: $progress%');
-          }
-        },
-      );
+      await dio.download(attachmentUrl, filePath);
 
-      // Проверяем результат
+      // Проверяем
       final file = File(filePath);
       if (file.existsSync()) {
-        print('Файл сохранен: ${file.lengthSync()} байт');
-
-        // Пытаемся открыть файл
+        print('Файл сохранен');
         try {
           await OpenFile.open(filePath);
-          print('Файл открыт');
         } catch (e) {
-          print('Не удалось открыть файл: $e');
+          print('Не удалось открыть: $e');
         }
-
         return true;
-      } else {
-        print('ОШИБКА: Файл не сохранился');
-        return false;
       }
+      return false;
     }
   } catch (e) {
     print('ОШИБКА: $e');
     return false;
   }
+}
+
+// ГЛАВНАЯ ФУНКЦИЯ - ИСПРАВЛЕННОЕ ИЗВЛЕЧЕНИЕ ID
+String? _getAttachmentId(String input) {
+  if (input.isEmpty) return null;
+
+  // Если в URL есть /message-attachments/
+  if (input.contains('/message-attachments/')) {
+    final parts = input.split('/message-attachments/');
+    if (parts.length >= 2) {
+      String id = parts[1].split('?')[0].split('/')[0];
+      if (id.isNotEmpty) {
+        print('ID извлечен из URL: $id');
+        return id;
+      }
+    }
+  }
+
+  // Ищем UUID pattern
+  final uuidRegex =
+      RegExp(r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}');
+  final match = uuidRegex.firstMatch(input);
+  if (match != null) {
+    print('UUID найден: ${match.group(0)}');
+    return match.group(0);
+  }
+
+  // Возможно это уже ID
+  if (!input.startsWith('http') && input.length > 10 && input.length < 100) {
+    print('Используем как прямой ID: $input');
+    return input.trim();
+  }
+
+  return null;
 }
 // Set your action name, define your arguments and return parameter,
 // and then add the boilerplate code using the green button on the right!
