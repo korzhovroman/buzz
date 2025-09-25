@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -170,74 +169,8 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      _model.downloadAttachmentFile =
-                                          await actions
-                                              .downloadAttachmentUniversal(
-                                        widget.attachmentUrl!,
-                                        widget.attachmentFileName!,
-                                        FFAppState().authToken,
-                                        widget.allegroAccountId!,
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Pobieranie rozpoczęte...',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      if (_model.downloadAttachmentFile ==
-                                          true) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Plik został pobrany',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Błąd podczas pobierania',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      }
-
-                                      safeSetState(() {});
+                                      await launchURL(
+                                          'https://web-production-d213c.up.railway.app/api/allegro/[allegro_account_id]/attachments/[attachment_id]/proxy?filename=[filename]&auth_token=${FFAppState().authToken}');
                                     },
                                     child: Icon(
                                       Icons.image_search,
@@ -428,79 +361,8 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      _model.downloadAttachmentFileCopy =
-                                          await actions
-                                              .downloadAttachmentUniversal(
-                                        widget.attachmentUrl!,
-                                        widget.attachmentFileName!,
-                                        FFAppState().authToken,
-                                        widget.allegroAccountId!,
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Pobieranie rozpoczęte...',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .secondary,
-                                        ),
-                                      );
-                                      await Future.delayed(
-                                        Duration(
-                                          milliseconds: 3000,
-                                        ),
-                                      );
-                                      if (_model.downloadAttachmentFileCopy ==
-                                          true) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Plik został pobrany',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Błąd podczas pobierania',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                          ),
-                                        );
-                                      }
-
-                                      safeSetState(() {});
+                                      await launchURL(
+                                          'https://web-production-d213c.up.railway.app/api/allegro/[allegro_account_id]/attachments/[attachment_id]/proxy?filename=[filename]&auth_token=${FFAppState().authToken}');
                                     },
                                     child: Icon(
                                       Icons.image_search,

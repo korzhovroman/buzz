@@ -554,6 +554,8 @@ class ConversationsGroup {
       UploadFileToAllegroCall();
   static GetAllChatsCall getAllChatsCall = GetAllChatsCall();
   static MarkChatAsReadCall markChatAsReadCall = MarkChatAsReadCall();
+  static DownloadAttachmentCall downloadAttachmentCall =
+      DownloadAttachmentCall();
 }
 
 class GetSummaryCall {
@@ -882,7 +884,81 @@ class MarkChatAsReadCall {
   }
 }
 
+class DownloadAttachmentCall {
+  Future<ApiCallResponse> call({
+    int? allegroAccountId,
+    String? attachmentId = '',
+    String? filename = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = ConversationsGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'downloadAttachment',
+      apiUrl:
+          '${baseUrl}/allegro/${allegroAccountId}/attachments/${attachmentId}/proxy?filename=${filename}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 /// End conversations Group Code
+
+/// Start ISSUE Group Code
+
+class IssueGroup {
+  static String getBaseUrl({
+    String? authToken = '',
+  }) =>
+      'https://web-production-d213c.up.railway.app/api';
+  static Map<String, String> headers = {
+    'Authorization': 'Bearer [authToken]',
+    'Content-Type': 'application/json',
+  };
+  static AllIssuesCall allIssuesCall = AllIssuesCall();
+}
+
+class AllIssuesCall {
+  Future<ApiCallResponse> call({
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'All Issues',
+      apiUrl: '${baseUrl}/allegro/all-issues',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End ISSUE Group Code
 
 class UserSyncCallCall {
   static Future<ApiCallResponse> call({

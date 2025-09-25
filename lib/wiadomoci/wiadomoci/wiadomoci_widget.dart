@@ -513,9 +513,6 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                           if (_model.isLoad == false) {
                                             return Container(
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),

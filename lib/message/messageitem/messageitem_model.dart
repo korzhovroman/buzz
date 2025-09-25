@@ -3,13 +3,6 @@ import 'messageitem_widget.dart' show MessageitemWidget;
 import 'package:flutter/material.dart';
 
 class MessageitemModel extends FlutterFlowModel<MessageitemWidget> {
-  ///  State fields for stateful widgets in this component.
-
-  // Stores action output result for [Custom Action - downloadAttachmentUniversal] action in Icon widget.
-  bool? downloadAttachmentFile;
-  // Stores action output result for [Custom Action - downloadAttachmentUniversal] action in Icon widget.
-  bool? downloadAttachmentFileCopy;
-
   @override
   void initState(BuildContext context) {}
 
