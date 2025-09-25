@@ -507,6 +507,8 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                         0.0, 30.0, 24.0, 0.0),
                                     child: Container(
                                       decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
@@ -515,9 +517,6 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                           if (_model.isLoad == false) {
                                             return Container(
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                               ),

@@ -121,7 +121,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                         (nextPageMarker) => ConversationsGroup
                                             .getAllChatsCall
                                             .call(
-                                          offset: 0,
+                                          offset: nextPageMarker.numItems,
                                           limit: 20,
                                           authToken: FFAppState().authToken,
                                         ),
@@ -945,7 +945,7 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                   ConversationsGroup
                                                       .getAllChatsCall
                                                       .call(
-                                                offset: 0,
+                                                offset: nextPageMarker.numItems,
                                                 limit: 20,
                                                 authToken:
                                                     FFAppState().authToken,

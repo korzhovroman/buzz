@@ -14,10 +14,9 @@ import 'index.dart'; // Imports other custom actions
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' show Platform, Directory, File;
 
-// --------- НОВЫЕ ИМПОРТЫ ДЛЯ ВЕБ (ЭТО ИСПРАВЛЕНИЕ) ---------
+// Импорты для веба
 import 'package:http/http.dart' as http;
 import 'dart:html' as html;
-// ---------------------------------------------------------
 
 // Импорты для мобильных
 import 'package:dio/dio.dart';
@@ -33,7 +32,7 @@ Future<bool> downloadAttachmentUniversal(
 ) async {
   try {
     if (kIsWeb) {
-      // === ВЕБ-ВЕРСИЯ: ИСПРАВЛЕННАЯ ЛОГИКА ===
+      // === ВЕБ-ВЕРСИЯ ===
       String? attachmentId = _getAttachmentId(attachmentUrl);
       if (attachmentId == null) {
         print('ОШИБКА: Не удалось найти ID файла из URL: $attachmentUrl');
@@ -42,9 +41,10 @@ Future<bool> downloadAttachmentUniversal(
 
       final baseUrl = html.window.location.origin;
       final downloadUrl =
-          '$baseUrl/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy?download=true&filename=${Uri.encodeComponent(fileName)}';
+          '$baseUrl/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy?filename=${Uri.encodeComponent(fileName)}';
 
-      // 1. Делаем аутентифицированный запрос с помощью http-клиента
+      print('Скачиваем через: $downloadUrl');
+
       final response = await http.get(
         Uri.parse(downloadUrl),
         headers: {
@@ -52,53 +52,52 @@ Future<bool> downloadAttachmentUniversal(
         },
       );
 
-      // 2. Проверяем, что запрос успешен
       if (response.statusCode == 200) {
-        // 3. Создаем Blob из байтов файла
         final blob = html.Blob([response.bodyBytes]);
-        // 4. Создаем временный URL для этого Blob
         final url = html.Url.createObjectUrlFromBlob(blob);
-        // 5. Создаем невидимый элемент <a> для скачивания
         final anchor = html.document.createElement('a') as html.AnchorElement
           ..href = url
           ..style.display = 'none'
           ..download = fileName;
         html.document.body!.children.add(anchor);
-
-        // 6. "Кликаем" по ссылке, чтобы запустить скачивание
         anchor.click();
-
-        // 7. Убираем временные элементы
         html.document.body!.children.remove(anchor);
         html.Url.revokeObjectUrl(url);
 
-        print('Скачивание в вебе инициировано успешно.');
+        print('Скачивание успешно.');
         return true;
       } else {
-        print(
-            'ОШИБКА: Запрос на скачивание файла провалился со статусом ${response.statusCode}');
+        print('ОШИБКА скачивания: ${response.statusCode}');
+        print('Ответ сервера: ${response.body}');
         return false;
       }
     } else {
-      // === МОБИЛЬНАЯ ВЕРСИЯ (без изменений) ===
+      // === МОБИЛЬНАЯ ВЕРСИЯ ===
       if (Platform.isAndroid) {
-        if (await Permission.storage.request().isGranted) {
-          // либо есть разрешение, либо оно было только что дано
-        } else {
+        if (!await Permission.storage.request().isGranted) {
           print('ОШИБКА: Нет разрешений на запись в хранилище.');
           return false;
         }
       }
 
-      Directory? saveDir = await getTemporaryDirectory();
+      String? attachmentId = _getAttachmentId(attachmentUrl);
+      if (attachmentId == null) {
+        print('ОШИБКА: Не удалось найти ID файла');
+        return false;
+      }
 
+      Directory? saveDir = await getTemporaryDirectory();
       final filePath = '${saveDir.path}/$fileName';
 
       final dio = Dio();
       dio.options.headers['Authorization'] = 'Bearer $authToken';
-      dio.options.headers['Accept'] = '*/*';
 
-      await dio.download(attachmentUrl, filePath);
+      // Используем прокси-эндпоинт
+      final baseUrl = 'https://web-production-d213c.up.railway.app';
+      final downloadUrl =
+          '$baseUrl/api/allegro/$allegroAccountId/attachments/$attachmentId/proxy';
+
+      await dio.download(downloadUrl, filePath);
 
       final file = File(filePath);
       if (await file.exists()) {
