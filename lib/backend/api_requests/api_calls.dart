@@ -923,12 +923,19 @@ class IssueGroup {
   static String getBaseUrl({
     String? authToken = '',
   }) =>
-      'https://web-production-d213c.up.railway.app/api';
+      'https://web-production-d213c.up.railway.app/api/allegro/';
   static Map<String, String> headers = {
     'Authorization': 'Bearer [authToken]',
     'Content-Type': 'application/json',
   };
   static AllIssuesCall allIssuesCall = AllIssuesCall();
+  static GetalldiscussionsCall getalldiscussionsCall = GetalldiscussionsCall();
+  static GetallclaimsCall getallclaimsCall = GetallclaimsCall();
+  static GetissuedetailsCall getissuedetailsCall = GetissuedetailsCall();
+  static ChangeclaimstatusCall changeclaimstatusCall = ChangeclaimstatusCall();
+  static UploadIssueAttachmentCall uploadIssueAttachmentCall =
+      UploadIssueAttachmentCall();
+  static SendIssueMessageCall sendIssueMessageCall = SendIssueMessageCall();
 }
 
 class AllIssuesCall {
@@ -941,13 +948,195 @@ class AllIssuesCall {
 
     return ApiManager.instance.makeApiCall(
       callName: 'All Issues',
-      apiUrl: '${baseUrl}/allegro/all-issues',
+      apiUrl: '${baseUrl}all-issues',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': 'Bearer ${authToken}',
         'Content-Type': 'application/json',
       },
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetalldiscussionsCall {
+  Future<ApiCallResponse> call({
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getalldiscussions',
+      apiUrl: '${baseUrl}/discussions',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetallclaimsCall {
+  Future<ApiCallResponse> call({
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getallclaims',
+      apiUrl: '${baseUrl}/claims',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetissuedetailsCall {
+  Future<ApiCallResponse> call({
+    String? issueId = '',
+    int? allegroAccountId,
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getissuedetails',
+      apiUrl: '${baseUrl}${allegroAccountId}/issues/${issueId}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ChangeclaimstatusCall {
+  Future<ApiCallResponse> call({
+    int? allegroAccountId,
+    String? issueId = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'changeclaimstatus',
+      apiUrl: '${baseUrl}/${allegroAccountId}/claims/${issueId}/status',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UploadIssueAttachmentCall {
+  Future<ApiCallResponse> call({
+    int? allegroAccountId,
+    FFUploadedFile? uploadedFile,
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Upload Issue Attachment',
+      apiUrl: '${baseUrl}/${allegroAccountId}/issues/attachments/upload',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'file': uploadedFile,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class SendIssueMessageCall {
+  Future<ApiCallResponse> call({
+    int? allegroAccountId,
+    String? issueId = '',
+    String? messageText = '',
+    String? attachmentId = '',
+    String? authToken = '',
+  }) async {
+    final baseUrl = IssueGroup.getBaseUrl(
+      authToken: authToken,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "text": "${escapeStringForJson(messageText)}",
+  "attachment_id": "${escapeStringForJson(attachmentId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Send Issue Message',
+      apiUrl: '${baseUrl}${allegroAccountId}/issues/${issueId}/messages',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer ${authToken}',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

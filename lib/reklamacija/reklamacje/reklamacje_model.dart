@@ -3,12 +3,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/menu/appbar_driwer/appbar_driwer_widget.dart';
 import '/menu/driwer/driwer_widget.dart';
 import '/menu/side_nav_web/side_nav_web_widget.dart';
-import '/message/headerchat/headerchat_widget.dart';
 import '/message/lastmessage_item/lastmessage_item_widget.dart';
-import '/message/messageitem/messageitem_widget.dart';
-import '/message/offer_card/offer_card_widget.dart';
-import '/message/order_card/order_card_widget.dart';
-import '/message/sendmessage/sendmessage_widget.dart';
 import '/index.dart';
 import 'reklamacje_widget.dart' show ReklamacjeWidget;
 import 'package:flutter/material.dart';
@@ -65,24 +60,12 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
   ApiCallResponse? apiResultOfferWEB;
   // Stores action output result for [Backend Call - API (markChatAsRead)] action in lastmessageItem widget.
   ApiCallResponse? apiResultjqq;
-  // Model for headerchat component.
-  late HeaderchatModel headerchatModel;
-  // Model for OfferCard component.
-  late OfferCardModel offerCardModel;
-  // Model for OrderCard component.
-  late OrderCardModel orderCardModel;
-  // Models for messageitem dynamic component.
-  late FlutterFlowDynamicModels<MessageitemModel> messageitemModels;
-  // Model for sendmessage component.
-  late SendmessageModel sendmessageModel;
-  // Stores action output result for [Backend Call - API (getThreadMessages)] action in sendmessage widget.
-  ApiCallResponse? apiResultGETMessag;
   // Model for appbarDriwer component.
   late AppbarDriwerModel appbarDriwerModel;
   // State field(s) for ListView widget.
 
-  PagingController<ApiPagingParams, dynamic>? listViewPagingController3;
-  Function(ApiPagingParams nextPageMarker)? listViewApiCall3;
+  PagingController<ApiPagingParams, dynamic>? listViewPagingController2;
+  Function(ApiPagingParams nextPageMarker)? listViewApiCall2;
 
   // Models for lastmessageItem dynamic component.
   late FlutterFlowDynamicModels<LastmessageItemModel> lastmessageItemModels2;
@@ -94,11 +77,6 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
     sideNavWebModel = createModel(context, () => SideNavWebModel());
     lastmessageItemModels1 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
-    headerchatModel = createModel(context, () => HeaderchatModel());
-    offerCardModel = createModel(context, () => OfferCardModel());
-    orderCardModel = createModel(context, () => OrderCardModel());
-    messageitemModels = FlutterFlowDynamicModels(() => MessageitemModel());
-    sendmessageModel = createModel(context, () => SendmessageModel());
     appbarDriwerModel = createModel(context, () => AppbarDriwerModel());
     lastmessageItemModels2 =
         FlutterFlowDynamicModels(() => LastmessageItemModel());
@@ -110,13 +88,8 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
     sideNavWebModel.dispose();
     listViewPagingController1?.dispose();
     lastmessageItemModels1.dispose();
-    headerchatModel.dispose();
-    offerCardModel.dispose();
-    orderCardModel.dispose();
-    messageitemModels.dispose();
-    sendmessageModel.dispose();
     appbarDriwerModel.dispose();
-    listViewPagingController3?.dispose();
+    listViewPagingController2?.dispose();
     lastmessageItemModels2.dispose();
     driwerModel.dispose();
   }
@@ -163,14 +136,14 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
         );
       });
 
-  PagingController<ApiPagingParams, dynamic> setListViewController3(
+  PagingController<ApiPagingParams, dynamic> setListViewController2(
     Function(ApiPagingParams) apiCall,
   ) {
-    listViewApiCall3 = apiCall;
-    return listViewPagingController3 ??= _createListViewController3(apiCall);
+    listViewApiCall2 = apiCall;
+    return listViewPagingController2 ??= _createListViewController2(apiCall);
   }
 
-  PagingController<ApiPagingParams, dynamic> _createListViewController3(
+  PagingController<ApiPagingParams, dynamic> _createListViewController2(
     Function(ApiPagingParams) query,
   ) {
     final controller = PagingController<ApiPagingParams, dynamic>(
@@ -180,11 +153,11 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
         lastResponse: null,
       ),
     );
-    return controller..addPageRequestListener(listViewGetAllChatsPage3);
+    return controller..addPageRequestListener(listViewGetAllChatsPage2);
   }
 
-  void listViewGetAllChatsPage3(ApiPagingParams nextPageMarker) =>
-      listViewApiCall3!(nextPageMarker).then((listViewGetAllChatsResponse) {
+  void listViewGetAllChatsPage2(ApiPagingParams nextPageMarker) =>
+      listViewApiCall2!(nextPageMarker).then((listViewGetAllChatsResponse) {
         final pageItems = (getJsonField(
                   listViewGetAllChatsResponse.jsonBody,
                   r'''$.data.items''',
@@ -192,7 +165,7 @@ class ReklamacjeModel extends FlutterFlowModel<ReklamacjeWidget> {
                 [])
             .toList() as List;
         final newNumItems = nextPageMarker.numItems + pageItems.length;
-        listViewPagingController3?.appendPage(
+        listViewPagingController2?.appendPage(
           pageItems,
           (pageItems.length > 0)
               ? ApiPagingParams(
