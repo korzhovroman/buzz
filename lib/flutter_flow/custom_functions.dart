@@ -254,3 +254,7 @@ String? formatDateStringAnswer(String dateString) {
     return 'Błędna data';
   }
 }
+
+String attachmentFroUrl(String fullUrl) {
+  return fullUrl.split('/').last;
+}

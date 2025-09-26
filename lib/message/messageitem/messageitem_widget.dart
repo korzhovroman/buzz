@@ -1,5 +1,8 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +22,7 @@ class MessageitemWidget extends StatefulWidget {
     required this.allegroAccountId,
     required this.treadId,
     bool? shouldMarkAsRead,
+    required this.mimeType,
   }) : this.shouldMarkAsRead = shouldMarkAsRead ?? false;
 
   final String? messageText;
@@ -31,6 +35,7 @@ class MessageitemWidget extends StatefulWidget {
   final int? allegroAccountId;
   final String? treadId;
   final bool shouldMarkAsRead;
+  final String? mimeType;
 
   @override
   State<MessageitemWidget> createState() => _MessageitemWidgetState();
@@ -169,8 +174,69 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      await launchURL(
-                                          'https://web-production-d213c.up.railway.app/api/allegro/[allegro_account_id]/attachments/[attachment_id]/proxy?filename=[filename]&auth_token=${FFAppState().authToken}');
+                                      _model.apiFileCopy =
+                                          await ConversationsGroup
+                                              .downloadAttachmentCall
+                                              .call(
+                                        allegroAccountId:
+                                            widget.allegroAccountId,
+                                        attachmentId:
+                                            functions.attachmentFroUrl(
+                                                widget.attachmentUrl!),
+                                        filename: widget.attachmentFileName,
+                                        authToken: FFAppState().authToken,
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Rozpoczyna się pobieranie',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      await Future.delayed(
+                                        Duration(
+                                          milliseconds: 3000,
+                                        ),
+                                      );
+                                      await actions.saveFile(
+                                        ((_model.apiFileCopy?.jsonBody ?? '')
+                                                as List)
+                                            .cast<int>(),
+                                        widget.attachmentFileName!,
+                                        widget.mimeType!,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Plik został zapisany',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+
+                                      safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.image_search,
@@ -361,8 +427,68 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      await launchURL(
-                                          'https://web-production-d213c.up.railway.app/api/allegro/[allegro_account_id]/attachments/[attachment_id]/proxy?filename=[filename]&auth_token=${FFAppState().authToken}');
+                                      _model.apiFile = await ConversationsGroup
+                                          .downloadAttachmentCall
+                                          .call(
+                                        allegroAccountId:
+                                            widget.allegroAccountId,
+                                        attachmentId:
+                                            functions.attachmentFroUrl(
+                                                widget.attachmentUrl!),
+                                        filename: widget.attachmentFileName,
+                                        authToken: FFAppState().authToken,
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Rozpoczyna się pobieranie',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+                                      await Future.delayed(
+                                        Duration(
+                                          milliseconds: 300,
+                                        ),
+                                      );
+                                      await actions.saveFile(
+                                        ((_model.apiFile?.jsonBody ?? '')
+                                                as List)
+                                            .cast<int>(),
+                                        widget.attachmentFileName!,
+                                        widget.mimeType!,
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Plik został zapisany',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                        ),
+                                      );
+
+                                      safeSetState(() {});
                                     },
                                     child: Icon(
                                       Icons.image_search,

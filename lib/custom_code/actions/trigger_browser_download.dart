@@ -24,9 +24,14 @@ Future<void> triggerBrowserDownload(
       html.AnchorElement(href: 'data:$contentType;base64,$base64Data')
         ..setAttribute('download', fileName)
         ..style.display = 'none';
-  html.document.body!.children.add(anchor);
-  anchor.click();
-  html.document.body!.children.remove(anchor);
+
+  if (html.document.body != null) {
+    html.document.body!.children.add(anchor);
+    anchor.click();
+    html.document.body!.children.remove(anchor);
+  } else {
+    print('Ошибка: документ или тело документа недоступны');
+  }
 }
 // Set your action name, define your arguments and return parameter,
 // and then add the boilerplate code using the green button on the right!

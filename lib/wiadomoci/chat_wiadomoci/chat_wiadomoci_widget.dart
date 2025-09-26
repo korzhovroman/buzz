@@ -455,6 +455,10 @@ class _ChatWiadomociWidgetState extends State<ChatWiadomociWidget> {
                                                   shouldMarkAsRead:
                                                       widget.isThreadRead ==
                                                           false,
+                                                  mimeType: getJsonField(
+                                                    chatsitemItem,
+                                                    r'''$.attachments[0].mimeType''',
+                                                  ).toString(),
                                                 ),
                                               );
                                             },

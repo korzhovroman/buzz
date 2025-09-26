@@ -814,6 +814,11 @@ class _WiadomociWidgetState extends State<WiadomociWidget> {
                                                                               ).toString(),
                                                                               allegroAccountId: _model.allegroAccountId!,
                                                                               treadId: _model.selectedThreadId!,
+                                                                              shouldMarkAsRead: false,
+                                                                              mimeType: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.attachments[0].mimeType''',
+                                                                              ).toString(),
                                                                             ),
                                                                           );
                                                                         },

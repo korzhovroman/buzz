@@ -825,6 +825,10 @@ class _WiadomociAccountWidgetState extends State<WiadomociAccountWidget> {
                                                                                 r'''$.id''',
                                                                               ).toString(),
                                                                               shouldMarkAsRead: chatsitemItem,
+                                                                              mimeType: getJsonField(
+                                                                                chatsitemItem,
+                                                                                r'''$.attachments[0].mimeType''',
+                                                                              ).toString(),
                                                                             ),
                                                                           );
                                                                         },
