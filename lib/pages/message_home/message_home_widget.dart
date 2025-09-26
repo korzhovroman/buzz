@@ -401,7 +401,15 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed(DyskusjeWidget.routeName);
+                          context.pushNamed(
+                            DyskusjeWidget.routeName,
+                            queryParameters: {
+                              'namepage': serializeParam(
+                                '',
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                       ),
                     ),
@@ -540,7 +548,15 @@ class _MessageHomeWidgetState extends State<MessageHomeWidget> {
                           size: 24.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed(ReklamacjeWidget.routeName);
+                          context.pushNamed(
+                            ReklamacjeWidget.routeName,
+                            queryParameters: {
+                              'namepage': serializeParam(
+                                '',
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                       ),
                     ),

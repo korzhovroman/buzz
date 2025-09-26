@@ -210,12 +210,9 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                           milliseconds: 3000,
                                         ),
                                       );
-                                      await actions.saveFile(
-                                        ((_model.apiFileCopy?.jsonBody ?? '')
-                                                as List)
-                                            .cast<int>(),
-                                        widget.attachmentFileName!,
-                                        widget.mimeType!,
+                                      await actions.downloadFile(
+                                        (_model.apiFileCopy?.bodyText ?? ''),
+                                        FFAppState().authToken,
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -462,12 +459,9 @@ class _MessageitemWidgetState extends State<MessageitemWidget> {
                                           milliseconds: 300,
                                         ),
                                       );
-                                      await actions.saveFile(
-                                        ((_model.apiFile?.jsonBody ?? '')
-                                                as List)
-                                            .cast<int>(),
-                                        widget.attachmentFileName!,
-                                        widget.mimeType!,
+                                      await actions.downloadFile(
+                                        (_model.apiFile?.bodyText ?? ''),
+                                        FFAppState().authToken,
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(

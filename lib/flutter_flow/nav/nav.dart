@@ -122,26 +122,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: ReklamacjeWidget.routeName,
-          path: ReklamacjeWidget.routePath,
-          builder: (context, params) => ReklamacjeWidget(
-            namepage: params.getParam(
-              'namepage',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: DyskusjeWidget.routeName,
-          path: DyskusjeWidget.routePath,
-          builder: (context, params) => DyskusjeWidget(
-            namepage: params.getParam(
-              'namepage',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
           builder: (context, params) => HomePageWidget(),
@@ -235,6 +215,26 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'accountId',
               ParamType.int,
             ),
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: ReklamacjeWidget.routeName,
+          path: ReklamacjeWidget.routePath,
+          builder: (context, params) => ReklamacjeWidget(
+            namepage: params.getParam(
+              'namepage',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: DyskusjeWidget.routeName,
+          path: DyskusjeWidget.routePath,
+          builder: (context, params) => DyskusjeWidget(
             namepage: params.getParam(
               'namepage',
               ParamType.String,

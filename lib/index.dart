@@ -8,8 +8,6 @@ export '/auth/forgot_password_page/forgot_password_page_widget.dart'
 export '/auth/reset_password_page/reset_password_page_widget.dart'
     show ResetPasswordPageWidget;
 export '/wiadomoci/wiadomoci/wiadomoci_widget.dart' show WiadomociWidget;
-export '/reklamacija/reklamacje/reklamacje_widget.dart' show ReklamacjeWidget;
-export '/dyskusije/dyskusje/dyskusje_widget.dart' show DyskusjeWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/dashbord/dashbord_widget.dart' show DashbordWidget;
 export '/profile/profile/profile_widget.dart' show ProfileWidget;
@@ -28,3 +26,5 @@ export '/wiadomoci/chat_wiadomoci/chat_wiadomoci_widget.dart'
     show ChatWiadomociWidget;
 export '/wiadomoci/wiadomoci_account/wiadomoci_account_widget.dart'
     show WiadomociAccountWidget;
+export '/reklamacija/reklamacje/reklamacje_widget.dart' show ReklamacjeWidget;
+export '/dyskusije/dyskusje/dyskusje_widget.dart' show DyskusjeWidget;

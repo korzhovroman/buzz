@@ -320,7 +320,15 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(DyskusjeWidget.routeName);
+                      context.pushNamed(
+                        DyskusjeWidget.routeName,
+                        queryParameters: {
+                          'namepage': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -336,7 +344,7 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                           children: [
                             Icon(
                               FFIcons.knotification,
-                              color: widget.namepage == 'dyskusije'
+                              color: widget.namepage == 'Dyskusije'
                                   ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
@@ -355,12 +363,12 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.namepage == 'dyskusje'
+                                      color: widget.namepage == 'Dyskusje'
                                           ? FlutterFlowTheme.of(context)
                                               .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.namepage == 'dyskusje'
+                                      fontSize: widget.namepage == 'Dyskusje'
                                           ? 14.0
                                           : 12.0,
                                       letterSpacing: 0.0,
@@ -385,7 +393,15 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(ReklamacjeWidget.routeName);
+                      context.pushNamed(
+                        ReklamacjeWidget.routeName,
+                        queryParameters: {
+                          'namepage': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -401,7 +417,7 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                           children: [
                             Icon(
                               FFIcons.kexclamationTriangle,
-                              color: widget.namepage == 'reklamacje'
+                              color: widget.namepage == 'Reklamacje'
                                   ? FlutterFlowTheme.of(context).secondary
                                   : FlutterFlowTheme.of(context).primary,
                               size: 24.0,
@@ -420,12 +436,12 @@ class _DriwerWidgetState extends State<DriwerWidget> {
                                             .labelLarge
                                             .fontStyle,
                                       ),
-                                      color: widget.namepage == 'reklamacje'
+                                      color: widget.namepage == 'Reklamacje'
                                           ? FlutterFlowTheme.of(context)
                                               .secondary
                                           : FlutterFlowTheme.of(context)
                                               .primary,
-                                      fontSize: widget.namepage == 'reklamacje'
+                                      fontSize: widget.namepage == 'Reklamacje'
                                           ? 14.0
                                           : 12.0,
                                       letterSpacing: 0.0,

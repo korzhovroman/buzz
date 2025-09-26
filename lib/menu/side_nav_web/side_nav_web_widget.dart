@@ -317,7 +317,15 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(DyskusjeWidget.routeName);
+                      context.pushNamed(
+                        DyskusjeWidget.routeName,
+                        queryParameters: {
+                          'namepage': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     child: Container(
                       width: double.infinity,
@@ -382,7 +390,15 @@ class _SideNavWebWidgetState extends State<SideNavWebWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed(ReklamacjeWidget.routeName);
+                      context.pushNamed(
+                        ReklamacjeWidget.routeName,
+                        queryParameters: {
+                          'namepage': serializeParam(
+                            '',
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     child: Container(
                       width: double.infinity,

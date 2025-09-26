@@ -144,7 +144,15 @@ class _NawbarMobWidgetState extends State<NawbarMobWidget> {
                               size: widget.page == 'Dyskusje' ? 30.0 : 24.0,
                             ),
                             onPressed: () async {
-                              context.pushNamed(DyskusjeWidget.routeName);
+                              context.pushNamed(
+                                DyskusjeWidget.routeName,
+                                queryParameters: {
+                                  'namepage': serializeParam(
+                                    '',
+                                    ParamType.String,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
                           ),
                         ),
